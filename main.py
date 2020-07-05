@@ -36,7 +36,7 @@ LabelBase.register(
 class TestApp(App, Widget):
     def mainScreen(self):
 
-        #Initializing all of our main colors
+        #Initializing all of the main theme colors
 
         self.greyColorTuple = (239/255, 239/255, 239/255, 239/255)
         self.greyColorList = [239/255, 239/255, 239/255, 239/255]
