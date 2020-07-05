@@ -1,5 +1,7 @@
 #This project is by Pranav and Karthik for the Congression App Challenge (CAC2020).
 
+#Imported Kivy
+
 import kivy
 
 kivy.require('1.11.1')
@@ -21,6 +23,8 @@ from math import cos, sin, pi
 
 Window.size = (300, 600)
 Window.clearcolor = (250/255, 250/255, 250/255, 255/255)
+
+#Imported Lato Fonts
 
 LabelBase.register(
     name="latoBold",
