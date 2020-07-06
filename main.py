@@ -17,9 +17,8 @@ from kivy.uix.widget import Widget
 from kivy.uix.image import Image
 from kivy.graphics.vertex_instructions import RoundedRectangle, Line
 from kivy.core.text import LabelBase
-from kivy.graphics import Mesh, Bezier
-from functools import partial
-from math import cos, sin, pi
+from kivy.uix.screenmanager import ScreenManager, Screen
+
 
 Window.size = (300, 600)
 Window.clearcolor = (250/255, 250/255, 250/255, 255/255)
@@ -82,7 +81,7 @@ class TestApp(App, Widget):
             pos_hint={"x":0, "top": 1},
             color=self.darkBlueList,
             font_name="latoBlack",
-            font_size=28,
+            font_size=32,
         )
         self.mainScreenLayout.add_widget(self.mainScreenTopLabel)
         
