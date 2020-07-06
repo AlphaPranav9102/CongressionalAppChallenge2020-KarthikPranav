@@ -54,6 +54,7 @@ class TestApp(App, Widget):
         self.fullOrangeTuple = (247/255, 143/255, 30/255, 255/255)
         self.fullOrangeList = [247/255, 143/255, 30/255, 255/255]
 
+        # Creating float layout for main screen
         self.mainScreenLayout = FloatLayout()
 
         self.canvasHolderLabel = Label(size=(Window.size[0], Window.size[1]*0.175))
