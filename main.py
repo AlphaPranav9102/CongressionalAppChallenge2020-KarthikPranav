@@ -20,7 +20,7 @@ from kivy.core.text import LabelBase
 from kivy.uix.screenmanager import ScreenManager, Screen
 
 
-Window.size = (300, 600)
+Window.size = (350, 700)
 Window.clearcolor = (250/255, 250/255, 250/255, 255/255)
 
 #Imported Lato Fonts
@@ -84,7 +84,48 @@ class TestApp(App, Widget):
             font_size=32,
         )
         self.mainScreenLayout.add_widget(self.mainScreenTopLabel)
-        
+
+        #Drawing the rounded rectangle under the image
+
+        with self.canvasHolderLabel.canvas:
+            Color(*self.greyColorTuple)
+            RoundedRectangle(
+                segments=100,
+                radius=[(25.0, 25.0), (25.0, 25.0), (25.0, 25.0), (25.0, 25.0)],
+                pos=(Window.size[0]*0.05, Window.size[1]*(66/136)),
+                size=(Window.size[0]*0.9, Window.size[1]*0.275)
+                
+            )
+
+        #Creating the iamge prompt slot for the user
+
+        self.mainScreenImagePlacementTop = Image(
+            source="assets/TestImages/BeachImageTest.jpg",
+            size_hint=(0.8, 0.4),
+            pos_hint={"top": 56/68, "x":0.1},
+            allow_stretch=True
+        )
+
+        self.mainScreenLayout.add_widget(self.mainScreenImagePlacementTop)
+
+        #Create Rounded corners for image
+
+        with self.mainScreenImagePlacementTop.canvas:
+            Color(*self.greyColorList)
+            Line(
+                rounded_rectangle = (
+                    Window.size[0]*0.1, #x
+                    Window.size[1]*(68/136), #y
+                    Window.size[0]*0.8, #width
+                    Window.size[1]*0.25, #height
+                    25, #c1
+                    25, #c2
+                    25, #c3
+                    25 #c4
+                ),
+                width=5.2
+            )
+
         #Creating the dynamic speech prompter button for the user.
 
         self.mainScreenSpeechPromptButtonMiddle = Button(
@@ -93,9 +134,9 @@ class TestApp(App, Widget):
             pos_hint={"top": 15/34, "x":0.05},
             color=self.darkBlueList,
             font_name="latoBold",
-            font_size=22,
+            font_size=int(Window.size[0]/13.6),
             halign="left",
-            text_size=(self.size[0]*1.5, self.size[1]),
+            text_size=(self.size[0]*1.75, self.size[1]),
             valign="middle",
             background_normal="assets/mainScreenSpeechPromptButtonMiddle/GreyColorRoundedButtonPicNormal.png",
             background_down="assets/mainScreenSpeechPromptButtonMiddle/GreyColorRoundedButtonPicDown.png",
