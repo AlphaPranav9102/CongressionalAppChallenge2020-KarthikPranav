@@ -1,7 +1,9 @@
 """
-This program is me playing around with a 'chat bot' for our Cong. App
+This program is supposed to simulate chat bot in the Cong. App
 """
+
 import random
+
 
 class image:
     def __init__(self, title, location, people, special_question, special_answer):
@@ -10,7 +12,6 @@ class image:
         self.people = people
         self.special_question = special_question
         self.special_answer = special_answer
-
 
     def get_attribute_tag(self, number):
         '''
@@ -28,7 +29,6 @@ class image:
         else:
             raise Exception('number out of range')
 
-
     def get_attribute(self, number):
         '''
         This function returns the attribute given a number from 0-4 inclusive
@@ -45,7 +45,6 @@ class image:
         else:
             raise Exception('get_attribute NUMBER OUT OF RANGE')
 
-
     def check_answer(self, obj, ans):
         '''
         This function returns a message based on ans relevance with obj as a answer key
@@ -59,11 +58,11 @@ class image:
             else:
                 return 'Not really.... It\'s ' + str(obj)
         else:
-            if ans.lower() in obj:
+            print(obj)
+            if ans.lower() in obj or ans in obj:
                 return 'Yes, that is correct!'
             else:
                 return 'Not really.... It\'s ' + str(obj).strip('[').strip(']')
-
 
     def ask_question(self, attr):
         '''
@@ -81,26 +80,42 @@ class image:
         else:
             raise Exception('ask_questions ATTR IS NOT VALID')
 
-
     def tell_something(self, attr):
         '''
         This function tells information given an attribute tag and uses info on the metadata of the image to return a
         sentence
         '''
 
+        global user_name
+        title_list = ['As you might know ', 'This picture is wonderful! ',
+                      user_name + ' , do you remember this? If not, I want to tell you that ', '']
+        location_list = ['As you might know ', 'You may or may not have been there, but ', 'Did you know that ',
+                         'Wow! ', '']
+        people_list = ['Don\'t these people look wonderful! ', '']
+
         if attr == 'title':
-            return 'This picture is showing ' + self.title
+            variance_index = random.randrange(1, len(title_list))
+            return title_list[variance_index] + 'this picture is showing ' + self.title
         elif attr == 'location':
-            return 'The event took place in/at ' + self.location
+            variance_index = random.randrange(1, len(location_list))
+            return location_list[variance_index] + 'the event took place in/at ' + self.location
         elif attr == 'people':
-            return 'People in this photo are ' + str(self.people).strip('[').strip(']')
+            variance_index = random.randrange(1, len(people_list))
+            return 'the people in this photo are ' + str(self.people).strip('[').strip(']') + people_list[variance_index]
         elif attr == 'special_question':
             pass
         else:
-            raise Exception('ask_questions ATTR IS NOT VALID')
+            raise Exception('tell_something ATTR IS NOT VALID')
 
 
-
+user_name = input(
+    'Hi, my name is Kap! It is an interesting name isn\'t it? It is the app makers names smushed together.  Funny '
+    'right? \n'
+    'I am, yes, a computer, so I do have some limitations.  \nI sometimes do not speak in the right context, '
+    'but if I do '
+    'just rerun the program and everything will be fine! I look forward to talking to you.  What\'s your name by '
+    'the way?\nEnter your reply here --> ')
+print('\n')
 
 image1 = image('Keerti\'s Wedding', 'New Jersey', ['Keerti', 'Alex', 'Uncle', 'Aunt'],
                'What is Alex\'s brothers name', 'James')
@@ -113,14 +128,17 @@ while len(attributeList) < 4:
 
     if attribute not in attributeList:
         should_ask = random.randrange(0, 2, 1)
+
         if should_ask:
             print(image1.ask_question(attribute_tag))
             answer = input('Enter your reply here --> ')
             print(image1.check_answer(attribute, answer))
+
         else:
-            if image1.tell_something(attribute_tag) != None:
-                print(image1.tell_something(attribute_tag))
-                answer = input('Enter your reply here --> ')
+            #if image1.tell_something(attribute_tag) is not None:
+            print(image1.tell_something(attribute_tag))
+            answer = input('Enter your reply here --> ')
         attributeList.append(attribute)
+
     else:
         continue
