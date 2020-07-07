@@ -1,11 +1,39 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="BranchesTreeState">
+    <expand>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="LOCAL_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="GROUP_NODE:origin" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+    </expand>
+    <select />
+  </component>
   <component name="ChangeListManager">
-    <list default="true" id="4c570dc6-8d43-4e37-a9bc-e7be82bb7481" name="Default Changelist" comment="" />
+    <list default="true" id="4c570dc6-8d43-4e37-a9bc-e7be82bb7481" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/chatBot1.py" beforeDir="false" afterPath="$PROJECT_DIR$/chatBot1.py" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Python Script" />
+      </list>
+    </option>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -20,7 +48,28 @@
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
   </component>
-  <component name="RunManager">
+  <component name="RunManager" selected="Python.chatBot1">
+    <configuration name="chatBot1" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="CongressionalAppChallenge2020-KarthikPranav" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/chatBot1.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
     <configuration name="main" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="CongressionalAppChallenge2020-KarthikPranav" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -44,6 +93,7 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Python.chatBot1" />
         <item itemvalue="Python.main" />
       </list>
     </recent_temporary>
@@ -71,35 +121,40 @@
         </entry>
       </map>
     </option>
+    <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="WindowStateProjectService">
     <state x="837" y="410" key="#Notifications" timestamp="1593976286363">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
     <state x="837" y="410" key="#Notifications/3840.0.1280.800/0.0.1920.1080/1920.0.1920.1080@0.0.1920.1080" timestamp="1593976286363" />
-    <state width="1259" height="305" key="GridCell.Tab.0.bottom" timestamp="1593985641442">
-      <screen x="0" y="0" width="1280" height="800" />
+    <state width="1899" height="432" key="GridCell.Tab.0.bottom" timestamp="1594150571273">
+      <screen x="0" y="0" width="1920" height="1080" />
     </state>
     <state width="1259" height="305" key="GridCell.Tab.0.bottom/0.0.1280.800@0.0.1280.800" timestamp="1593985641442" />
-    <state width="949" height="305" key="GridCell.Tab.0.bottom/3840.0.1280.800/0.0.1920.1080/1920.0.1920.1080@0.0.1920.1080" timestamp="1593975876176" />
-    <state width="1259" height="305" key="GridCell.Tab.0.center" timestamp="1593985641442">
-      <screen x="0" y="0" width="1280" height="800" />
+    <state width="1899" height="432" key="GridCell.Tab.0.bottom/3840.0.1280.800/0.0.1920.1080/1920.0.1920.1080@0.0.1920.1080" timestamp="1594150571273" />
+    <state width="1899" height="432" key="GridCell.Tab.0.center" timestamp="1594150571268">
+      <screen x="0" y="0" width="1920" height="1080" />
     </state>
     <state width="1259" height="305" key="GridCell.Tab.0.center/0.0.1280.800@0.0.1280.800" timestamp="1593985641442" />
-    <state width="949" height="305" key="GridCell.Tab.0.center/3840.0.1280.800/0.0.1920.1080/1920.0.1920.1080@0.0.1920.1080" timestamp="1593975876159" />
-    <state width="1259" height="305" key="GridCell.Tab.0.left" timestamp="1593985641441">
-      <screen x="0" y="0" width="1280" height="800" />
+    <state width="1899" height="432" key="GridCell.Tab.0.center/3840.0.1280.800/0.0.1920.1080/1920.0.1920.1080@0.0.1920.1080" timestamp="1594150571268" />
+    <state width="1899" height="432" key="GridCell.Tab.0.left" timestamp="1594150571267">
+      <screen x="0" y="0" width="1920" height="1080" />
     </state>
     <state width="1259" height="305" key="GridCell.Tab.0.left/0.0.1280.800@0.0.1280.800" timestamp="1593985641441" />
-    <state width="949" height="305" key="GridCell.Tab.0.left/3840.0.1280.800/0.0.1920.1080/1920.0.1920.1080@0.0.1920.1080" timestamp="1593975876149" />
-    <state width="1259" height="305" key="GridCell.Tab.0.right" timestamp="1593985641442">
-      <screen x="0" y="0" width="1280" height="800" />
+    <state width="1899" height="432" key="GridCell.Tab.0.left/3840.0.1280.800/0.0.1920.1080/1920.0.1920.1080@0.0.1920.1080" timestamp="1594150571267" />
+    <state width="1899" height="432" key="GridCell.Tab.0.right" timestamp="1594150571271">
+      <screen x="0" y="0" width="1920" height="1080" />
     </state>
     <state width="1259" height="305" key="GridCell.Tab.0.right/0.0.1280.800@0.0.1280.800" timestamp="1593985641442" />
-    <state width="949" height="305" key="GridCell.Tab.0.right/3840.0.1280.800/0.0.1920.1080/1920.0.1920.1080@0.0.1920.1080" timestamp="1593975876162" />
+    <state width="1899" height="432" key="GridCell.Tab.0.right/3840.0.1280.800/0.0.1920.1080/1920.0.1920.1080@0.0.1920.1080" timestamp="1594150571271" />
     <state x="469" y="179" key="SettingsEditor" timestamp="1593975248988">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
     <state x="469" y="179" key="SettingsEditor/3840.0.1280.800/0.0.1920.1080/1920.0.1920.1080@0.0.1920.1080" timestamp="1593975248988" />
+    <state x="752" y="461" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1594150639856">
+      <screen x="0" y="0" width="1920" height="1080" />
+    </state>
+    <state x="752" y="461" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/3840.0.1280.800/0.0.1920.1080/1920.0.1920.1080@0.0.1920.1080" timestamp="1594150639856" />
   </component>
 </project>
