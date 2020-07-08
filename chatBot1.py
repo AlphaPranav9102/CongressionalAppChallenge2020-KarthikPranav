@@ -1,5 +1,9 @@
 """
 This program is supposed to simulate chat bot in the Cong. App
+
+Things to remember:
+- it only iterates for one image object (if you want to change this, make a new program)
+- currently, variance bank is low; we need to increase it
 """
 
 import random
@@ -59,7 +63,8 @@ class image:
                 return 'Not really.... It\'s ' + str(obj)
         else:
             print(obj)
-            if ans.lower() in obj or ans in obj:
+
+            if ans.upper() in obj or ans.lower() in obj:
                 return 'Yes, that is correct!'
             else:
                 return 'Not really.... It\'s ' + str(obj).strip('[').strip(']')
@@ -87,11 +92,13 @@ class image:
         '''
 
         global user_name
+
         title_list = ['As you might know ', 'This picture is wonderful! ',
-                      user_name + ' , do you remember this? If not, I want to tell you that ', '']
+                      user_name + ' , do you remember this? If not, I want to tell you that ',
+                      user_name + ' , do you remember this? If not,','']
         location_list = ['As you might know ', 'You may or may not have been there, but ', 'Did you know that ',
                          'Wow! ', '']
-        people_list = ['Don\'t these people look wonderful! ', '']
+        people_list = [' Don\'t these people look wonderful! ', ' They look so nice!', '']
 
         if attr == 'title':
             variance_index = random.randrange(1, len(title_list))
@@ -114,7 +121,7 @@ user_name = input(
     'I am, yes, a computer, so I do have some limitations.  \nI sometimes do not speak in the right context, '
     'but if I do '
     'just rerun the program and everything will be fine! I look forward to talking to you.  What\'s your name by '
-    'the way?\nEnter your reply here --> ')
+    'the way?\nEnter your reply here --> ').rstrip().lstrip()
 print('\n')
 
 image1 = image('Keerti\'s Wedding', 'New Jersey', ['Keerti', 'Alex', 'Uncle', 'Aunt'],
@@ -135,9 +142,9 @@ while len(attributeList) < 4:
             print(image1.check_answer(attribute, answer))
 
         else:
-            #if image1.tell_something(attribute_tag) is not None:
-            print(image1.tell_something(attribute_tag))
-            answer = input('Enter your reply here --> ')
+            if image1.tell_something(attribute_tag) is not None:
+                print(image1.tell_something(attribute_tag))
+                answer = input('Enter your reply here --> ')
         attributeList.append(attribute)
 
     else:
