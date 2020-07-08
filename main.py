@@ -19,8 +19,9 @@ from kivy.graphics.vertex_instructions import RoundedRectangle, Line
 from kivy.core.text import LabelBase
 from kivy.uix.screenmanager import ScreenManager, Screen
 
+widthInput = 300
 
-Window.size = (350, 700)
+Window.size = (widthInput, widthInput*2)
 Window.clearcolor = (250/255, 250/255, 250/255, 255/255)
 
 #Imported Lato Fonts
@@ -85,26 +86,51 @@ class TestApp(App, Widget):
         )
         self.mainScreenLayout.add_widget(self.mainScreenTopLabel)
 
+        self.imagePath = "assets/TestImages/squareTest.jpg"
+
+        self.mainScreenImageRatioGet = Image(
+            source=self.imagePath,
+            pos_hint={"top": 56/68, "x":0.1}
+        )
+
         #Drawing the rounded rectangle under the image
 
+        if (Window.size[0]*0.8)/self.mainScreenImageRatioGet.texture_size[0] < (Window.size[1]*0.36)/self.mainScreenImageRatioGet.texture_size[1]:
+            self.imageRatio = [Window.size[0]*0.8, (Window.size[0]*0.8)/self.mainScreenImageRatioGet.texture_size[0]*self.mainScreenImageRatioGet.texture_size[1]]
+        else:
+            self.imageRatio = [(Window.size[1]*0.36)/self.mainScreenImageRatioGet.texture_size[1]*self.mainScreenImageRatioGet.texture_size[0], (Window.size[1]*0.36)]
+        
         with self.canvasHolderLabel.canvas:
             Color(*self.greyColorTuple)
             RoundedRectangle(
                 segments=100,
                 radius=[(25.0, 25.0), (25.0, 25.0), (25.0, 25.0), (25.0, 25.0)],
-                pos=(Window.size[0]*0.05, Window.size[1]*(66/136)),
-                size=(Window.size[0]*0.9, Window.size[1]*0.275)
+                pos=(Window.size[0]*0.5-self.imageRatio[0]*0.5-Window.size[0]*0.025, Window.size[1]*(169/272)-self.imageRatio[1]/2 - Window.size[1]*0.0125),
+                size=(Window.size[0]*0.05 + self.imageRatio[0], Window.size[1]*0.025 + self.imageRatio[1])
                 
             )
 
+            Color(*self.greyColorTuple)
+            RoundedRectangle(
+                segments=100,
+                radius=[(25.0, 25.0), (25.0, 25.0), (25.0, 25.0), (25.0, 25.0)],
+                pos=(Window.size[0]*0.5-self.imageRatio[0]*0.5, Window.size[1]*(169/272)-self.imageRatio[1]/2),
+                size=self.imageRatio,
+                source=self.imagePath
+                
+            )
+        
+
         #Creating the iamge prompt slot for the user
 
+        """
         self.mainScreenImagePlacementTop = Image(
-            source="assets/TestImages/BeachImageTest.jpg",
+            source="assets/TestImages/elonTest.jpg",
             size_hint=(0.8, 0.4),
             pos_hint={"top": 56/68, "x":0.1},
-            allow_stretch=True
+            allow_stretch=False
         )
+        
 
         self.mainScreenLayout.add_widget(self.mainScreenImagePlacementTop)
 
@@ -114,29 +140,31 @@ class TestApp(App, Widget):
             Color(*self.greyColorList)
             Line(
                 rounded_rectangle = (
-                    Window.size[0]*0.1, #x
+                    Window.size[0]*0.05, #x
                     Window.size[1]*(68/136), #y
-                    Window.size[0]*0.8, #width
+                    Window.size[0]*0.9, #width
                     Window.size[1]*0.25, #height
                     25, #c1
                     25, #c2
                     25, #c3
                     25 #c4
                 ),
-                width=5.2
+                width=5.2,
+                opacity=2
             )
+        """
 
         #Creating the dynamic speech prompter button for the user.
 
         self.mainScreenSpeechPromptButtonMiddle = Button(
             text="Who all are in this photo?",
             size_hint=(0.9, 0.175),
-            pos_hint={"top": 15/34, "x":0.05},
+            pos_hint={"top": 26/68, "x":0.05},
             color=self.darkBlueList,
             font_name="latoBold",
             font_size=int(Window.size[0]/13.6),
             halign="left",
-            text_size=(self.size[0]*1.75, self.size[1]),
+            text_size=(self.size[0]*1.5, self.size[1]),
             valign="middle",
             background_normal="assets/mainScreenSpeechPromptButtonMiddle/GreyColorRoundedButtonPicNormal.png",
             background_down="assets/mainScreenSpeechPromptButtonMiddle/GreyColorRoundedButtonPicDown.png",
@@ -150,7 +178,7 @@ class TestApp(App, Widget):
         self.mainScreenSpeechPromptAssistantPic = Image(
             source="assets/assistantLogo/AssistantLogoPic.png",
             size_hint=(0.14, 0.14),
-            pos_hint={"top": 29/68, "x":0.08},
+            pos_hint={"top": 25/68, "x":0.08},
         )
 
         self.mainScreenLayout.add_widget(self.mainScreenSpeechPromptAssistantPic)
@@ -160,7 +188,7 @@ class TestApp(App, Widget):
         self.mainScreenEnterTextButtonLower = Button(
             text="Enter\nText",
             size_hint=(0.333, 0.156),
-            pos_hint={"top": 7/34, "x":(1/2) - (1/6)},
+            pos_hint={"top": 6/34, "x":(1/2) - (1/6)},
             color=self.whiteList,
             font_name="latoBold",
             font_size=22,
