@@ -119,7 +119,7 @@ user_name = input(
     'Hi, my name is Kap! It is an interesting name isn\'t it? It is the app makers names smushed together.  Funny '
     'right? \n'
     'I am, yes, a computer, so I do have some limitations.  \nI sometimes do not speak in the right context, '
-    'but if I do '
+    'and if I do '
     'just rerun the program and everything will be fine! I look forward to talking to you.  What\'s your name by '
     'the way?\nEnter your reply here --> ').rstrip().lstrip()
 print('\n')
