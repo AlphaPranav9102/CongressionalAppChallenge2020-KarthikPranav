@@ -86,7 +86,7 @@ class TestApp(App, Widget):
         )
         self.mainScreenLayout.add_widget(self.mainScreenTopLabel)
 
-        self.imagePath = "assets/TestImages/elonTest.jpg"
+        self.imagePath = "assets/TestImages/portraitTest.jpg"
 
         self.mainScreenImageRatioGet = Image(
             source=self.imagePath,
