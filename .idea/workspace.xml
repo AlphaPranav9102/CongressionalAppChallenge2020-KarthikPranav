@@ -19,8 +19,7 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4c570dc6-8d43-4e37-a9bc-e7be82bb7481" name="Default Changelist" comment="Added ask/tell variability and added docstrings to functions.">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+    <list default="true" id="4c570dc6-8d43-4e37-a9bc-e7be82bb7481" name="Default Changelist" comment="Grammar fix in chatbot's first message">
       <change beforePath="$PROJECT_DIR$/chatBot1.py" beforeDir="false" afterPath="$PROJECT_DIR$/chatBot1.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -116,7 +115,28 @@
       <option name="project" value="LOCAL" />
       <updated>1594150703601</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="Added more variability to tell_something function and added a feature that asks for user's name along with providing an introduction">
+      <created>1594161958251</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1594161958251</updated>
+    </task>
+    <task id="LOCAL-00003" summary="Fixed two bugs:&#10;- fixed error when program checked answer for people&#10;- fixed crash when tell_something function returned None">
+      <created>1594247904313</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1594247904313</updated>
+    </task>
+    <task id="LOCAL-00004" summary="Grammar fix in chatbot's first message">
+      <created>1594248064156</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1594248064156</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -133,40 +153,43 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Added ask/tell variability and added docstrings to functions." />
-    <option name="LAST_COMMIT_MESSAGE" value="Added ask/tell variability and added docstrings to functions." />
+    <MESSAGE value="Added more variability to tell_something function and added a feature that asks for user's name along with providing an introduction" />
+    <MESSAGE value="Fixed two bugs:&#10;- fixed error when program checked answer for people&#10;- fixed crash when tell_something function returned None" />
+    <MESSAGE value="Grammar fix in chatbot's first message" />
+    <option name="LAST_COMMIT_MESSAGE" value="Grammar fix in chatbot's first message" />
   </component>
   <component name="WindowStateProjectService">
     <state x="837" y="410" key="#Notifications" timestamp="1593976286363">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
     <state x="837" y="410" key="#Notifications/3840.0.1280.800/0.0.1920.1080/1920.0.1920.1080@0.0.1920.1080" timestamp="1593976286363" />
-    <state width="1899" height="203" key="GridCell.Tab.0.bottom" timestamp="1594161791142">
+    <state width="1899" height="203" key="GridCell.Tab.0.bottom" timestamp="1594247652687">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
     <state width="1259" height="305" key="GridCell.Tab.0.bottom/0.0.1280.800@0.0.1280.800" timestamp="1593985641442" />
-    <state width="1899" height="203" key="GridCell.Tab.0.bottom/3840.0.1280.800/0.0.1920.1080/1920.0.1920.1080@0.0.1920.1080" timestamp="1594161791142" />
-    <state width="1899" height="203" key="GridCell.Tab.0.center" timestamp="1594161791139">
+    <state width="1899" height="203" key="GridCell.Tab.0.bottom/3840.0.1280.800/0.0.1920.1080/1920.0.1920.1080@0.0.1920.1080" timestamp="1594247652687" />
+    <state width="1899" height="203" key="GridCell.Tab.0.center" timestamp="1594247652685">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
     <state width="1259" height="305" key="GridCell.Tab.0.center/0.0.1280.800@0.0.1280.800" timestamp="1593985641442" />
-    <state width="1899" height="203" key="GridCell.Tab.0.center/3840.0.1280.800/0.0.1920.1080/1920.0.1920.1080@0.0.1920.1080" timestamp="1594161791139" />
-    <state width="1899" height="203" key="GridCell.Tab.0.left" timestamp="1594161791138">
+    <state width="1899" height="203" key="GridCell.Tab.0.center/3840.0.1280.800/0.0.1920.1080/1920.0.1920.1080@0.0.1920.1080" timestamp="1594247652685" />
+    <state width="1899" height="203" key="GridCell.Tab.0.left" timestamp="1594247652683">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
     <state width="1259" height="305" key="GridCell.Tab.0.left/0.0.1280.800@0.0.1280.800" timestamp="1593985641441" />
-    <state width="1899" height="203" key="GridCell.Tab.0.left/3840.0.1280.800/0.0.1920.1080/1920.0.1920.1080@0.0.1920.1080" timestamp="1594161791138" />
-    <state width="1899" height="203" key="GridCell.Tab.0.right" timestamp="1594161791141">
+    <state width="1899" height="203" key="GridCell.Tab.0.left/3840.0.1280.800/0.0.1920.1080/1920.0.1920.1080@0.0.1920.1080" timestamp="1594247652683" />
+    <state width="1899" height="203" key="GridCell.Tab.0.right" timestamp="1594247652686">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
     <state width="1259" height="305" key="GridCell.Tab.0.right/0.0.1280.800@0.0.1280.800" timestamp="1593985641442" />
-    <state width="1899" height="203" key="GridCell.Tab.0.right/3840.0.1280.800/0.0.1920.1080/1920.0.1920.1080@0.0.1920.1080" timestamp="1594161791141" />
+    <state width="1899" height="203" key="GridCell.Tab.0.right/3840.0.1280.800/0.0.1920.1080/1920.0.1920.1080@0.0.1920.1080" timestamp="1594247652686" />
     <state x="469" y="179" key="SettingsEditor" timestamp="1593975248988">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
     <state x="469" y="179" key="SettingsEditor/3840.0.1280.800/0.0.1920.1080/1920.0.1920.1080@0.0.1920.1080" timestamp="1593975248988" />
-    <state x="752" y="461" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1594150639856">
+    <state x="752" y="461" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1594161884864">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
-    <state x="752" y="461" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/3840.0.1280.800/0.0.1920.1080/1920.0.1920.1080@0.0.1920.1080" timestamp="1594150639856" />
+    <state x="752" y="461" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/3840.0.1280.800/0.0.1920.1080/1920.0.1920.1080@0.0.1920.1080" timestamp="1594161884864" />
   </component>
 </project>

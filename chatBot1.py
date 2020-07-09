@@ -1,5 +1,9 @@
 """
 This program is supposed to simulate chat bot in the Cong. App
+
+Things to remember:
+- it only iterates for one image object (if you want to change this, make a new program)
+- currently, variance bank is low; we need to increase it
 """
 
 import random
@@ -59,7 +63,8 @@ class image:
                 return 'Not really.... It\'s ' + str(obj)
         else:
             print(obj)
-            if ans.lower() in obj or ans in obj:
+
+            if ans.upper() in obj or ans.lower() in obj:
                 return 'Yes, that is correct!'
             else:
                 return 'Not really.... It\'s ' + str(obj).strip('[').strip(']')
@@ -68,6 +73,8 @@ class image:
         '''
         This function asks a question giving an attribute type and returns a sentence
         '''
+
+        # NEED TO ADD VARIANCE LISTS HERE
 
         if attr == 'title':
             return 'What does this picture show?'
@@ -87,11 +94,14 @@ class image:
         '''
 
         global user_name
+
+        # Below are the lists for variance for each attribute.
         title_list = ['As you might know ', 'This picture is wonderful! ',
-                      user_name + ' , do you remember this? If not, I want to tell you that ', '']
+                      user_name + ' , do you remember this? If not, I want to tell you that ',
+                      user_name + ' , do you remember this? If not,','']
         location_list = ['As you might know ', 'You may or may not have been there, but ', 'Did you know that ',
                          'Wow! ', '']
-        people_list = ['Don\'t these people look wonderful! ', '']
+        people_list = [' Don\'t these people look wonderful! ', ' They look so nice!', '']
 
         if attr == 'title':
             variance_index = random.randrange(1, len(title_list))
@@ -107,27 +117,28 @@ class image:
         else:
             raise Exception('tell_something ATTR IS NOT VALID')
 
-
+# Intro and asking for name
 user_name = input(
     'Hi, my name is Kap! It is an interesting name isn\'t it? It is the app makers names smushed together.  Funny '
     'right? \n'
     'I am, yes, a computer, so I do have some limitations.  \nI sometimes do not speak in the right context, '
-    'but if I do '
+    'and if I do '
     'just rerun the program and everything will be fine! I look forward to talking to you.  What\'s your name by '
-    'the way?\nEnter your reply here --> ')
+    'the way?\nEnter your reply here --> ').rstrip().lstrip()
 print('\n')
 
+# Create an image object
 image1 = image('Keerti\'s Wedding', 'New Jersey', ['Keerti', 'Alex', 'Uncle', 'Aunt'],
                'What is Alex\'s brothers name', 'James')
 
-attributeList = []
+attributeList = [] # Used to record if all attributes are mentioned by chatbot
 while len(attributeList) < 4:
-    attribute_index = random.randrange(0, 4, 1)
+    attribute_index = random.randrange(0, 4, 1) # Used to pick random attribute to talk about
     attribute_tag = image1.get_attribute_tag(attribute_index)
     attribute = image1.get_attribute(attribute_index)
 
-    if attribute not in attributeList:
-        should_ask = random.randrange(0, 2, 1)
+    if attribute not in attributeList: # Check if attribute is not mentioned before
+        should_ask = random.randrange(0, 2, 1) # Determine if chatbot should ask or tell
 
         if should_ask:
             print(image1.ask_question(attribute_tag))
@@ -135,9 +146,10 @@ while len(attributeList) < 4:
             print(image1.check_answer(attribute, answer))
 
         else:
-            #if image1.tell_something(attribute_tag) is not None:
-            print(image1.tell_something(attribute_tag))
-            answer = input('Enter your reply here --> ')
+            if image1.tell_something(attribute_tag) is not None:
+                print(image1.tell_something(attribute_tag))
+                answer = input('Enter your reply here --> ')
+
         attributeList.append(attribute)
 
     else:
