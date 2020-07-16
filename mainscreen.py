@@ -1,17 +1,18 @@
 from kivy.app import App
 from kivy.uix.button import Button
-from kivy.uix.textinput import TextInput
 from kivy.uix.label import Label
 from kivy.core.window import Window
 from kivy.uix.floatlayout import FloatLayout
 from kivy.graphics import Color, Rectangle
-from kivy.uix.widget import Widget
 from kivy.uix.image import Image
 from kivy.graphics.vertex_instructions import RoundedRectangle, Line
-from kivy.core.text import LabelBase
 from kivy.uix.screenmanager import ScreenManager, Screen
 
-def mainScreen(self):
+
+class mainScreen(FloatLayout):
+
+    def __init__(self, **kwargs):
+        super(mainScreen, self).__init__(**kwargs)
 
         #Initializing all of the main theme colors
 
@@ -27,23 +28,25 @@ def mainScreen(self):
         self.fullOrangeTuple = (247/255, 143/255, 30/255, 255/255)
         self.fullOrangeList = [247/255, 143/255, 30/255, 255/255]
 
-        # Creating float layout for main screen
-        self.mainScreenLayout = FloatLayout()
+        #Make a testing canvasHolder
 
         self.canvasHolderLabel = Label(size=(Window.size[0], Window.size[1]*0.175))
-        self.mainScreenLayout.add_widget(self.canvasHolderLabel)
+        
 
         #Drawing the rounded rectangle under the main header -- Not Scalable
 
         with self.canvasHolderLabel.canvas:
             Color(*self.greyColorTuple)
-            RoundedRectangle(
+            self.labelRect = RoundedRectangle(
                 segments=100,
                 radius=[(0, 0), (0, 0), (35.0, 35.0), (0, 0)],
                 pos=(0, Window.size[1]-Window.size[1]*0.175),
-                size=(Window.size[0], Window.size[1]*0.175)
+                size=(Window.size[0], Window.size[1]*0.175),
+                source="assets/general/GreyBackground.png"
                 
             )
+
+        self.add_widget(self.canvasHolderLabel)
 
         #Creating the main header at the top - Semi Scalable
 
@@ -57,7 +60,7 @@ def mainScreen(self):
             font_name="latoBlack",
             font_size=32,
         )
-        self.mainScreenLayout.add_widget(self.mainScreenTopLabel)
+        self.add_widget(self.mainScreenTopLabel)
 
         #Set the iamge path for the display
 
@@ -87,7 +90,8 @@ def mainScreen(self):
                 segments=100,
                 radius=[(25.0, 25.0), (25.0, 25.0), (25.0, 25.0), (25.0, 25.0)],
                 pos=(Window.size[0]*0.5-self.imageRatio[0]*0.5-Window.size[0]*0.025, Window.size[1]*(169/272)-self.imageRatio[1]/2 - Window.size[1]*0.0125),
-                size=(Window.size[0]*0.05 + self.imageRatio[0], Window.size[1]*0.025 + self.imageRatio[1])
+                size=(Window.size[0]*0.05 + self.imageRatio[0], Window.size[1]*0.025 + self.imageRatio[1]),
+                source="assets/general/GreyBackground.png"
                 
             )
 
@@ -124,7 +128,7 @@ def mainScreen(self):
         #Mkaing sure the text fits prefectly
         self.mainScreenSpeechPromptButtonMiddle.texture_update()
 
-        self.mainScreenLayout.add_widget(self.mainScreenSpeechPromptButtonMiddle)
+        self.add_widget(self.mainScreenSpeechPromptButtonMiddle)
 
         #Adding the Assistant Icon to the Speech Prompt button above
 
@@ -134,7 +138,7 @@ def mainScreen(self):
             pos_hint={"top": 25/68, "x":0.08},
         )
 
-        self.mainScreenLayout.add_widget(self.mainScreenSpeechPromptAssistantPic)
+        self.add_widget(self.mainScreenSpeechPromptAssistantPic)
 
         #Creating the Lower Button that given the option to record text
 
@@ -152,7 +156,8 @@ def mainScreen(self):
         )
         
 
-        self.mainScreenLayout.add_widget(self.mainScreenEnterTextButtonLower)
-        
+        self.add_widget(self.mainScreenEnterTextButtonLower)
 
-        return(self.mainScreenLayout)
+    def update_rect(self, *args):
+        self.labelRect.pos = (0, Window.size[1]-Window.size[1]*0.175)
+        self.labelRect.size = (Window.size[0], Window.size[1]*0.175)
