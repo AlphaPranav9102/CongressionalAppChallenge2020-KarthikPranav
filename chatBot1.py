@@ -73,8 +73,12 @@ class image:
         '''
         This function asks a question giving an attribute type and returns a sentence
         '''
+        global user_name
 
-        # NEED TO ADD VARIANCE LISTS HERE
+        variance_list = ['Hey, ' + user_name, 'Oh wow! This picture looks so nice! By the way, ',
+                      '']
+        variance_index = random.randrange(1, len(variance_list))
+        add_on = variance_list[variance_index]
 
         if attr == 'title':
             return 'What does this picture show?'
@@ -93,52 +97,64 @@ class image:
         sentence
         '''
 
-        global user_name
-
-        # Below are the lists for variance for each attribute.
-        title_list = ['As you might know ', 'This picture is wonderful! ',
-                      user_name + ' , do you remember this? If not, I want to tell you that ',
-                      user_name + ' , do you remember this? If not,','']
-        location_list = ['As you might know ', 'You may or may not have been there, but ', 'Did you know that ',
-                         'Wow! ', '']
-        people_list = [' Don\'t these people look wonderful! ', ' They look so nice!', '']
-
         if attr == 'title':
-            variance_index = random.randrange(1, len(title_list))
-            return title_list[variance_index] + 'this picture is showing ' + self.title
+            file = open(
+                '/Users/Karthik/Documents/python_programs/PycharmProjects/MyCongApp/tell_something_addonsTITLE.txt',
+                'r')
+            return self.find_random_line(file) + ' ' + self.title
         elif attr == 'location':
-            variance_index = random.randrange(1, len(location_list))
-            return location_list[variance_index] + 'the event took place in/at ' + self.location
+            file = open(
+                '/Users/Karthik/Documents/python_programs/PycharmProjects/MyCongApp/tell_something_addonsLOCATION.txt',
+                'r')
+            return self.find_random_line(file) + ' ' + self.location
         elif attr == 'people':
-            variance_index = random.randrange(1, len(people_list))
-            return 'the people in this photo are ' + str(self.people).strip('[').strip(']') + people_list[variance_index]
+            file = open(
+                '/Users/Karthik/Documents/python_programs/PycharmProjects/MyCongApp/tell_something_addonsPEOPLE.txt',
+                'r')
+            return self.find_random_line(file) + ' ' + self.location
         elif attr == 'special_question':
-            pass
+            return self.special_question
         else:
             raise Exception('tell_something ATTR IS NOT VALID')
 
-# Intro and asking for name
-user_name = input(
-    'Hi, my name is Kap! It is an interesting name isn\'t it? It is the app makers names smushed together.  Funny '
-    'right? \n'
-    'I am, yes, a computer, so I do have some limitations.  \nI sometimes do not speak in the right context, '
-    'and if I do '
-    'just rerun the program and everything will be fine! I look forward to talking to you.  What\'s your name by '
-    'the way?\nEnter your reply here --> ').rstrip().lstrip()
+    def find_random_line(self, file):
+
+        count = 0
+        for line in file:
+            count += 1
+
+        file.seek(0)
+
+        wanted_line_number = random.randrange(0, count, 1)
+
+        count = 0
+        for line in file:
+            if count == wanted_line_number:
+                line1 = line
+                file.close()
+                return line1.strip('\n')
+            else:
+                count += 1
+
+
+
+
+
+
+user_name = input('Enter your name: ').rstrip().lstrip()
 print('\n')
 
-# Create an image object
 image1 = image('Keerti\'s Wedding', 'New Jersey', ['Keerti', 'Alex', 'Uncle', 'Aunt'],
                'What is Alex\'s brothers name', 'James')
 
-attributeList = [] # Used to record if all attributes are mentioned by chatbot
+attributeList = []
 while len(attributeList) < 4:
-    attribute_index = random.randrange(0, 4, 1) # Used to pick random attribute to talk about
+    attribute_index = random.randrange(0, 4, 1)
     attribute_tag = image1.get_attribute_tag(attribute_index)
     attribute = image1.get_attribute(attribute_index)
 
-    if attribute not in attributeList: # Check if attribute is not mentioned before
-        should_ask = random.randrange(0, 2, 1) # Determine if chatbot should ask or tell
+    if attribute not in attributeList:
+        should_ask = random.randrange(0, 2, 1)
 
         if should_ask:
             print(image1.ask_question(attribute_tag))
@@ -149,7 +165,6 @@ while len(attributeList) < 4:
             if image1.tell_something(attribute_tag) is not None:
                 print(image1.tell_something(attribute_tag))
                 answer = input('Enter your reply here --> ')
-
         attributeList.append(attribute)
 
     else:
