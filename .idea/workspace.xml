@@ -19,7 +19,11 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4c570dc6-8d43-4e37-a9bc-e7be82bb7481" name="Default Changelist" comment="Added some comments" />
+    <list default="true" id="4c570dc6-8d43-4e37-a9bc-e7be82bb7481" name="Default Changelist" comment="Added some comments">
+      <change afterPath="$PROJECT_DIR$/QuestionBank/extraChat_addons_GREETINGS.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/chatBot1.py" beforeDir="false" afterPath="$PROJECT_DIR$/chatBot1.py" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -43,7 +47,7 @@
   <component name="PropertiesComponent">
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
-    <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
+    <property name="settings.editor.selected.configurable" value="reference.settingsdialog.IDE.editor.colors.Python" />
   </component>
   <component name="RunManager" selected="Python.chatBot1">
     <configuration name="chatBot1" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
@@ -169,29 +173,30 @@
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
     <state x="837" y="410" key="#Notifications/3840.0.1280.800/0.0.1920.1080/1920.0.1920.1080@0.0.1920.1080" timestamp="1593976286363" />
-    <state width="1899" height="203" key="GridCell.Tab.0.bottom" timestamp="1594323024959">
-      <screen x="0" y="0" width="1920" height="1080" />
+    <state width="1259" height="202" key="GridCell.Tab.0.bottom" timestamp="1595023701094">
+      <screen x="0" y="0" width="1280" height="800" />
     </state>
-    <state width="1259" height="305" key="GridCell.Tab.0.bottom/0.0.1280.800@0.0.1280.800" timestamp="1593985641442" />
+    <state width="1259" height="202" key="GridCell.Tab.0.bottom/0.0.1280.800@0.0.1280.800" timestamp="1595023701094" />
     <state width="1899" height="203" key="GridCell.Tab.0.bottom/3840.0.1280.800/0.0.1920.1080/1920.0.1920.1080@0.0.1920.1080" timestamp="1594323024959" />
-    <state width="1899" height="203" key="GridCell.Tab.0.center" timestamp="1594323024957">
-      <screen x="0" y="0" width="1920" height="1080" />
+    <state width="1259" height="202" key="GridCell.Tab.0.center" timestamp="1595023701093">
+      <screen x="0" y="0" width="1280" height="800" />
     </state>
-    <state width="1259" height="305" key="GridCell.Tab.0.center/0.0.1280.800@0.0.1280.800" timestamp="1593985641442" />
+    <state width="1259" height="202" key="GridCell.Tab.0.center/0.0.1280.800@0.0.1280.800" timestamp="1595023701093" />
     <state width="1899" height="203" key="GridCell.Tab.0.center/3840.0.1280.800/0.0.1920.1080/1920.0.1920.1080@0.0.1920.1080" timestamp="1594323024957" />
-    <state width="1899" height="203" key="GridCell.Tab.0.left" timestamp="1594323024956">
-      <screen x="0" y="0" width="1920" height="1080" />
+    <state width="1259" height="202" key="GridCell.Tab.0.left" timestamp="1595023701092">
+      <screen x="0" y="0" width="1280" height="800" />
     </state>
-    <state width="1259" height="305" key="GridCell.Tab.0.left/0.0.1280.800@0.0.1280.800" timestamp="1593985641441" />
+    <state width="1259" height="202" key="GridCell.Tab.0.left/0.0.1280.800@0.0.1280.800" timestamp="1595023701092" />
     <state width="1899" height="203" key="GridCell.Tab.0.left/3840.0.1280.800/0.0.1920.1080/1920.0.1920.1080@0.0.1920.1080" timestamp="1594323024956" />
-    <state width="1899" height="203" key="GridCell.Tab.0.right" timestamp="1594323024958">
-      <screen x="0" y="0" width="1920" height="1080" />
+    <state width="1259" height="202" key="GridCell.Tab.0.right" timestamp="1595023701093">
+      <screen x="0" y="0" width="1280" height="800" />
     </state>
-    <state width="1259" height="305" key="GridCell.Tab.0.right/0.0.1280.800@0.0.1280.800" timestamp="1593985641442" />
+    <state width="1259" height="202" key="GridCell.Tab.0.right/0.0.1280.800@0.0.1280.800" timestamp="1595023701093" />
     <state width="1899" height="203" key="GridCell.Tab.0.right/3840.0.1280.800/0.0.1920.1080/1920.0.1920.1080@0.0.1920.1080" timestamp="1594323024958" />
-    <state x="469" y="179" key="SettingsEditor" timestamp="1594390544929">
-      <screen x="0" y="0" width="1920" height="1004" />
+    <state x="298" y="78" key="SettingsEditor" timestamp="1595023352299">
+      <screen x="0" y="0" width="1280" height="800" />
     </state>
+    <state x="298" y="78" key="SettingsEditor/0.0.1280.800@0.0.1280.800" timestamp="1595023352299" />
     <state x="469" y="179" key="SettingsEditor/3840.0.1280.800/0.0.1920.1080/1920.0.1920.1080@0.0.1920.1080" timestamp="1593975248988" />
     <state x="469" y="179" key="SettingsEditor/3840.23.1280.777/0.0.1920.1004/1920.23.1920.1057@0.0.1920.1004" timestamp="1594390544929" />
     <state x="752" y="461" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1594161884864">

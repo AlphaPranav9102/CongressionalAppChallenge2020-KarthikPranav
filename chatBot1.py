@@ -8,6 +8,35 @@ Things to remember:
 
 import random
 
+class extraChat:
+    def initial_Speaking(self):
+        return 'Hi. How are you?'
+
+    def small_Talk(self, user_input):
+        if 'are you' or 'you' in user_input:
+            addons_file = open('QuestionBank/extraChat_addons_GREETINGS.txt', 'r')
+            return self.find_random_line(addons_file)
+        else:
+            return 'Sorry I cannot understand what you said... Please tell me something else.'
+
+    def find_random_line(self, file):
+        count = 0
+        for line in file:
+            count += 1
+
+        file.seek(0)
+
+        wanted_line_number = random.randrange(0, count, 1)
+
+        count = 0
+        for line in file:
+            if count == wanted_line_number:
+                line1 = line
+                file.close()
+                return line1.strip('\n')
+            else:
+                count += 1
+
 
 class image:
     def __init__(self, title, location, people, special_question, special_answer):
@@ -73,23 +102,25 @@ class image:
         '''
         This function asks a question giving an attribute type and returns a sentence
         '''
-        global user_name
-
-        variance_list = ['Hey, ' + user_name, 'Oh wow! This picture looks so nice! By the way, ',
-                      '']
-        variance_index = random.randrange(1, len(variance_list))
-        add_on = variance_list[variance_index]
 
         if attr == 'title':
-            return 'What does this picture show?'
+            file = open(
+                'QuestionBank/ask_question_addons/ask_question_addonsTITLE.txt',
+                'r')
         elif attr == 'location':
-            return 'Where did this happen?'
+            file = open(
+                'QuestionBank/ask_question_addons/ask_question_addonsLOCATION.txt',
+                'r')
         elif attr == 'people':
-            return 'Who all are in this photo?'
+            file = open(
+                'QuestionBank/ask_question_addons/ask_question_addonsPEOPLE.txt',
+                'r')
         elif attr == 'special_question':
             return self.special_question
         else:
-            raise Exception('ask_questions ATTR IS NOT VALID')
+            raise Exception('ask_question ATTR IS NOT VALID')
+
+        return self.find_random_line(file)
 
     def tell_something(self, attr):
         '''
@@ -113,7 +144,7 @@ class image:
                 'r')
             return self.find_random_line(file) + ' ' + self.location
         elif attr == 'special_question':
-            return self.special_question
+            return self.special_answer
         else:
             raise Exception('tell_something ATTR IS NOT VALID')
 
@@ -135,8 +166,6 @@ class image:
                 return line1.strip('\n')
             else:
                 count += 1
-
-
 
 
 
