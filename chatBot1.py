@@ -3,7 +3,7 @@ This program is supposed to simulate chat bot in the Cong. App
 
 Things to remember:
 - it only iterates for one image object (if you want to change this, make a new program)
-- currently, variance bank is low; we need to increase it
+- currently, variance files is low; we need to increase it
 """
 
 import random
