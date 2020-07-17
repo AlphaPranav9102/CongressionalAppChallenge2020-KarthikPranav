@@ -27,7 +27,7 @@ widthInput = 300
 Window.size = (widthInput, widthInput*2.16)
 Window.clearcolor = (250/255, 250/255, 250/255, 255/255)
 
-#Imported Lato Fonts
+#Imported Lato and Montserrat Fonts
 
 LabelBase.register(
     name="latoBold",
