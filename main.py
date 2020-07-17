@@ -202,29 +202,55 @@ class mainScreen(FloatLayout):
         self.labelRect.pos = (0, Window.size[1]-Window.size[1]*0.175)
         self.labelRect.size = (Window.size[0], Window.size[1]*0.175)
 
-class Vocate(App):
-
-    def build(self):
-        self.sm = ScreenManager()
-
-        self.splashPage = splashScreen()
-        screen = Screen(name='splashScreen')
-        screen.add_widget(self.splashPage)
-        self.sm.add_widget(screen)
-
-        self.mainPage = mainScreen()
-        screen = Screen(name='mainScreen')
-        screen.add_widget(self.mainPage)
-        self.sm.add_widget(screen)
-
-        print(self.sm.screen_names)
-        
-        return(self.sm)
-
 class splashScreen(FloatLayout):
 
     def __init__(self, **kwargs):
         super(splashScreen, self).__init__(**kwargs)
+
+        #Initializing all of the main theme colors
+
+        self.greyColorTuple = (239/255, 239/255, 239/255, 239/255)
+        self.greyColorList = [239/255, 239/255, 239/255, 239/255]
+
+        self.darkBlueTuple = (5/255, 79/255, 80/255, 255/255)
+        self.darkBlueList = [5/255, 79/255, 80/255, 255/255]
+
+        self.whiteTuple = (1, 1, 1, 1)
+        self.whiteList = [1, 1, 1, 1]
+
+        self.fullOrangeTuple = (247/255, 143/255, 30/255, 255/255)
+        self.fullOrangeList = [247/255, 143/255, 30/255, 255/255]
+
+        Window.clearcolor = self.greyColorTuple
+
+        self.splashScreenLogoPic = Image(
+            source="assets/assistantLogo/AssistantLogoPic.png",
+            size_hint=(0.7, 0.35),
+            pos_hint={"top": 58/68, "x":0.15},
+        )
+
+        self.add_widget(self.splashScreenLogoPic)
+
+        self.splashScreenNameMiddle = Label(
+            text='Vocate',
+            size=(Window.size[0], Window.size[1]*0.16),
+            pos=(0, 0),
+            size_hint=(1, 0.175), 
+            pos_hint={"x":0, "top": 0.5},
+            color=self.darkBlueList,
+            font_name="montserratExtraBold",
+            font_size=38,
+        )
+        self.add_widget(self.splashScreenNameMiddle)
+        Clock.schedule_once(self.screenTransition, 6)
+
+    def screenTransition(self, dt):
+        Vocate.sm.current = "mainScreen"
+
+class loginScreen(FloatLayout):
+
+    def __init__(self, **kwargs):
+        super(loginScreen, self).__init__(**kwargs)
 
         #Initializing all of the main theme colors
 
@@ -265,6 +291,23 @@ class splashScreen(FloatLayout):
 
     def screenTransition(self, dt):
         Vocate.sm.current = "mainScreen"
+
+class Vocate(App):
+
+    def build(self):
+        self.sm = ScreenManager()
+
+        self.splashPage = splashScreen()
+        screen = Screen(name='splashScreen')
+        screen.add_widget(self.splashPage)
+        self.sm.add_widget(screen)
+
+        self.mainPage = mainScreen()
+        screen = Screen(name='mainScreen')
+        screen.add_widget(self.mainPage)
+        self.sm.add_widget(screen)
+        
+        return(self.sm)
 
 if __name__ == "__main__":
     Vocate = Vocate()
