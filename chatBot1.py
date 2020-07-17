@@ -99,17 +99,17 @@ class image:
 
         if attr == 'title':
             file = open(
-                '/Users/Karthik/Documents/python_programs/PycharmProjects/MyCongApp/tell_something_addonsTITLE.txt',
+                'QuestionBank/tell_something_addonsTITLE.txt',
                 'r')
             return self.find_random_line(file) + ' ' + self.title
         elif attr == 'location':
             file = open(
-                '/Users/Karthik/Documents/python_programs/PycharmProjects/MyCongApp/tell_something_addonsLOCATION.txt',
+                'QuestionBank/tell_something_addonsLOCATION.txt',
                 'r')
             return self.find_random_line(file) + ' ' + self.location
         elif attr == 'people':
             file = open(
-                '/Users/Karthik/Documents/python_programs/PycharmProjects/MyCongApp/tell_something_addonsPEOPLE.txt',
+                'QuestionBank/tell_something_addonsPEOPLE.txt',
                 'r')
             return self.find_random_line(file) + ' ' + self.location
         elif attr == 'special_question':
