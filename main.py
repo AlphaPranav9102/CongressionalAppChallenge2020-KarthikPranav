@@ -80,8 +80,8 @@ class mainScreen(FloatLayout):
             self.labelRect = RoundedRectangle(
                 segments=100,
                 radius=[(0, 0), (0, 0), (35.0, 35.0), (0, 0)],
-                pos=(0, Window.size[1]-Window.size[1]*0.175),
-                size=(Window.size[0], Window.size[1]*0.175),
+                pos=(0, Window.size[1]-Window.size[1]*0.1),
+                size=(Window.size[0], Window.size[1]*0.1),
                 source="assets/general/GreyBackground.png"
                 
             )
@@ -91,18 +91,18 @@ class mainScreen(FloatLayout):
         #Creating the main header at the top - Semi Scalable
 
         self.mainScreenTopLabel = Label(
-            text='Welcome Back!',
+            text='Vocate',
             size=(Window.size[0], Window.size[1]*0.16),
             pos=(0, 0),
-            size_hint=(1, 0.175), 
+            size_hint=(1, 0.1), 
             pos_hint={"x":0, "top": 1},
             color=self.darkBlueList,
-            font_name="latoBlack",
+            font_name="montserratExtraBold",
             font_size=32,
         )
         self.add_widget(self.mainScreenTopLabel)
 
-        #Set the iamge path for the display
+        #Set the image path for the display
 
         self.imagePath = "assets/TestImages/portraitTest.jpg"
 
