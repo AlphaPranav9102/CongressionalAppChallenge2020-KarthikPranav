@@ -104,7 +104,7 @@ class mainScreen(FloatLayout):
 
         #Set the image path for the display
 
-        self.imagePath = "assets/TestImages/portraitTest.jpg"
+        self.imagePath = "assets/TestImages/squareTest.jpg"
 
         #Make an image widget and then use the ratio for further use - Not displayed
 
@@ -129,7 +129,7 @@ class mainScreen(FloatLayout):
             RoundedRectangle(
                 segments=100,
                 radius=[(25.0, 25.0), (25.0, 25.0), (25.0, 25.0), (25.0, 25.0)],
-                pos=(Window.size[0]*0.5-self.imageRatio[0]*0.5-Window.size[0]*0.025, Window.size[1]*(169/272)-self.imageRatio[1]/2 - Window.size[1]*0.0125),
+                pos=(Window.size[0]*0.5-self.imageRatio[0]*0.5-Window.size[0]*0.025, Window.size[1]*(189/272)-self.imageRatio[1]/2 - Window.size[1]*0.0125),
                 size=(Window.size[0]*0.05 + self.imageRatio[0], Window.size[1]*0.025 + self.imageRatio[1]),
                 source="assets/general/GreyBackground.png"
                 
@@ -141,7 +141,7 @@ class mainScreen(FloatLayout):
             RoundedRectangle(
                 segments=100,
                 radius=[(25.0, 25.0), (25.0, 25.0), (25.0, 25.0), (25.0, 25.0)],
-                pos=(Window.size[0]*0.5-self.imageRatio[0]*0.5, Window.size[1]*(169/272)-self.imageRatio[1]/2),
+                pos=(Window.size[0]*0.5-self.imageRatio[0]*0.5, Window.size[1]*(189/272)-self.imageRatio[1]/2),
                 size=self.imageRatio,
                 source=self.imagePath
                 
