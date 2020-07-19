@@ -8,7 +8,10 @@ Things to remember:
 
 import random
 
-class extraChat:
+class ChattingBot:
+    def __init__(self):
+        self.change_username_in_files()
+
     def initial_Speaking(self):
         return 'Hi. How are you?'
 
@@ -36,6 +39,20 @@ class extraChat:
                 return line1.strip('\n')
             else:
                 count += 1
+
+    def change_username_in_files(self):
+        global user_name
+
+        file_list = ['extraChat_addons_GREETINGS', 'tell_something_addonsLOCATION', 'tell_something_addonsPEOPLE',
+                     'tell_something_addonsTITLE', 'ask_question_addonsLOCATION',
+                     'ask_question_addonsPEOPLE', 'ask_question_addonsTITLE']
+
+        for file_name in file_list:
+            with open('QuestionBank/' + file_name + '.txt', 'r') as file_in:
+                with open('personalQuestionBank/' + file_name + '.txt', 'w') as file_out:
+                    for line in file_in:
+                        file_out.write(line.replace('user_name', user_name).strip('\n'))
+
 
 
 class image:
@@ -105,15 +122,15 @@ class image:
 
         if attr == 'title':
             file = open(
-                'QuestionBank/ask_question_addons/ask_question_addonsTITLE.txt',
+                'personalQuestionBank/ask_question_addonsTITLE.txt',
                 'r')
         elif attr == 'location':
             file = open(
-                'QuestionBank/ask_question_addons/ask_question_addonsLOCATION.txt',
+                'personalQuestionBank/ask_question_addonsLOCATION.txt',
                 'r')
         elif attr == 'people':
             file = open(
-                'QuestionBank/ask_question_addons/ask_question_addonsPEOPLE.txt',
+                'personalQuestionBank/ask_question_addonsPEOPLE.txt',
                 'r')
         elif attr == 'special_question':
             return self.special_question
@@ -130,17 +147,17 @@ class image:
 
         if attr == 'title':
             file = open(
-                'QuestionBank/tell_something_addonsTITLE.txt',
+                'personalQuestionBank/tell_something_addonsTITLE.txt',
                 'r')
             return self.find_random_line(file) + ' ' + self.title
         elif attr == 'location':
             file = open(
-                'QuestionBank/tell_something_addonsLOCATION.txt',
+                'personalQuestionBank/tell_something_addonsLOCATION.txt',
                 'r')
             return self.find_random_line(file) + ' ' + self.location
         elif attr == 'people':
             file = open(
-                'QuestionBank/tell_something_addonsPEOPLE.txt',
+                'personalQuestionBank/tell_something_addonsPEOPLE.txt',
                 'r')
             return self.find_random_line(file) + ' ' + self.location
         elif attr == 'special_question':
