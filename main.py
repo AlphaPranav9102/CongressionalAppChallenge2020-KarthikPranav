@@ -154,7 +154,7 @@ class mainScreen(FloatLayout):
         self.mainScreenSpeechPromptButtonMiddle = Button(
             text=self.promptStr,
             size_hint=(0.9, 0.175),
-            pos_hint={"top": 26/68, "x":0.05},
+            pos_hint={"top": 33/68, "x":0.05},
             color=self.darkBlueList,
             font_name="latoBold",
             halign="left",
@@ -175,7 +175,7 @@ class mainScreen(FloatLayout):
         self.mainScreenSpeechPromptAssistantPic = Image(
             source="assets/assistantLogo/AssistantLogoPic.png",
             size_hint=(0.14, 0.14),
-            pos_hint={"top": 25/68, "x":0.08},
+            pos_hint={"top": 32/68, "x":0.08},
         )
 
         self.add_widget(self.mainScreenSpeechPromptAssistantPic)
