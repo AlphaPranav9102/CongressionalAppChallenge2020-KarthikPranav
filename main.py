@@ -59,6 +59,9 @@ class mainScreen(FloatLayout):
         self.greyColorTuple = (239/255, 239/255, 239/255, 239/255)
         self.greyColorList = [239/255, 239/255, 239/255, 239/255]
 
+        self.lightGreyColorTuple = (243/255, 243/255, 243/255, 243/255)
+        self.lightGreyColorList = [243/255, 243/255, 243/255, 243/255]
+
         self.darkBlueTuple = (5/255, 79/255, 80/255, 255/255)
         self.darkBlueList = [5/255, 79/255, 80/255, 255/255]
 
@@ -82,6 +85,8 @@ class mainScreen(FloatLayout):
                 radius=[(0, 0), (0, 0), (35.0, 35.0), (0, 0)],
                 pos=(0, Window.size[1]-Window.size[1]*0.1),
                 size=(Window.size[0], Window.size[1]*0.1),
+                background_color = self.lightGreyColorTuple,
+                background_normal = " ",
                 source="assets/general/GreyBackground.png"
                 
             )
@@ -160,9 +165,9 @@ class mainScreen(FloatLayout):
             halign="left",
             text_size=(self.size[0]*1.5, self.size[1]*1.25),
             valign="middle",
+            background_color = self.lightGreyColorTuple,
             background_normal="assets/mainScreenSpeechPromptButtonMiddle/GreyColorRoundedButtonPicNormal.png",
-            background_down="assets/mainScreenSpeechPromptButtonMiddle/GreyColorRoundedButtonPicDown.png",
-            border = [30, 30, 30, 30]
+            background_down="assets/mainScreenSpeechPromptButtonMiddle/GreyColorRoundedButtonPicDown.png"
         )
 
         #Mkaing sure the text fits prefectly
@@ -182,21 +187,20 @@ class mainScreen(FloatLayout):
 
         #Creating the Lower Button that given the option to record text
 
-        self.mainScreenEnterTextButtonLower = Button(
-            text="Enter\nText",
-            size_hint=(0.333, 0.156),
-            pos_hint={"top": 6/34, "x":(1/2) - (1/6)},
-            color=self.whiteList,
+        self.mainScreenRecorderButtonBottom = Button(
+            size_hint=(0.25, 0.12),
+            pos_hint={"top": 9/68, "x":(1/2) - (1/8)},
+            color=self.lightGreyColorTuple,
             font_name="latoBold",
             font_size=22,
             halign="left",
-            background_normal="assets/mainScreenEnterTextButtonLower/DarkBlueRoundedButtonPicNormal.png",
-            background_down="assets/mainScreenEnterTextButtonLower/DarkBlueRoundedButtonPicDown.png",
+            background_normal="assets/mainScreenSpeechRecorderButtonBottom/RedColorCirclularButtomPicNormal.png",
+            background_down="assets/mainScreenSpeechRecorderButtonBottom/RedColorCirclularButtomPicNormal.png",
             border = [-0, -0, -0, -0]
         )
         
 
-        self.add_widget(self.mainScreenEnterTextButtonLower)
+        self.add_widget(self.mainScreenRecorderButtonBottom)
 
     def update_rect(self, *args):
         self.labelRect.pos = (0, Window.size[1]-Window.size[1]*0.175)
