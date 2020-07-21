@@ -114,6 +114,51 @@ class recordingScreen(FloatLayout):
         
         self.add_widget(self.recordingScreenTopQuestionLabel)
 
+        #Set the iamge path for the display
+
+        self.imagePath = "assets/TestImages/squareTest.jpg"
+
+        #Make an image widget and then use the ratio for further use - Not displayed
+
+        self.mainScreenImageRatioGet = Image(
+            source=self.imagePath,
+            pos_hint={"top": 56/68, "x":0.1}
+        )
+
+        #Setting up image ratios and which side will be maximized
+
+        if (Window.size[0]*0.8)/self.mainScreenImageRatioGet.texture_size[0] < (Window.size[1]*0.36)/self.mainScreenImageRatioGet.texture_size[1]:
+            self.imageRatio = [Window.size[0]*0.8, (Window.size[0]*0.8)/self.mainScreenImageRatioGet.texture_size[0]*self.mainScreenImageRatioGet.texture_size[1]]
+        else:
+            self.imageRatio = [(Window.size[1]*0.36)/self.mainScreenImageRatioGet.texture_size[1]*self.mainScreenImageRatioGet.texture_size[0], (Window.size[1]*0.36)]
+
+        #Drawing the image
+        
+        with self.canvasHolderLabel.canvas:
+            #Drawing the border under the image iin relation to the ratio
+
+            Color(*self.greyColorTuple)
+            RoundedRectangle(
+                segments=100,
+                radius=[(25.0, 25.0), (25.0, 25.0), (25.0, 25.0), (25.0, 25.0)],
+                pos=(Window.size[0]*0.5-self.imageRatio[0]*0.5-Window.size[0]*0.025, Window.size[1]*(112/272)-self.imageRatio[1]/2 - Window.size[1]*0.0125),
+                size=(Window.size[0]*0.05 + self.imageRatio[0], Window.size[1]*0.025 + self.imageRatio[1]),
+                source="assets/general/GreyBackground.png"
+                
+            )
+
+            #Drawing the image in relation to the ratio
+
+            Color(*self.greyColorTuple)
+            RoundedRectangle(
+                segments=100,
+                radius=[(25.0, 25.0), (25.0, 25.0), (25.0, 25.0), (25.0, 25.0)],
+                pos=(Window.size[0]*0.5-self.imageRatio[0]*0.5, Window.size[1]*(112/272)-self.imageRatio[1]/2),
+                size=self.imageRatio,
+                source=self.imagePath
+                
+            )
+
     
 
 
