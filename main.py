@@ -119,7 +119,19 @@ class recordingScreen(FloatLayout):
         
         self.add_widget(self.recordingScreenTopQuestionLabel)
 
+        self.recordingScreenAnswerCardLabel = Label(
+            size_hint=(0.8, 0.175), 
+            pos_hint={"x":0.1, "top": 220/272},
+            color=self.darkBlueList,
+            font_name="latoBold",
+            halign="left",
+            valign="middle",
+            font_size=self.height * 0.2
+        )
 
+        self.recordingScreenAnswerCardLabel.texture_update()
+        
+        self.add_widget(self.recordingScreenAnswerCardLabel)
 
         #Set the image path for the display
 
@@ -195,8 +207,12 @@ class recordingScreen(FloatLayout):
                     
                 )
 
+        self.recordingScreenAnswerCardLabel.text = "You: " + "It got added"
+        self.recordingScreenAnswerCardLabel.texture_update()
+
         self.firstRecord = True
 
+        
     
 
 
