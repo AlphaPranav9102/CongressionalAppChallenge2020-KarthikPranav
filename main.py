@@ -71,6 +71,8 @@ class recordingScreen(FloatLayout):
         self.fullOrangeTuple = (247/255, 143/255, 30/255, 255/255)
         self.fullOrangeList = [247/255, 143/255, 30/255, 255/255]
 
+        self.firstRecord = False
+
         #Make a testing canvasHolder
 
         self.canvasHolderLabel = Label(size=(Window.size[0], Window.size[1]*0.175))
@@ -117,7 +119,9 @@ class recordingScreen(FloatLayout):
         
         self.add_widget(self.recordingScreenTopQuestionLabel)
 
-        #Set the iamge path for the display
+
+
+        #Set the image path for the display
 
         self.imagePath = "assets/TestImages/portraitTest.jpg"
 
@@ -144,7 +148,7 @@ class recordingScreen(FloatLayout):
             RoundedRectangle(
                 segments=100,
                 radius=[(25.0, 25.0), (25.0, 25.0), (25.0, 25.0), (25.0, 25.0)],
-                pos=(Window.size[0]*0.5-self.imageRatio[0]*0.5-Window.size[0]*0.025, Window.size[1]*(112/272)-self.imageRatio[1]/2 - Window.size[1]*0.0125),
+                pos=(Window.size[0]*0.5-self.imageRatio[0]*0.5-Window.size[0]*0.025, Window.size[1]*(105/272)-self.imageRatio[1]/2 - Window.size[1]*0.0125),
                 size=(Window.size[0]*0.05 + self.imageRatio[0], Window.size[1]*0.025 + self.imageRatio[1]),
                 source="assets/general/GreyBackground.png"
                 
@@ -156,7 +160,7 @@ class recordingScreen(FloatLayout):
             RoundedRectangle(
                 segments=100,
                 radius=[(25.0, 25.0), (25.0, 25.0), (25.0, 25.0), (25.0, 25.0)],
-                pos=(Window.size[0]*0.5-self.imageRatio[0]*0.5, Window.size[1]*(112/272)-self.imageRatio[1]/2),
+                pos=(Window.size[0]*0.5-self.imageRatio[0]*0.5, Window.size[1]*(105/272)-self.imageRatio[1]/2),
                 size=self.imageRatio,
                 source=self.imagePath
                 
@@ -174,8 +178,24 @@ class recordingScreen(FloatLayout):
             border = [-0, -0, -0, -0]
         )
         
+        self.mainScreenRecorderButtonBottom.bind(on_press=self.recordStart)
 
         self.add_widget(self.mainScreenRecorderButtonBottom)
+
+    def recordStart(self, dt):
+        if self.firstRecord == False:
+            with self.canvasHolderLabel.canvas:
+                Color(*self.greyColorTuple)
+                RoundedRectangle(
+                    segments=100,
+                    radius=[(25.0, 25.0), (25.0, 25.0), (25.0, 25.0), (25.0, 25.0)],
+                    pos=(Window.size[0]*0.05, Window.size[1]*(169/272)),
+                    size=(Window.size[0]*0.9, Window.size[1]*0.175),
+                    source="assets/general/GreyBackground.png"
+                    
+                )
+
+        self.firstRecord = True
 
     
 
