@@ -56,6 +56,9 @@ class recordingScreen(FloatLayout):
 
         #Initializing all of the main theme colors
 
+        self.lightGreyColorTuple = (243/255, 243/255, 243/255, 243/255)
+        self.lightGreyColorList = [243/255, 243/255, 243/255, 243/255]
+
         self.greyColorTuple = (239/255, 239/255, 239/255, 239/255)
         self.greyColorList = [239/255, 239/255, 239/255, 239/255]
 
@@ -116,21 +119,21 @@ class recordingScreen(FloatLayout):
 
         #Set the iamge path for the display
 
-        self.imagePath = "assets/TestImages/squareTest.jpg"
+        self.imagePath = "assets/TestImages/portraitTest.jpg"
 
         #Make an image widget and then use the ratio for further use - Not displayed
 
-        self.mainScreenImageRatioGet = Image(
+        self.recordingScreenImageRatioGet = Image(
             source=self.imagePath,
             pos_hint={"top": 56/68, "x":0.1}
         )
 
         #Setting up image ratios and which side will be maximized
 
-        if (Window.size[0]*0.8)/self.mainScreenImageRatioGet.texture_size[0] < (Window.size[1]*0.36)/self.mainScreenImageRatioGet.texture_size[1]:
-            self.imageRatio = [Window.size[0]*0.8, (Window.size[0]*0.8)/self.mainScreenImageRatioGet.texture_size[0]*self.mainScreenImageRatioGet.texture_size[1]]
+        if (Window.size[0]*0.8)/self.recordingScreenImageRatioGet.texture_size[0] < (Window.size[1]*0.36)/self.recordingScreenImageRatioGet.texture_size[1]:
+            self.imageRatio = [Window.size[0]*0.8, (Window.size[0]*0.8)/self.recordingScreenImageRatioGet.texture_size[0]*self.recordingScreenImageRatioGet.texture_size[1]]
         else:
-            self.imageRatio = [(Window.size[1]*0.36)/self.mainScreenImageRatioGet.texture_size[1]*self.mainScreenImageRatioGet.texture_size[0], (Window.size[1]*0.36)]
+            self.imageRatio = [(Window.size[1]*0.36)/self.recordingScreenImageRatioGet.texture_size[1]*self.recordingScreenImageRatioGet.texture_size[0], (Window.size[1]*0.36)]
 
         #Drawing the image
         
@@ -158,6 +161,21 @@ class recordingScreen(FloatLayout):
                 source=self.imagePath
                 
             )
+        
+        self.mainScreenRecorderButtonBottom = Button(
+            size_hint=(0.25, 0.12),
+            pos_hint={"top": 9/68, "x":(1/2) - (1/8)},
+            color=self.lightGreyColorTuple,
+            font_name="latoBold",
+            font_size=22,
+            halign="left",
+            background_normal="assets/mainScreenSpeechRecorderButtonBottom/RedColorCirclularButtomPicNormal.png",
+            background_down="assets/mainScreenSpeechRecorderButtonBottom/RedColorCirclularButtomPicNormal.png",
+            border = [-0, -0, -0, -0]
+        )
+        
+
+        self.add_widget(self.mainScreenRecorderButtonBottom)
 
     
 
@@ -171,6 +189,9 @@ class mainScreen(FloatLayout):
 
         self.greyColorTuple = (239/255, 239/255, 239/255, 239/255)
         self.greyColorList = [239/255, 239/255, 239/255, 239/255]
+
+        self.lightGreyColorTuple = (243/255, 243/255, 243/255, 243/255)
+        self.lightGreyColorList = [243/255, 243/255, 243/255, 243/255]
 
         self.darkBlueTuple = (5/255, 79/255, 80/255, 255/255)
         self.darkBlueList = [5/255, 79/255, 80/255, 255/255]
@@ -325,6 +346,9 @@ class splashScreen(FloatLayout):
 
         self.greyColorTuple = (239/255, 239/255, 239/255, 239/255)
         self.greyColorList = [239/255, 239/255, 239/255, 239/255]
+
+        self.lightGreyColorTuple = (243/255, 243/255, 243/255, 243/255)
+        self.lightGreyColorList = [243/255, 243/255, 243/255, 243/255]
 
         self.darkBlueTuple = (5/255, 79/255, 80/255, 255/255)
         self.darkBlueList = [5/255, 79/255, 80/255, 255/255]
