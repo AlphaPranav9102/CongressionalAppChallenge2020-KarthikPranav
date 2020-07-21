@@ -49,6 +49,74 @@ LabelBase.register(
     fn_regular="Fonts/Montserrat-Regular.ttf"
 )
 
+class recordingScreen(FloatLayout):
+
+    def __init__(self, **kwargs):
+        super(recordingScreen, self).__init__(**kwargs)
+
+        #Initializing all of the main theme colors
+
+        self.greyColorTuple = (239/255, 239/255, 239/255, 239/255)
+        self.greyColorList = [239/255, 239/255, 239/255, 239/255]
+
+        self.darkBlueTuple = (5/255, 79/255, 80/255, 255/255)
+        self.darkBlueList = [5/255, 79/255, 80/255, 255/255]
+
+        self.whiteTuple = (1, 1, 1, 1)
+        self.whiteList = [1, 1, 1, 1]
+
+        self.fullOrangeTuple = (247/255, 143/255, 30/255, 255/255)
+        self.fullOrangeList = [247/255, 143/255, 30/255, 255/255]
+
+        #Make a testing canvasHolder
+
+        self.canvasHolderLabel = Label(size=(Window.size[0], Window.size[1]*0.175))
+        
+
+        #Drawing the rounded rectangle under the main header -- Not Scalable
+
+        with self.canvasHolderLabel.canvas:
+            Color(*self.greyColorTuple)
+            self.labelRect = RoundedRectangle(
+                segments=100,
+                radius=[(0, 0), (0, 0), (35.0, 35.0), (0, 0)],
+                pos=(0, Window.size[1]-Window.size[1]*0.175),
+                size=(Window.size[0], Window.size[1]*0.175),
+                source="assets/general/GreyBackground.png"
+                
+            )
+
+        self.add_widget(self.canvasHolderLabel)
+
+        self.recordingScreenTopLogoCard = Image(
+            source="assets/assistantLogo/AssistantLogoPic.png",
+            size_hint=(0.175, 0.175),
+            pos_hint={"top": 67.5/68, "x":0.12}
+        )
+
+        self.add_widget(self.recordingScreenTopLogoCard)
+
+        self.promptStr = 'Who is in the photo?'
+
+        self.recordingScreenTopQuestionLabel = Label(
+            text=self.promptStr,
+            size_hint=(0.7, 0.175), 
+            pos_hint={"x":0.2, "top": 1},
+            color=self.darkBlueList,
+            font_name="latoBold",
+            halign="left",
+            valign="middle",
+            text_size=self.size,
+            font_size=self.height * 0.2
+        )
+
+        self.recordingScreenTopQuestionLabel.texture_update()
+        
+        self.add_widget(self.recordingScreenTopQuestionLabel)
+
+    
+
+
 class mainScreen(FloatLayout):
 
     def __init__(self, **kwargs):
@@ -100,6 +168,7 @@ class mainScreen(FloatLayout):
             font_name="latoBlack",
             font_size=32,
         )
+
         self.add_widget(self.mainScreenTopLabel)
 
         #Set the iamge path for the display
@@ -175,7 +244,7 @@ class mainScreen(FloatLayout):
         self.mainScreenSpeechPromptAssistantPic = Image(
             source="assets/assistantLogo/AssistantLogoPic.png",
             size_hint=(0.14, 0.14),
-            pos_hint={"top": 25/68, "x":0.08},
+            pos_hint={"top": 25/68, "x":0.08}
         )
 
         self.add_widget(self.mainScreenSpeechPromptAssistantPic)
@@ -245,7 +314,7 @@ class splashScreen(FloatLayout):
         Clock.schedule_once(self.screenTransition, 6)
 
     def screenTransition(self, dt):
-        Vocate.sm.current = "mainScreen"
+        Vocate.sm.current = "recordingScreen"
 
 class loginScreen(FloatLayout):
 
@@ -305,6 +374,11 @@ class Vocate(App):
         self.mainPage = mainScreen()
         screen = Screen(name='mainScreen')
         screen.add_widget(self.mainPage)
+        self.sm.add_widget(screen)
+
+        self.recordingPage = recordingScreen()
+        screen = Screen(name='recordingScreen')
+        screen.add_widget(self.recordingPage)
         self.sm.add_widget(screen)
         
         return(self.sm)
