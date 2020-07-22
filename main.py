@@ -22,9 +22,9 @@ from kivy.clock import Clock
 
 
 
-widthInput = 300
+widthInput = 375
 
-Window.size = (widthInput, widthInput*2.16)
+Window.size = (widthInput, widthInput*2.075)
 Window.clearcolor = (250/255, 250/255, 250/255, 255/255)
 
 #Imported Lato and Montserrat Fonts
@@ -272,8 +272,8 @@ class mainScreen(FloatLayout):
             size_hint=(1, 0.175), 
             pos_hint={"x":0, "top": 1},
             color=self.darkBlueList,
-            font_name="latoBlack",
-            font_size=32,
+            font_name="montserratExtraBold",
+            font_size=int(Window.size[0]/9.7),
         )
 
         self.add_widget(self.mainScreenTopLabel)
