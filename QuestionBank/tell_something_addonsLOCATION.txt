@@ -1,1 +1,6 @@
-user_name
+Hey user_name, did you know that this photo was taken at
+Oh wow! This picture was taken at
+user_name, this picture was taken at
+This picture looks so nice! It was taken at
+How lovely! This picture was taken at
+Hey, this picture seems familiar! It was taken at

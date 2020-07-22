@@ -184,7 +184,29 @@ class image:
             else:
                 count += 1
 
+def main_function():
+    attributeList = []
+    while len(attributeList) < 4:
+        attribute_index = random.randrange(0, 4, 1)
+        attribute_tag = image1.get_attribute_tag(attribute_index)
+        attribute = image1.get_attribute(attribute_index)
 
+        if attribute not in attributeList:
+            should_ask = random.randrange(0, 2, 1)
+
+            if should_ask:
+                print(image1.ask_question(attribute_tag))
+                answer = input('Enter your reply here --> ')
+                print(image1.check_answer(attribute, answer))
+
+            else:
+                if image1.tell_something(attribute_tag) is not None:
+                    print(image1.tell_something(attribute_tag))
+                    answer = input('Enter your reply here --> ')
+            attributeList.append(attribute)
+
+        else:
+            continue
 
 
 user_name = input('Enter your name: ').rstrip().lstrip()
@@ -193,25 +215,4 @@ print('\n')
 image1 = image('Keerti\'s Wedding', 'New Jersey', ['Keerti', 'Alex', 'Uncle', 'Aunt'],
                'What is Alex\'s brothers name', 'James')
 
-attributeList = []
-while len(attributeList) < 4:
-    attribute_index = random.randrange(0, 4, 1)
-    attribute_tag = image1.get_attribute_tag(attribute_index)
-    attribute = image1.get_attribute(attribute_index)
-
-    if attribute not in attributeList:
-        should_ask = random.randrange(0, 2, 1)
-
-        if should_ask:
-            print(image1.ask_question(attribute_tag))
-            answer = input('Enter your reply here --> ')
-            print(image1.check_answer(attribute, answer))
-
-        else:
-            if image1.tell_something(attribute_tag) is not None:
-                print(image1.tell_something(attribute_tag))
-                answer = input('Enter your reply here --> ')
-        attributeList.append(attribute)
-
-    else:
-        continue
+main_function()

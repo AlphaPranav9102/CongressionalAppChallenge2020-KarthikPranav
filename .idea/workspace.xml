@@ -19,22 +19,10 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4c570dc6-8d43-4e37-a9bc-e7be82bb7481" name="Default Changelist" comment="Comment changes">
-      <change afterPath="$PROJECT_DIR$/QuestionBank/ask_question_addonsLOCATION.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/QuestionBank/ask_question_addonsPEOPLE.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/QuestionBank/ask_question_addonsTITLE.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/personalQuestionBank/ask_question_addonsLOCATION.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/personalQuestionBank/ask_question_addonsPEOPLE.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/personalQuestionBank/ask_question_addonsTITLE.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/personalQuestionBank/extraChat_addons_GREETINGS.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/personalQuestionBank/tell_something_addonsLOCATION.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/personalQuestionBank/tell_something_addonsPEOPLE.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/personalQuestionBank/tell_something_addonsTITLE.txt" afterDir="false" />
+    <list default="true" id="4c570dc6-8d43-4e37-a9bc-e7be82bb7481" name="Default Changelist" comment="Added ability to replace 'user_name' in variance files into user provided name written in a new file.">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/QuestionBank/extraChat_addons_GREETINGS.txt" beforeDir="false" afterPath="$PROJECT_DIR$/QuestionBank/extraChat_addons_GREETINGS.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/QuestionBank/ask_question_addonsLOCATION.txt" beforeDir="false" afterPath="$PROJECT_DIR$/QuestionBank/ask_question_addonsLOCATION.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/QuestionBank/tell_something_addonsLOCATION.txt" beforeDir="false" afterPath="$PROJECT_DIR$/QuestionBank/tell_something_addonsLOCATION.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/QuestionBank/tell_something_addonsPEOPLE.txt" beforeDir="false" afterPath="$PROJECT_DIR$/QuestionBank/tell_something_addonsPEOPLE.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/QuestionBank/tell_something_addonsTITLE.txt" beforeDir="false" afterPath="$PROJECT_DIR$/QuestionBank/tell_something_addonsTITLE.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/chatBot1.py" beforeDir="false" afterPath="$PROJECT_DIR$/chatBot1.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -176,7 +164,14 @@
       <option name="project" value="LOCAL" />
       <updated>1595024104511</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="Added ability to replace 'user_name' in variance files into user provided name written in a new file.">
+      <created>1595167134687</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1595167134687</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -200,38 +195,44 @@
     <MESSAGE value="Added some comments" />
     <MESSAGE value="DO NOT RUN Added variance to ask_question function. Does not work since variance files in Question Bank folder are empty.  We need to fill it out." />
     <MESSAGE value="Comment changes" />
-    <option name="LAST_COMMIT_MESSAGE" value="Comment changes" />
+    <MESSAGE value="Added ability to replace 'user_name' in variance files into user provided name written in a new file." />
+    <option name="LAST_COMMIT_MESSAGE" value="Added ability to replace 'user_name' in variance files into user provided name written in a new file." />
   </component>
   <component name="WindowStateProjectService">
     <state x="837" y="410" key="#Notifications" timestamp="1593976286363">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
     <state x="837" y="410" key="#Notifications/3840.0.1280.800/0.0.1920.1080/1920.0.1920.1080@0.0.1920.1080" timestamp="1593976286363" />
-    <state width="1899" height="290" key="GridCell.Tab.0.bottom" timestamp="1595166601841">
-      <screen x="0" y="0" width="1920" height="1080" />
+    <state width="1259" height="290" key="GridCell.Tab.0.bottom" timestamp="1595452205819">
+      <screen x="0" y="0" width="1280" height="800" />
     </state>
-    <state width="1259" height="202" key="GridCell.Tab.0.bottom/0.0.1280.800@0.0.1280.800" timestamp="1595024140849" />
-    <state width="1899" height="290" key="GridCell.Tab.0.bottom/3840.0.1280.800/0.0.1920.1080/1920.0.1920.1080@0.0.1920.1080" timestamp="1595166601841" />
-    <state width="1899" height="290" key="GridCell.Tab.0.center" timestamp="1595166601830">
-      <screen x="0" y="0" width="1920" height="1080" />
+    <state width="1259" height="290" key="GridCell.Tab.0.bottom/0.0.1280.800@0.0.1280.800" timestamp="1595452205819" />
+    <state width="1899" height="290" key="GridCell.Tab.0.bottom/3840.0.1280.800/0.0.1920.1080/1920.0.1920.1080@0.0.1920.1080" timestamp="1595447733168" />
+    <state width="1899" height="290" key="GridCell.Tab.0.bottom/3840.23.1280.777/0.0.1920.1000/1920.23.1920.1057@0.0.1920.1000" timestamp="1595172406134" />
+    <state width="1259" height="290" key="GridCell.Tab.0.center" timestamp="1595452205818">
+      <screen x="0" y="0" width="1280" height="800" />
     </state>
-    <state width="1259" height="202" key="GridCell.Tab.0.center/0.0.1280.800@0.0.1280.800" timestamp="1595024140848" />
-    <state width="1899" height="290" key="GridCell.Tab.0.center/3840.0.1280.800/0.0.1920.1080/1920.0.1920.1080@0.0.1920.1080" timestamp="1595166601830" />
-    <state width="1899" height="290" key="GridCell.Tab.0.left" timestamp="1595166601816">
-      <screen x="0" y="0" width="1920" height="1080" />
+    <state width="1259" height="290" key="GridCell.Tab.0.center/0.0.1280.800@0.0.1280.800" timestamp="1595452205818" />
+    <state width="1899" height="290" key="GridCell.Tab.0.center/3840.0.1280.800/0.0.1920.1080/1920.0.1920.1080@0.0.1920.1080" timestamp="1595447733164" />
+    <state width="1899" height="290" key="GridCell.Tab.0.center/3840.23.1280.777/0.0.1920.1000/1920.23.1920.1057@0.0.1920.1000" timestamp="1595172406132" />
+    <state width="1259" height="290" key="GridCell.Tab.0.left" timestamp="1595452205817">
+      <screen x="0" y="0" width="1280" height="800" />
     </state>
-    <state width="1259" height="202" key="GridCell.Tab.0.left/0.0.1280.800@0.0.1280.800" timestamp="1595024140848" />
-    <state width="1899" height="290" key="GridCell.Tab.0.left/3840.0.1280.800/0.0.1920.1080/1920.0.1920.1080@0.0.1920.1080" timestamp="1595166601816" />
-    <state width="1899" height="290" key="GridCell.Tab.0.right" timestamp="1595166601832">
-      <screen x="0" y="0" width="1920" height="1080" />
+    <state width="1259" height="290" key="GridCell.Tab.0.left/0.0.1280.800@0.0.1280.800" timestamp="1595452205817" />
+    <state width="1899" height="290" key="GridCell.Tab.0.left/3840.0.1280.800/0.0.1920.1080/1920.0.1920.1080@0.0.1920.1080" timestamp="1595447733163" />
+    <state width="1899" height="290" key="GridCell.Tab.0.left/3840.23.1280.777/0.0.1920.1000/1920.23.1920.1057@0.0.1920.1000" timestamp="1595172406131" />
+    <state width="1259" height="290" key="GridCell.Tab.0.right" timestamp="1595452205818">
+      <screen x="0" y="0" width="1280" height="800" />
     </state>
-    <state width="1259" height="202" key="GridCell.Tab.0.right/0.0.1280.800@0.0.1280.800" timestamp="1595024140848" />
-    <state width="1899" height="290" key="GridCell.Tab.0.right/3840.0.1280.800/0.0.1920.1080/1920.0.1920.1080@0.0.1920.1080" timestamp="1595166601832" />
-    <state x="469" y="179" key="SettingsEditor" timestamp="1595163805048">
+    <state width="1259" height="290" key="GridCell.Tab.0.right/0.0.1280.800@0.0.1280.800" timestamp="1595452205818" />
+    <state width="1899" height="290" key="GridCell.Tab.0.right/3840.0.1280.800/0.0.1920.1080/1920.0.1920.1080@0.0.1920.1080" timestamp="1595447733166" />
+    <state width="1899" height="290" key="GridCell.Tab.0.right/3840.23.1280.777/0.0.1920.1000/1920.23.1920.1057@0.0.1920.1000" timestamp="1595172406133" />
+    <state x="469" y="179" key="SettingsEditor" timestamp="1595447780370">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
     <state x="298" y="78" key="SettingsEditor/0.0.1280.800@0.0.1280.800" timestamp="1595023352299" />
-    <state x="469" y="179" key="SettingsEditor/3840.0.1280.800/0.0.1920.1080/1920.0.1920.1080@0.0.1920.1080" timestamp="1595163805048" />
+    <state x="469" y="179" key="SettingsEditor/3840.0.1280.800/0.0.1920.1080/1920.0.1920.1080@0.0.1920.1080" timestamp="1595447780370" />
+    <state x="469" y="166" key="SettingsEditor/3840.23.1280.777/0.0.1920.1000/1920.23.1920.1057@0.0.1920.1000" timestamp="1595172398487" />
     <state x="469" y="179" key="SettingsEditor/3840.23.1280.777/0.0.1920.1004/1920.23.1920.1057@0.0.1920.1004" timestamp="1594390544929" />
     <state x="469" y="179" key="SettingsEditor/3840.23.1280.777/0.0.1920.1080/1920.23.1920.1057@0.0.1920.1080" timestamp="1595163718317" />
     <state x="752" y="461" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1594161884864">
