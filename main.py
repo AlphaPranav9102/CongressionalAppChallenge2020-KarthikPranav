@@ -24,7 +24,7 @@ from kivy.clock import Clock
 
 widthInput = 375
 
-Window.size = (widthInput, widthInput*2.075)
+Window.size = (widthInput, widthInput*2)
 Window.clearcolor = (250/255, 250/255, 250/255, 255/255)
 
 #Imported Lato and Montserrat Fonts
@@ -71,6 +71,15 @@ class recordingScreen(FloatLayout):
         self.fullOrangeTuple = (247/255, 143/255, 30/255, 255/255)
         self.fullOrangeList = [247/255, 143/255, 30/255, 255/255]
 
+        self.appBackgroundTuple = (250/255, 250/255, 250/255, 255/255)
+        self.appBackgroundList = [250/255, 250/255, 250/255, 255/255]
+
+        #Add background
+
+        Window.clearcolor = self.appBackgroundTuple
+
+        #Add variables for screen
+
         self.firstRecord = False
 
         #Make a testing canvasHolder
@@ -81,7 +90,7 @@ class recordingScreen(FloatLayout):
         #Drawing the rounded rectangle under the main header -- Not Scalable
 
         with self.canvasHolderLabel.canvas:
-            Color(*self.greyColorTuple)
+            Color(*self.whiteTuple)
             self.labelRect = RoundedRectangle(
                 segments=100,
                 radius=[(0, 0), (0, 0), (35.0, 35.0), (0, 0)],
@@ -113,13 +122,15 @@ class recordingScreen(FloatLayout):
             font_name="latoBold",
             halign="left",
             valign="middle",
-            text_size=self.size,
+            text_size=(self.size[0]*1.33, self.size[1]),
             font_size=self.height * 0.2
         )
 
         # Change text to fit
 
         self.recordingScreenTopQuestionLabel.texture_update()
+
+        self.recordingScreenTopQuestionLabel.font_size = self.recordingScreenTopQuestionLabel.font_size * 1.25
         
         self.add_widget(self.recordingScreenTopQuestionLabel)
 
@@ -160,7 +171,7 @@ class recordingScreen(FloatLayout):
         with self.canvasHolderLabel.canvas:
             #Drawing the border under the image iin relation to the ratio
 
-            Color(*self.greyColorTuple)
+            Color(*self.whiteTuple)
             RoundedRectangle(
                 segments=100,
                 radius=[(25.0, 25.0), (25.0, 25.0), (25.0, 25.0), (25.0, 25.0)],
@@ -205,7 +216,7 @@ class recordingScreen(FloatLayout):
     def recordStart(self, dt):
         if self.firstRecord == False:
             with self.canvasHolderLabel.canvas:
-                Color(*self.greyColorTuple)
+                Color(*self.whiteTuple)
                 RoundedRectangle(
                     segments=100,
                     radius=[(25.0, 25.0), (25.0, 25.0), (25.0, 25.0), (25.0, 25.0)],
@@ -237,11 +248,21 @@ class mainScreen(FloatLayout):
         self.darkBlueTuple = (5/255, 79/255, 80/255, 255/255)
         self.darkBlueList = [5/255, 79/255, 80/255, 255/255]
 
+        self.darkestBlueTuple = (4/255, 61/255, 66/255, 255/255)
+        self.darkestBlueList = [5/255, 61/255, 66/255, 255/255]
+
         self.whiteTuple = (1, 1, 1, 1)
         self.whiteList = [1, 1, 1, 1]
 
         self.fullOrangeTuple = (247/255, 143/255, 30/255, 255/255)
         self.fullOrangeList = [247/255, 143/255, 30/255, 255/255]
+
+        self.appBackgroundTuple = (250/255, 250/255, 250/255, 255/255)
+        self.appBackgroundList = [250/255, 250/255, 250/255, 255/255]
+
+        #Add background
+
+        Window.clearcolor = self.appBackgroundTuple
 
         #Make a testing canvasHolder
 
@@ -251,10 +272,10 @@ class mainScreen(FloatLayout):
         #Drawing the rounded rectangle under the main header -- Not Scalable
 
         with self.canvasHolderLabel.canvas:
-            Color(*self.greyColorTuple)
+            Color(*self.whiteTuple)
             self.labelRect = RoundedRectangle(
                 segments=100,
-                radius=[(0, 0), (0, 0), (35.0, 35.0), (0, 0)],
+                radius=[(0, 0), (0, 0), (45.0, 45.0), (0, 0)],
                 pos=(0, Window.size[1]-Window.size[1]*0.175),
                 size=(Window.size[0], Window.size[1]*0.175),
                 source="assets/general/GreyBackground.png"
@@ -297,7 +318,7 @@ class mainScreen(FloatLayout):
         with self.canvasHolderLabel.canvas:
             #Drawing the border under the image iin relation to the ratio
 
-            Color(*self.greyColorTuple)
+            Color(*self.whiteTuple)
             RoundedRectangle(
                 segments=100,
                 radius=[(25.0, 25.0), (25.0, 25.0), (25.0, 25.0), (25.0, 25.0)],
@@ -309,7 +330,7 @@ class mainScreen(FloatLayout):
 
             #Drawing the image in relation to the ratio
 
-            Color(*self.greyColorTuple)
+            Color(*self.whiteTuple)
             RoundedRectangle(
                 segments=100,
                 radius=[(25.0, 25.0), (25.0, 25.0), (25.0, 25.0), (25.0, 25.0)],
@@ -322,10 +343,10 @@ class mainScreen(FloatLayout):
         #Creating the dynamic speech prompter button for the user.
 
         self.mainScreenSpeechPromptButtonMiddle = Button(
-            text="Who are in the photo? What is the special moment in the photo?",
+            text="Where were you? What were he/she doing?",
             size_hint=(0.9, 0.175),
             pos_hint={"top": 26/68, "x":0.05},
-            color=self.darkBlueList,
+            color=self.darkestBlueList,
             font_name="latoBold",
             halign="left",
             text_size=(self.size[0]*1.5, self.size[1]*1.25),
@@ -339,6 +360,8 @@ class mainScreen(FloatLayout):
 
         self.mainScreenSpeechPromptButtonMiddle.texture_update()
 
+        self.mainScreenSpeechPromptButtonMiddle.font_size = self.mainScreenSpeechPromptButtonMiddle.font_size*1.25
+
         self.add_widget(self.mainScreenSpeechPromptButtonMiddle)
 
         #Adding the Assistant Icon to the Speech Prompt button above
@@ -346,7 +369,7 @@ class mainScreen(FloatLayout):
         self.mainScreenSpeechPromptAssistantPic = Image(
             source="assets/assistantLogo/AssistantLogoPic.png",
             size_hint=(0.14, 0.14),
-            pos_hint={"top": 25/68, "x":0.08}
+            pos_hint={"top": 25/68, "x":0.1}
         )
 
         self.add_widget(self.mainScreenSpeechPromptAssistantPic)
@@ -399,15 +422,21 @@ class splashScreen(FloatLayout):
         self.darkBlueTuple = (5/255, 79/255, 80/255, 255/255)
         self.darkBlueList = [5/255, 79/255, 80/255, 255/255]
 
+        self.darkestBlueTuple = (4/255, 61/255, 66/255, 255/255)
+        self.darkestBlueList = [5/255, 61/255, 66/255, 255/255]
+
         self.whiteTuple = (1, 1, 1, 1)
         self.whiteList = [1, 1, 1, 1]
 
         self.fullOrangeTuple = (247/255, 143/255, 30/255, 255/255)
         self.fullOrangeList = [247/255, 143/255, 30/255, 255/255]
 
+        self.appBackgroundTuple = (250/255, 250/255, 250/255, 255/255)
+        self.appBackgroundList = [250/255, 250/255, 250/255, 255/255]
+
         #Add background
 
-        Window.clearcolor = self.greyColorTuple
+        Window.clearcolor = self.darkestBlueTuple
 
         #Add main logo to the front page
 
@@ -429,7 +458,7 @@ class splashScreen(FloatLayout):
             pos_hint={"x":0, "top": 0.5},
             color=self.darkBlueList,
             font_name="montserratExtraBold",
-            font_size=38,
+            font_size=int(Window.size[0]/6)
         )
         self.add_widget(self.splashScreenNameMiddle)
 
