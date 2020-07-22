@@ -93,6 +93,8 @@ class recordingScreen(FloatLayout):
 
         self.add_widget(self.canvasHolderLabel)
 
+        #Add the logo at the top next to question
+
         self.recordingScreenTopLogoCard = Image(
             source="assets/assistantLogo/AssistantLogoPic.png",
             size_hint=(0.175, 0.175),
@@ -101,10 +103,10 @@ class recordingScreen(FloatLayout):
 
         self.add_widget(self.recordingScreenTopLogoCard)
 
-        self.promptStr = 'Who is in the photo?'
+        #Add the label for the question at the top 
 
         self.recordingScreenTopQuestionLabel = Label(
-            text=self.promptStr,
+            text='Who is in the photo?',
             size_hint=(0.7, 0.175), 
             pos_hint={"x":0.2, "top": 1},
             color=self.darkBlueList,
@@ -115,9 +117,13 @@ class recordingScreen(FloatLayout):
             font_size=self.height * 0.2
         )
 
+        # Change text to fit
+
         self.recordingScreenTopQuestionLabel.texture_update()
         
         self.add_widget(self.recordingScreenTopQuestionLabel)
+
+        #Add the label but without text so it is blank at the start
 
         self.recordingScreenAnswerCardLabel = Label(
             size_hint=(0.8, 0.175), 
@@ -129,18 +135,16 @@ class recordingScreen(FloatLayout):
             font_size=self.height * 0.2
         )
 
+        #Change text to fit
+
         self.recordingScreenAnswerCardLabel.texture_update()
         
         self.add_widget(self.recordingScreenAnswerCardLabel)
 
-        #Set the image path for the display
-
-        self.imagePath = "assets/TestImages/portraitTest.jpg"
-
         #Make an image widget and then use the ratio for further use - Not displayed
 
         self.recordingScreenImageRatioGet = Image(
-            source=self.imagePath,
+            source="assets/TestImages/portraitTest.jpg",
             pos_hint={"top": 56/68, "x":0.1}
         )
 
@@ -174,10 +178,12 @@ class recordingScreen(FloatLayout):
                 radius=[(25.0, 25.0), (25.0, 25.0), (25.0, 25.0), (25.0, 25.0)],
                 pos=(Window.size[0]*0.5-self.imageRatio[0]*0.5, Window.size[1]*(105/272)-self.imageRatio[1]/2),
                 size=self.imageRatio,
-                source=self.imagePath
+                source="assets/TestImages/portraitTest.jpg"
                 
             )
         
+        #Add the recorder button so that user can record
+
         self.mainScreenRecorderButtonBottom = Button(
             size_hint=(0.25, 0.12),
             pos_hint={"top": 9/68, "x":(1/2) - (1/8)},
@@ -193,6 +199,8 @@ class recordingScreen(FloatLayout):
         self.mainScreenRecorderButtonBottom.bind(on_press=self.recordStart)
 
         self.add_widget(self.mainScreenRecorderButtonBottom)
+
+    #Recorder starter which adds the box and asnwer at the start and updates every recording. Recording does not work
 
     def recordStart(self, dt):
         if self.firstRecord == False:
@@ -211,9 +219,6 @@ class recordingScreen(FloatLayout):
         self.recordingScreenAnswerCardLabel.texture_update()
 
         self.firstRecord = True
-
-        
-    
 
 
 class mainScreen(FloatLayout):
@@ -273,14 +278,10 @@ class mainScreen(FloatLayout):
 
         self.add_widget(self.mainScreenTopLabel)
 
-        #Set the iamge path for the display
-
-        self.imagePath = "assets/TestImages/portraitTest.jpg"
-
         #Make an image widget and then use the ratio for further use - Not displayed
 
         self.mainScreenImageRatioGet = Image(
-            source=self.imagePath,
+            source="assets/TestImages/portraitTest.jpg",
             pos_hint={"top": 56/68, "x":0.1}
         )
 
@@ -314,16 +315,14 @@ class mainScreen(FloatLayout):
                 radius=[(25.0, 25.0), (25.0, 25.0), (25.0, 25.0), (25.0, 25.0)],
                 pos=(Window.size[0]*0.5-self.imageRatio[0]*0.5, Window.size[1]*(169/272)-self.imageRatio[1]/2),
                 size=self.imageRatio,
-                source=self.imagePath
+                source="assets/TestImages/portraitTest.jpg"
                 
             )
 
         #Creating the dynamic speech prompter button for the user.
 
-        self.promptStr = "Who are in the photo? What is the special moment in the photo?"
-
         self.mainScreenSpeechPromptButtonMiddle = Button(
-            text=self.promptStr,
+            text="Who are in the photo? What is the special moment in the photo?",
             size_hint=(0.9, 0.175),
             pos_hint={"top": 26/68, "x":0.05},
             color=self.darkBlueList,
@@ -336,7 +335,8 @@ class mainScreen(FloatLayout):
             border = [30, 30, 30, 30]
         )
 
-        #Mkaing sure the text fits prefectly
+        #Making sure the text fits prefectly
+
         self.mainScreenSpeechPromptButtonMiddle.texture_update()
 
         self.add_widget(self.mainScreenSpeechPromptButtonMiddle)
@@ -354,24 +354,34 @@ class mainScreen(FloatLayout):
         #Creating the Lower Button that given the option to record text
 
         self.mainScreenEnterTextButtonLower = Button(
-            text="Enter\nText",
+            text="Start\nRecording",
             size_hint=(0.333, 0.156),
             pos_hint={"top": 6/34, "x":(1/2) - (1/6)},
             color=self.whiteList,
             font_name="latoBold",
-            font_size=22,
-            halign="left",
+            font_size=20,
+            halign="center",
             background_normal="assets/mainScreenEnterTextButtonLower/DarkBlueRoundedButtonPicNormal.png",
             background_down="assets/mainScreenEnterTextButtonLower/DarkBlueRoundedButtonPicDown.png",
             border = [-0, -0, -0, -0]
         )
         
+        #Add function to when button is pressed
+
+        self.mainScreenEnterTextButtonLower.bind(on_press=self.toRecording)
 
         self.add_widget(self.mainScreenEnterTextButtonLower)
+
+    #Changes position and size when screen changes
 
     def update_rect(self, *args):
         self.labelRect.pos = (0, Window.size[1]-Window.size[1]*0.175)
         self.labelRect.size = (Window.size[0], Window.size[1]*0.175)
+
+    #Function to change screens when button is pressed
+
+    def toRecording(self, dt):
+        Vocate.sm.current = "recordingScreen"
 
 class splashScreen(FloatLayout):
 
@@ -395,7 +405,11 @@ class splashScreen(FloatLayout):
         self.fullOrangeTuple = (247/255, 143/255, 30/255, 255/255)
         self.fullOrangeList = [247/255, 143/255, 30/255, 255/255]
 
+        #Add background
+
         Window.clearcolor = self.greyColorTuple
+
+        #Add main logo to the front page
 
         self.splashScreenLogoPic = Image(
             source="assets/assistantLogo/AssistantLogoPic.png",
@@ -404,6 +418,8 @@ class splashScreen(FloatLayout):
         )
 
         self.add_widget(self.splashScreenLogoPic)
+
+        #Add the naem fo the app on the splash screen
 
         self.splashScreenNameMiddle = Label(
             text='Vocate',
@@ -416,10 +432,17 @@ class splashScreen(FloatLayout):
             font_size=38,
         )
         self.add_widget(self.splashScreenNameMiddle)
+
+        #Add a clock that fires when the timer goes up to the function which changes screens
+
         Clock.schedule_once(self.screenTransition, 6)
 
+    #Function that changes screens to mainScreen
+
     def screenTransition(self, dt):
-        Vocate.sm.current = "recordingScreen"
+        Vocate.sm.current = "mainScreen"
+
+"""
 
 class loginScreen(FloatLayout):
 
@@ -465,6 +488,8 @@ class loginScreen(FloatLayout):
 
     def screenTransition(self, dt):
         Vocate.sm.current = "mainScreen"
+
+"""
 
 class Vocate(App):
 
