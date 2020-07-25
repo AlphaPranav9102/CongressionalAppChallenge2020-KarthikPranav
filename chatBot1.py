@@ -51,7 +51,7 @@ class ChattingBot:
             with open('QuestionBank/' + file_name + '.txt', 'r') as file_in:
                 with open('personalQuestionBank/' + file_name + '.txt', 'w') as file_out:
                     for line in file_in:
-                        file_out.write(line.replace('user_name', user_name).strip('\n'))
+                        file_out.write(line.replace('user_name', user_name))
 
 
 
@@ -169,6 +169,7 @@ class image:
             for line in file:
                 if count == wanted_line_number:
                     line1 = line
+                    file.close()
                     return line1.strip('\n')
                 else:
                     count += 1
