@@ -51,7 +51,7 @@ class ChattingBot:
             with open('QuestionBank/' + file_name + '.txt', 'r') as file_in:
                 with open('personalQuestionBank/' + file_name + '.txt', 'w') as file_out:
                     for line in file_in:
-                        file_out.write(line.replace('user_name', user_name).strip('\n'))
+                        file_out.write(line.replace('user_name', user_name))
 
 
 
@@ -121,17 +121,11 @@ class image:
         '''
 
         if attr == 'title':
-            file = open(
-                'personalQuestionBank/ask_question_addonsTITLE.txt',
-                'r')
+            file = 'personalQuestionBank/ask_question_addonsTITLE.txt'
         elif attr == 'location':
-            file = open(
-                'personalQuestionBank/ask_question_addonsLOCATION.txt',
-                'r')
+            file = 'personalQuestionBank/ask_question_addonsLOCATION.txt'
         elif attr == 'people':
-            file = open(
-                'personalQuestionBank/ask_question_addonsPEOPLE.txt',
-                'r')
+            file = 'personalQuestionBank/ask_question_addonsPEOPLE.txt'
         elif attr == 'special_question':
             return self.special_question
         else:
@@ -146,72 +140,71 @@ class image:
         '''
 
         if attr == 'title':
-            file = open(
-                'personalQuestionBank/tell_something_addonsTITLE.txt',
-                'r')
-            return self.find_random_line(file) + ' ' + self.title
+            file_name = 'personalQuestionBank/tell_something_addonsTITLE.txt'
+            return self.find_random_line(file_name) + ' ' + self.title
         elif attr == 'location':
-            file = open(
-                'personalQuestionBank/tell_something_addonsLOCATION.txt',
-                'r')
-            return self.find_random_line(file) + ' ' + self.location
+            file_name = 'personalQuestionBank/tell_something_addonsLOCATION.txt'
+            return self.find_random_line(file_name) + ' ' + self.location
         elif attr == 'people':
-            file = open(
-                'personalQuestionBank/tell_something_addonsPEOPLE.txt',
-                'r')
-            return self.find_random_line(file) + ' ' + self.location
+            file_name = 'personalQuestionBank/tell_something_addonsPEOPLE.txt'
+            return self.find_random_line(file_name) + ' ' + str(self.people)
         elif attr == 'special_question':
-            return self.special_answer
+            pass
         else:
             raise Exception('tell_something ATTR IS NOT VALID')
 
-    def find_random_line(self, file):
-
-        count = 0
-        for line in file:
-            count += 1
-
-        file.seek(0)
-
-        wanted_line_number = random.randrange(0, count, 1)
-
-        count = 0
-        for line in file:
-            if count == wanted_line_number:
-                line1 = line
-                file.close()
-                return line1.strip('\n')
-            else:
+    def find_random_line(self, file_name):
+        with open(file_name, 'r') as file:
+            count = 0
+            for line in file:
                 count += 1
 
+            print(count)
 
+            file.seek(0)
+
+            wanted_line_number = random.randrange(0, count, 1)
+
+            count = 0
+            for line in file:
+                if count == wanted_line_number:
+                    line1 = line
+                    file.close()
+                    return line1.strip('\n')
+                else:
+                    count += 1
+
+def main_function():
+    attributeList = []
+    while len(attributeList) < 4:
+        attribute_index = random.randrange(0, 4, 1)
+        attribute_tag = image1.get_attribute_tag(attribute_index)
+        attribute = image1.get_attribute(attribute_index)
+
+        if attribute not in attributeList:
+            should_ask = random.randrange(0, 2, 1)
+            should_ask = 0
+
+            if should_ask:
+                print(image1.ask_question(attribute_tag))
+                answer = input('Enter your reply here --> ')
+                print(image1.check_answer(attribute, answer))
+
+            else:
+                if image1.tell_something(attribute_tag) is not None:
+                    print(image1.tell_something(attribute_tag))
+                    answer = input('Enter your reply here --> ')
+            attributeList.append(attribute)
+
+        else:
+            continue
 
 
 user_name = input('Enter your name: ').rstrip().lstrip()
+chatBot = ChattingBot()
 print('\n')
 
 image1 = image('Keerti\'s Wedding', 'New Jersey', ['Keerti', 'Alex', 'Uncle', 'Aunt'],
                'What is Alex\'s brothers name', 'James')
 
-attributeList = []
-while len(attributeList) < 4:
-    attribute_index = random.randrange(0, 4, 1)
-    attribute_tag = image1.get_attribute_tag(attribute_index)
-    attribute = image1.get_attribute(attribute_index)
-
-    if attribute not in attributeList:
-        should_ask = random.randrange(0, 2, 1)
-
-        if should_ask:
-            print(image1.ask_question(attribute_tag))
-            answer = input('Enter your reply here --> ')
-            print(image1.check_answer(attribute, answer))
-
-        else:
-            if image1.tell_something(attribute_tag) is not None:
-                print(image1.tell_something(attribute_tag))
-                answer = input('Enter your reply here --> ')
-        attributeList.append(attribute)
-
-    else:
-        continue
+main_function()
