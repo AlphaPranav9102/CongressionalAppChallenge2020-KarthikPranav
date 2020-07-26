@@ -448,7 +448,7 @@ class splashScreen(FloatLayout):
 
         self.add_widget(self.splashScreenLogoPic)
 
-        #Add the naem fo the app on the splash screen
+        #Add the name fo the app on the splash screen
 
         self.splashScreenNameMiddle = Label(
             text='Vocate',
