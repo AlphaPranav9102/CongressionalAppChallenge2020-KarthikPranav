@@ -54,7 +54,7 @@ class recordingScreen(FloatLayout):
     def __init__(self, **kwargs):
         super(recordingScreen, self).__init__(**kwargs)
 
-        #Initializing all of the main theme colors
+        #Initializing all of the needed main theme colors
 
         self.lightGreyColorTuple = (243/255, 243/255, 243/255, 243/255)
         self.lightGreyColorList = [243/255, 243/255, 243/255, 243/255]
