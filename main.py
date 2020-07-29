@@ -30,8 +30,8 @@ Window.clearcolor = (250/255, 250/255, 250/255, 255/255)
 #Imported Lato and Montserrat Fonts
 
 LabelBase.register(
-    name="latoBold",
-    fn_regular="Fonts/Lato-Bold.ttf"
+    fn_regular="Fonts/Lato-Bold.ttf",
+    name="latoBold"
 )
 
 LabelBase.register(
