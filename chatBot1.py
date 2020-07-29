@@ -91,7 +91,7 @@ class image:
         elif number == 2:
             return self.people
         elif number == 3:
-            return self.special_answer
+            return self.special_answ
         else:
             raise Exception('get_attribute NUMBER OUT OF RANGE')
 
