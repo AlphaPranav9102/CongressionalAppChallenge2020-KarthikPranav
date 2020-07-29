@@ -1,5 +1,6 @@
 from kivy.app import App
 from kivy.uix.button import Button
+import speech_recognition as sr
 
 # Requires pyaudio
 def record(*arg):
@@ -41,6 +42,15 @@ def record(*arg):
     wf.setframerate(RATE)
     wf.writeframes(b''.join(frames))
     wf.close()
+
+    filename = WAVE_OUTPUT_FILENAME
+    r = sr.Recognizer()
+
+    with sr.AudioFile(filename) as source:
+        audio_data = r.record(source)
+        text = r.recognize_google(audio_data)
+        print(text)
+
 
 
 class recordApp(App):

@@ -20,6 +20,12 @@ from kivy.core.text import LabelBase
 from kivy.uix.screenmanager import ScreenManager, Screen
 from kivy.clock import Clock
 
+import pyaudio
+import wave
+
+import speech_recognition as sr
+
+
 
 
 widthInput = 375
@@ -141,9 +147,10 @@ class recordingScreen(FloatLayout):
             pos_hint={"x":0.1, "top": 220/272},
             color=self.darkBlueList,
             font_name="latoBold",
-            halign="left",
+            halign="center",
             valign="middle",
-            font_size=self.height * 0.2
+            font_size=self.height * 0.2,
+            text_size=(Window.size[0]*0.8, Window.size[1]*0.175),
         )
 
         #Change text to fit
@@ -214,6 +221,44 @@ class recordingScreen(FloatLayout):
     #Recorder starter which adds the box and asnwer at the start and updates every recording. Recording does not work
 
     def recordStart(self, dt):
+        self.CHUNK = 1024
+        self.FORMAT = pyaudio.paInt16
+        self.CHANNELS = 2
+        self.RATE = 44100
+        self.RECORD_SECONDS = 7
+        self.WAVE_OUTPUT_FILENAME = "output.wav"
+
+        self.p = pyaudio.PyAudio()
+
+        self.stream = self.p.open(
+            format=self.FORMAT,
+            channels=self.CHANNELS,
+            rate=self.RATE,
+            input=True,
+            frames_per_buffer=self.CHUNK
+        )
+
+        print("* recording")
+
+        self.frames = []
+
+        for i in range(0, int(self.RATE / self.CHUNK * self.RECORD_SECONDS)):
+            i = i
+            self.data = self.stream.read(self.CHUNK)
+            self.frames.append(self.data)
+
+        print("* done recording")
+        self.stream.stop_stream()
+        self.stream.close()
+        self.p.terminate()
+
+        self.wf = wave.open(self.WAVE_OUTPUT_FILENAME, 'wb')
+        self.wf.setnchannels(self.CHANNELS)
+        self.wf.setsampwidth(self.p.get_sample_size(self.FORMAT))
+        self.wf.setframerate(self.RATE)
+        self.wf.writeframes(b''.join(self.frames))
+        self.wf.close()
+
         if self.firstRecord == False:
             with self.canvasHolderLabel.canvas:
                 Color(*self.whiteTuple)
@@ -226,8 +271,13 @@ class recordingScreen(FloatLayout):
                     
                 )
 
-        self.recordingScreenAnswerCardLabel.text = "You: " + "It got added"
-        self.recordingScreenAnswerCardLabel.texture_update()
+        self.filename = self.WAVE_OUTPUT_FILENAME
+        self.r = sr.Recognizer()
+
+        with sr.AudioFile(self.filename) as self.source:
+            self.audio_data = self.r.record(self.source)
+            self.recordingScreenAnswerCardLabel.text = self.r.recognize_google(self.audio_data)
+            self.recordingScreenAnswerCardLabel.texture_update()
 
         self.firstRecord = True
 
