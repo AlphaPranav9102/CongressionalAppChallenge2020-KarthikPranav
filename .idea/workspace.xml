@@ -21,12 +21,10 @@
   <component name="ChangeListManager">
     <list default="true" id="4c570dc6-8d43-4e37-a9bc-e7be82bb7481" name="Default Changelist" comment="Added sentence starters to tell_something_addonsLOCATION.txt">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/QuestionBank/ask_question_addonsPEOPLE.txt" beforeDir="false" afterPath="$PROJECT_DIR$/QuestionBank/ask_question_addonsPEOPLE.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/QuestionBank/extraChat_addons_GREETINGS.txt" beforeDir="false" afterPath="$PROJECT_DIR$/QuestionBank/extraChat_addons_GREETINGS.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/chatBot1.py" beforeDir="false" afterPath="$PROJECT_DIR$/chatBot1.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/personalQuestionBank/ask_question_addonsLOCATION.txt" beforeDir="false" afterPath="$PROJECT_DIR$/personalQuestionBank/ask_question_addonsLOCATION.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/personalQuestionBank/ask_question_addonsPEOPLE.txt" beforeDir="false" afterPath="$PROJECT_DIR$/personalQuestionBank/ask_question_addonsPEOPLE.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/personalQuestionBank/ask_question_addonsTITLE.txt" beforeDir="false" afterPath="$PROJECT_DIR$/personalQuestionBank/ask_question_addonsTITLE.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/personalQuestionBank/tell_something_addonsTITLE.txt" beforeDir="false" afterPath="$PROJECT_DIR$/personalQuestionBank/tell_something_addonsTITLE.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/personalQuestionBank/extraChat_addons_GREETINGS.txt" beforeDir="false" afterPath="$PROJECT_DIR$/personalQuestionBank/extraChat_addons_GREETINGS.txt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
