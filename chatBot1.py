@@ -16,7 +16,7 @@ class ChattingBot:
         return 'Hi. How are you?'
 
     def small_Talk(self, user_input):
-        if 'are you' or 'you' in user_input:
+        if 'are you' or 'you' or 'doing' in user_input:
             addons_file = open('QuestionBank/extraChat_addons_GREETINGS.txt', 'r')
             return self.find_random_line(addons_file)
         else:
@@ -158,8 +158,6 @@ class image:
             count = 0
             for line in file:
                 count += 1
-
-            print(count)
 
             file.seek(0)
 
