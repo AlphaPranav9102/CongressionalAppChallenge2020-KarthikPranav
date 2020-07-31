@@ -2,8 +2,9 @@
 This program is supposed to simulate chat bot in the Cong. App
 
 Things to remember:
-- it only iterates for one image object (if you want to change this, make a new program)
+- it only iterates for one image object right now
 - currently, variance files is low; we need to increase it
+- NEED TO IMPROVE ANSWER CHECKER
 """
 
 import random
@@ -13,9 +14,17 @@ class ChattingBot:
         self.change_username_in_files()
 
     def initial_Speaking(self):
+        '''
+        This function returns single line to kickstart conversation
+        '''
+
         return 'Hi. How are you?'
 
     def small_Talk(self, user_input):
+        '''
+        This function does some small talk with the user
+        '''
+
         if 'are you' or 'you' or 'doing' in user_input:
             addons_file = open('QuestionBank/extraChat_addons_GREETINGS.txt', 'r')
             return self.find_random_line(addons_file)
@@ -23,6 +32,11 @@ class ChattingBot:
             return 'Sorry I cannot understand what you said... Please tell me something else.'
 
     def find_random_line(self, file):
+        '''
+        This functions returns a random line in a file given the file name/directory
+        '''
+
+
         count = 0
         for line in file:
             count += 1
@@ -41,6 +55,11 @@ class ChattingBot:
                 count += 1
 
     def change_username_in_files(self):
+        '''
+        This function copies and changes the user_name word to the the actual user_name variable valuem, and writes
+        it to the personalQuestionBank folder
+        '''
+
         global user_name
 
         file_list = ['extraChat_addons_GREETINGS', 'tell_something_addonsLOCATION', 'tell_something_addonsPEOPLE',
@@ -52,6 +71,34 @@ class ChattingBot:
                 with open('personalQuestionBank/' + file_name + '.txt', 'w') as file_out:
                     for line in file_in:
                         file_out.write(line.replace('user_name', user_name))
+
+    def main_function(self, image_input):
+        '''
+        This function runs the entirety of the talking about the images
+        '''
+
+        attributeList = []
+        while len(attributeList) < 4:
+            attribute_index = random.randrange(0, 4, 1)
+            attribute_tag = image_input.get_attribute_tag(attribute_index)
+            attribute = image_input.get_attribute(attribute_index)
+
+            if attribute not in attributeList:
+                should_ask = random.randrange(0, 2, 1)
+
+                if should_ask:
+                    print(image_input.ask_question(attribute_tag))
+                    answer = input('Enter your reply here --> ')
+                    print(image_input.check_answer(attribute, answer))
+
+                else:
+                    if image_input.tell_something(attribute_tag) is not None:
+                        print(image_input.tell_something(attribute_tag))
+                        answer = input('Enter your reply here --> ')
+                attributeList.append(attribute)
+
+            else:
+                continue
 
 
 
@@ -154,6 +201,10 @@ class image:
             raise Exception('tell_something ATTR IS NOT VALID')
 
     def find_random_line(self, file_name):
+        '''
+        This functions returns a random line in a file given the file name/directory
+        '''
+
         with open(file_name, 'r') as file:
             count = 0
             for line in file:
@@ -172,31 +223,6 @@ class image:
                 else:
                     count += 1
 
-def main_function():
-    attributeList = []
-    while len(attributeList) < 4:
-        attribute_index = random.randrange(0, 4, 1)
-        attribute_tag = image1.get_attribute_tag(attribute_index)
-        attribute = image1.get_attribute(attribute_index)
-
-        if attribute not in attributeList:
-            should_ask = random.randrange(0, 2, 1)
-            should_ask = 0
-
-            if should_ask:
-                print(image1.ask_question(attribute_tag))
-                answer = input('Enter your reply here --> ')
-                print(image1.check_answer(attribute, answer))
-
-            else:
-                if image1.tell_something(attribute_tag) is not None:
-                    print(image1.tell_something(attribute_tag))
-                    answer = input('Enter your reply here --> ')
-            attributeList.append(attribute)
-
-        else:
-            continue
-
 
 user_name = input('Enter your name: ').rstrip().lstrip()
 chatBot = ChattingBot()
@@ -205,4 +231,4 @@ print('\n')
 image1 = image('Keerti\'s Wedding', 'New Jersey', ['Keerti', 'Alex', 'Uncle', 'Aunt'],
                'What is Alex\'s brothers name', 'James')
 
-main_function()
+chatBot.main_function(image1)
