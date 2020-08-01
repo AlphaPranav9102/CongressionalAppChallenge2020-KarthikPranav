@@ -1,10 +1,5 @@
 """
-This program is supposed to simulate chat bot in the Cong. App
-
-Things to remember:
-- it only iterates for one image object right now
-- currently, variance files is low; we need to increase it
-- NEED TO IMPROVE ANSWER CHECKER
+This program is for the chatbot that is used to talk to the user
 """
 
 import random
