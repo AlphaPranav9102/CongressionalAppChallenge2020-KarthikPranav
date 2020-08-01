@@ -19,8 +19,9 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4c570dc6-8d43-4e37-a9bc-e7be82bb7481" name="Default Changelist" comment="Added sentence starters to tell_something_addonsLOCATION.txt">
+    <list default="true" id="4c570dc6-8d43-4e37-a9bc-e7be82bb7481" name="Default Changelist" comment="te">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Deadline.md" beforeDir="false" afterPath="$PROJECT_DIR$/Deadline.md" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/QuestionBank/tell_something_addonsLOCATION.txt" beforeDir="false" afterPath="$PROJECT_DIR$/QuestionBank/tell_something_addonsLOCATION.txt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
