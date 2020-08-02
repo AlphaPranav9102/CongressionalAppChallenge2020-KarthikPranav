@@ -186,7 +186,8 @@ class image:
             return self.find_random_line(file_name) + ' ' + self.title
         elif attr == 'location':
             file_name = 'personalQuestionBank/tell_something_addonsLOCATION.txt'
-            return self.find_random_line(file_name) + ' ' + self.location
+            end_file_name = 'QuestionBank/tell_something_addonsLOCATIONend.txt'
+            return self.find_random_line(file_name) + ' ' + self.location + '. ' + self.find_random_line(end_file_name)
         elif attr == 'people':
             file_name = 'personalQuestionBank/tell_something_addonsPEOPLE.txt'
             return self.find_random_line(file_name) + ' ' + str(self.people)

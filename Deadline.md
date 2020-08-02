@@ -13,8 +13,12 @@
 
 ## Karthik
 
+### To Do
  - Fill variance banks completely (tell_something files) - Aug 2nd
  - Make image user score and create tell_something vs as_question probability weighted - Aug 7th
  - Make small talk - Aug 14th
  - Save and Iterate through images - Aug 21th
  - Refine and test - start after Sep 2th
+
+### Important Little Things to Do
+- Make title attr always tell something and have it first
