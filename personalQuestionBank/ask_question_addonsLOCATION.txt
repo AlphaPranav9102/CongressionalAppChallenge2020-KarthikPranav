@@ -1,1 +1,20 @@
-Hey Karthik, where do you think this photo was taken?
+Hey user_name, where do you think this photo was taken?
+Hey! Where do you think this photo was taken?
+Hey user_name where was this taken?
+Hey! Where was this taken?
+Hey user_name, where was this photo taken?
+Hey! Where was this taken?
+This place looks cool! user_name, can you tell me where it was taken?
+This place looks cool! Could you tell me where it was taken?
+Oh I've seen this place before, user_name could you remind me where it is?
+Oh I've seen this place before, can you remind me where it is?
+Wow, this photo looks great! user_name where was it taken?
+Wow, this photo looks great! Where was it taken?
+user_name, I was wondering if you know where this photo was taken?
+I was wondering if you know where this photo was taken?
+user_name, this picture looks great, could you tell me where it is?
+This picture looks great, could you tell me where it is?
+This is a cool photo! user_name, where was it taken?
+This is a cool photo!  Could you tell me where was it taken?
+user_name, you look amazing in the photo! Could you tell me where it is?
+You look amazing in the photo! Could you tell me where it is?

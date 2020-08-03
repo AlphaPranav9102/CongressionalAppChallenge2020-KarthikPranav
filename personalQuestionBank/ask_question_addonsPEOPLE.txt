@@ -1,2 +1,20 @@
-Hey Karthik where was this taken?
-This is a cool picture!  Can you tell me who are in it?
+Hey user_name, who are all the people in the photo?
+Hey! Who do you think are the people in the photo?
+Hey user_name, could you list the names of the people in the photo?
+Hey! Could you list the names of the people in the photo?
+Hey user_name, who's in the photo?
+Hey! Who's in the photo?
+Wow, what a nice photo! user_name, who is in it?
+This place looks cool! Could you tell me who's in it?
+Hey, I have seen this photo before, user_name could you tell me who is in it?
+Oh I've seen this photo before, can you remind me who is in it?
+Wow, this photo looks great! user_name, who is in it?
+Wow, this photo looks great! Who is in it?
+user_name, I was wondering if you know who is in this photo?
+I was wondering if you know who is in this photo?
+user_name, this picture looks great, could you tell me who's in it?
+This picture looks great, could you tell me who is in it?
+This is a cool photo! user_name, who else is in it?
+This is a cool photo!  Could you tell me who else is in it?
+user_name, you look amazing in the photo! Could you tell me who else is in it?
+You look amazing in the photo! Who else is in it?
