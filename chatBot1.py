@@ -1,10 +1,5 @@
 """
-This program is supposed to simulate chat bot in the Cong. App
-
-Things to remember:
-- it only iterates for one image object right now
-- currently, variance files is low; we need to increase it
-- NEED TO IMPROVE ANSWER CHECKER
+This program is for the chatbot that is used to talk to the user
 """
 
 import random
@@ -191,7 +186,8 @@ class image:
             return self.find_random_line(file_name) + ' ' + self.title
         elif attr == 'location':
             file_name = 'personalQuestionBank/tell_something_addonsLOCATION.txt'
-            return self.find_random_line(file_name) + ' ' + self.location
+            end_file_name = 'QuestionBank/tell_something_addonsLOCATIONend.txt'
+            return self.find_random_line(file_name) + ' ' + self.location + '. ' + self.find_random_line(end_file_name)
         elif attr == 'people':
             file_name = 'personalQuestionBank/tell_something_addonsPEOPLE.txt'
             return self.find_random_line(file_name) + ' ' + str(self.people)

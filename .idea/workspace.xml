@@ -19,9 +19,15 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4c570dc6-8d43-4e37-a9bc-e7be82bb7481" name="Default Changelist" comment="Added sentence starters to tell_something_addonsLOCATION.txt">
+    <list default="true" id="4c570dc6-8d43-4e37-a9bc-e7be82bb7481" name="Default Changelist" comment="Comment changes and additions to tell_something_addonsPEOPLE.txt">
+      <change afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/QuestionBank/tell_something_addonsLOCATIONend.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/QuestionBank/tell_something_addonsLOCATION.txt" beforeDir="false" afterPath="$PROJECT_DIR$/QuestionBank/tell_something_addonsLOCATION.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Deadline.md" beforeDir="false" afterPath="$PROJECT_DIR$/Deadline.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/QuestionBank/tell_something_addonsPEOPLE.txt" beforeDir="false" afterPath="$PROJECT_DIR$/QuestionBank/tell_something_addonsPEOPLE.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/chatBot1.py" beforeDir="false" afterPath="$PROJECT_DIR$/chatBot1.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/personalQuestionBank/tell_something_addonsLOCATION.txt" beforeDir="false" afterPath="$PROJECT_DIR$/personalQuestionBank/tell_something_addonsLOCATION.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/personalQuestionBank/tell_something_addonsPEOPLE.txt" beforeDir="false" afterPath="$PROJECT_DIR$/personalQuestionBank/tell_something_addonsPEOPLE.txt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -200,7 +206,14 @@
       <option name="project" value="LOCAL" />
       <updated>1595452250400</updated>
     </task>
-    <option name="localTasksCounter" value="10" />
+    <task id="LOCAL-00010" summary="Comment changes and additions to tell_something_addonsPEOPLE.txt">
+      <created>1596290207574</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1596290207574</updated>
+    </task>
+    <option name="localTasksCounter" value="11" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -239,7 +252,8 @@
     <MESSAGE value="Comment changes" />
     <MESSAGE value="Added ability to replace 'user_name' in variance files into user provided name written in a new file." />
     <MESSAGE value="Added sentence starters to tell_something_addonsLOCATION.txt" />
-    <option name="LAST_COMMIT_MESSAGE" value="Added sentence starters to tell_something_addonsLOCATION.txt" />
+    <MESSAGE value="Comment changes and additions to tell_something_addonsPEOPLE.txt" />
+    <option name="LAST_COMMIT_MESSAGE" value="Comment changes and additions to tell_something_addonsPEOPLE.txt" />
   </component>
   <component name="WindowStateProjectService">
     <state x="837" y="410" key="#Notifications" timestamp="1596046307793" />
