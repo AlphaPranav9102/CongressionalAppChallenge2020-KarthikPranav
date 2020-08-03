@@ -15,6 +15,7 @@ from kivy.uix.floatlayout import FloatLayout
 from kivy.graphics import Color, Rectangle
 from kivy.uix.widget import Widget
 from kivy.uix.image import Image
+from kivy.uix.popup import Popup
 from kivy.graphics.vertex_instructions import RoundedRectangle, Line
 from kivy.core.text import LabelBase
 from kivy.uix.screenmanager import ScreenManager, Screen
@@ -28,7 +29,7 @@ import speech_recognition as sr
 
 
 
-widthInput = 375
+widthInput = 300
 
 Window.size = (widthInput, widthInput*2)
 Window.clearcolor = (250/255, 250/255, 250/255, 255/255)
@@ -87,6 +88,27 @@ class recordingScreen(FloatLayout):
         #Add variables for screen
 
         self.firstRecord = False
+
+        self.CHUNK = 1024
+        self.FORMAT = pyaudio.paInt16
+        self.CHANNELS = 2
+        self.RATE = 44032
+        self.RECORD_SECONDS = 7
+        self.WAVE_OUTPUT_FILENAME = "output.wav"
+
+        self.p = pyaudio.PyAudio()
+
+        self.stream = self.p.open(
+            format=self.FORMAT,
+            channels=self.CHANNELS,
+            rate=self.RATE,
+            input=True,
+            frames_per_buffer=self.CHUNK
+        )
+
+        self.startRecord = False
+
+        self.frames = []
 
         #Make a testing canvasHolder
 
@@ -162,7 +184,7 @@ class recordingScreen(FloatLayout):
         #Make an image widget and then use the ratio for further use - Not displayed
 
         self.recordingScreenImageRatioGet = Image(
-            source="assets/TestImages/portraitTest.jpg",
+            source="assets/TestImages/squareTest.jpg",
             pos_hint={"top": 56/68, "x":0.1}
         )
 
@@ -196,11 +218,12 @@ class recordingScreen(FloatLayout):
                 radius=[(25.0, 25.0), (25.0, 25.0), (25.0, 25.0), (25.0, 25.0)],
                 pos=(Window.size[0]*0.5-self.imageRatio[0]*0.5, Window.size[1]*(105/272)-self.imageRatio[1]/2),
                 size=self.imageRatio,
-                source="assets/TestImages/portraitTest.jpg"
+                source="assets/TestImages/squareTest.jpg"
                 
             )
         
         #Add the recorder button so that user can record
+
 
         self.mainScreenRecorderButtonBottom = Button(
             size_hint=(0.25, 0.12),
@@ -214,43 +237,60 @@ class recordingScreen(FloatLayout):
             border = [-0, -0, -0, -0]
         )
         
-        self.mainScreenRecorderButtonBottom.bind(on_press=self.recordStart)
+        self.mainScreenRecorderButtonBottom.bind(on_press=self.popupInitRecorderStart)
 
         self.add_widget(self.mainScreenRecorderButtonBottom)
 
-    #Recorder starter which adds the box and asnwer at the start and updates every recording. Recording does not work
+        self.recordingPopupContent = FloatLayout()
 
-    def recordStart(self, dt):
-        self.CHUNK = 1024
-        self.FORMAT = pyaudio.paInt16
-        self.CHANNELS = 2
-        self.RATE = 44100
-        self.RECORD_SECONDS = 7
-        self.WAVE_OUTPUT_FILENAME = "output.wav"
+        self.recordingScreenRecordingLabelMiddlePopup = Label(
+            text="Recording ...",
+            font_size="30",
+            font_name="latoBold",
+            halign="center",
+            valign="middle",
+            size_hint=(0.8, 0.175),
+            pos_hint={"x":0.1, "top": 220/272},
+            color=self.darkBlueList
+        )
+        self.recordingPopupContent.add_widget(self.recordingScreenRecordingLabelMiddlePopup)
 
-        self.p = pyaudio.PyAudio()
+        self.recordingScreenRecordingStopBottomPopup = Button(
+            size_hint=(0.30, 0.26),
+            pos_hint={"top": 17/68, "x":(1/2) - (3/20)},
+            background_normal="assets/recordingScreenRecordingStopBottomPopup/recordingScreenRecordingStopBottomPopupNormal.png",
+            border=(0, 0, 0, 0)
+        )
+        self.recordingPopupContent.add_widget(self.recordingScreenRecordingStopBottomPopup)
 
-        self.stream = self.p.open(
-            format=self.FORMAT,
-            channels=self.CHANNELS,
-            rate=self.RATE,
-            input=True,
-            frames_per_buffer=self.CHUNK
+        self.recordingScreenRecordingStopBottomPopup.bind(on_press=self.stopRecordAddText)    
+
+        self.recordingPopup = Popup(
+            content=self.recordingPopupContent,
+            auto_dismiss=False,
+            size_hint=(0.9, 0.5),
+            background="assets/recordingScreenRecordingPopup/recordingScreenRecordingPopupBackground.png",
+            pos_hint={"top": 35/68, "x":(1/2) - (9/20)},
+            separator_color=[0, 0, 0, 0],
+            title="",
+            border=(0, 0, 0, 0)
         )
 
-        print("* recording")
+        self.checkRecordEvent = Clock.schedule_interval(self.recordStart, 1 / 43)
 
-        self.frames = []
+    #Recorder starter which adds the box and asnwer at the start and updates every recording
 
-        for i in range(0, int(self.RATE / self.CHUNK * self.RECORD_SECONDS)):
-            i = i
+    def recordStart(self, dt, *kwargs):
+        if self.startRecord == True:
             self.data = self.stream.read(self.CHUNK)
             self.frames.append(self.data)
 
-        print("* done recording")
-        self.stream.stop_stream()
-        self.stream.close()
-        self.p.terminate()
+    def popupInitRecorderStart(self, dt, *kwargs):
+        self.recordingPopup.open()
+        self.startRecord = True
+
+    def stopRecordAddText(self, dt, *kwargs):
+        self.recordingPopup.dismiss()
 
         self.wf = wave.open(self.WAVE_OUTPUT_FILENAME, 'wb')
         self.wf.setnchannels(self.CHANNELS)
@@ -274,12 +314,18 @@ class recordingScreen(FloatLayout):
         self.filename = self.WAVE_OUTPUT_FILENAME
         self.r = sr.Recognizer()
 
-        with sr.AudioFile(self.filename) as self.source:
-            self.audio_data = self.r.record(self.source)
-            self.recordingScreenAnswerCardLabel.text = self.r.recognize_google(self.audio_data)
-            self.recordingScreenAnswerCardLabel.texture_update()
+        try:
+            with sr.AudioFile(self.filename) as self.source:
+                self.audio_data = self.r.record(self.source)
+                self.recordingScreenAnswerCardLabel.text = str(self.r.recognize_google(self.audio_data))
+                self.recordingScreenAnswerCardLabel.text = self.recordingScreenAnswerCardLabel.text[0].upper() + self.recordingScreenAnswerCardLabel.text[1:] + "."
+                self.recordingScreenAnswerCardLabel.texture_update()
+        except:
+            self.recordingScreenAnswerCardLabel.text = "Try recording again."
+        self.frames = []
 
         self.firstRecord = True
+        self.startRecord = False
 
 
 class mainScreen(FloatLayout):
