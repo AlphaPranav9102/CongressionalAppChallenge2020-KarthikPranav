@@ -32,8 +32,7 @@ import wave
 
 import speech_recognition as sr
 
-
-
+import shutil
 
 widthInput = 350
 
@@ -791,7 +790,8 @@ class addImageScreen(FloatLayout):
         self.value = self.fileChooser.selection
         print('choosen file: %s' % self.value)
 
-        self.metadataPopup.open()
+        if str(self.value) != "[]":
+            self.metadataPopup.open()
 
     def browseFiles(self, dt):
         self.filePopup.open()
@@ -799,8 +799,10 @@ class addImageScreen(FloatLayout):
     def saveMeta(self, dt):
         if self.metadataQuestionIndexes == 4:
             self.metadataAnswers.append(self.metadataPopupQuestionAnswerInput.text)
-            print(self.metadataAnswers, self.fileChooser.selection)
+            print(["imageDatabase/" + self.value[0].split("\\")[-1]] + self.metadataAnswers)
             self.metadataPopup.dismiss()
+
+            shutil.copyfile(self.value[0], "imageDatabase/" + self.value[0].split("\\")[-1])
         else:
             self.metadataAnswers.append(self.metadataPopupQuestionAnswerInput.text)
             self.metadataQuestionIndexes += 1
