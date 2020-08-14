@@ -10,7 +10,6 @@
  - Integration - 8/31/20
  - Build - 9/2/20
 
-
 ## Karthik
 
 ### To Do

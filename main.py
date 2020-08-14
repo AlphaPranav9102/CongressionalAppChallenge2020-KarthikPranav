@@ -33,6 +33,7 @@ import wave
 import speech_recognition as sr
 
 import shutil
+import csv
 
 widthInput = 350
 
@@ -141,6 +142,8 @@ class recordingScreen(FloatLayout):
 
         self.add_widget(self.canvasHolderLabel)
 
+        #Add button which goes back to previous screen.
+
         self.backButton = Button(
             size_hint=(0.13, 0.05),
             pos_hint={"top": 127/136, "x": 0.06},
@@ -177,7 +180,7 @@ class recordingScreen(FloatLayout):
             font_size=self.height * 0.2
         )
 
-        # Change text to fit
+        #Change text to fit
 
         self.recordingScreenTopQuestionLabel.texture_update()
 
@@ -263,7 +266,11 @@ class recordingScreen(FloatLayout):
         self.recordingScreenRecorderButtonBottom.bind(on_press=self.popupInitRecorderStart)
         self.add_widget(self.recordingScreenRecorderButtonBottom)
 
+        #Creating the layout for the popup
+
         self.recordingPopupContent = FloatLayout()
+
+        #Adding label saying they are being recorded
 
         self.recordingScreenRecordingLabelMiddlePopup = Label(
             text="Recording ...",
@@ -277,6 +284,8 @@ class recordingScreen(FloatLayout):
         )
         self.recordingPopupContent.add_widget(self.recordingScreenRecordingLabelMiddlePopup)
 
+        #Adding the button to stop the recording
+
         self.recordingScreenRecordingStopBottomPopup = Button(
             size_hint=(0.30, 0.26),
             pos_hint={"top": 17/68, "x":(1/2) - (3/20)},
@@ -285,7 +294,9 @@ class recordingScreen(FloatLayout):
         )
         self.recordingPopupContent.add_widget(self.recordingScreenRecordingStopBottomPopup)
 
-        self.recordingScreenRecordingStopBottomPopup.bind(on_press=self.stopRecordAddText)    
+        self.recordingScreenRecordingStopBottomPopup.bind(on_press=self.stopRecordAddText)
+
+        #Creating the popup which starts after recording    
 
         self.recordingPopup = Popup(
             content=self.recordingPopupContent,
@@ -300,16 +311,20 @@ class recordingScreen(FloatLayout):
 
         self.checkRecordEvent = Clock.schedule_interval(self.recordStart, 1 / 43)
 
-    #Recorder starter which adds the box and asnwer at the start and updates every recording
+    #recordStart() starts getting frames from the microphone
 
     def recordStart(self, dt, *kwargs):
         if self.startRecord == True:
             self.data = self.stream.read(self.CHUNK)
             self.frames.append(self.data)
 
+    #popupInitRecorderStart() opens the recording popup and sets the start recording variable as true
+
     def popupInitRecorderStart(self, dt, *kwargs):
         self.recordingPopup.open()
         self.startRecord = True
+
+    #stopRecordAddText() stops recording, closes popup, and gets the text from the recording
 
     def stopRecordAddText(self, dt, *kwargs):
         self.recordingPopup.dismiss()
@@ -351,7 +366,10 @@ class recordingScreen(FloatLayout):
 
         self.startRecord = False
 
+    #goBack() sets the screen at mainScreen
+
     def goBack(self, dt):
+        Vocate.sm.transition.direction = "right"
         Vocate.sm.current = "mainScreen"
 
 class mainScreen(FloatLayout):
@@ -424,7 +442,7 @@ class mainScreen(FloatLayout):
         #Make an image widget and then use the ratio for further use - Not displayed
 
         self.mainScreenImageRatioGet = Image(
-            source="assets/TestImages/portraitTest.jpg",
+            source="C:/Users/Penguinkid/Downloads/8481.jpg",
             pos_hint={"top": 56/68, "x":0.1}
         )
 
@@ -458,7 +476,7 @@ class mainScreen(FloatLayout):
                 radius=[(25.0, 25.0), (25.0, 25.0), (25.0, 25.0), (25.0, 25.0)],
                 pos=(Window.size[0]*0.5-self.imageRatio[0]*0.5, Window.size[1]*(169/272)-self.imageRatio[1]/2),
                 size=self.imageRatio,
-                source="assets/TestImages/portraitTest.jpg"
+                source="C:/Users/Penguinkid/Downloads/8481.jpg"
                 
             )
 
@@ -525,6 +543,7 @@ class mainScreen(FloatLayout):
     #Function to change screens when button is pressed
 
     def toRecording(self, dt):
+        Vocate.sm.transition.direction = "left"
         Vocate.sm.current = "recordingScreen"
 
 
@@ -598,6 +617,10 @@ class addImageScreen(FloatLayout):
 
         self.add_widget(self.addImageScreenTopLabel)
 
+
+
+        #Add label which shows what the page is doing
+
         self.addImageScreenMainLabel = Label(
             text='Add Memories',
             text_size=(Window.size[0]*0.8, Window.size[1]*0.05),
@@ -610,6 +633,22 @@ class addImageScreen(FloatLayout):
         )
 
         self.add_widget(self.addImageScreenMainLabel)
+
+        #Add button which sends user back to caretaker screen
+
+        self.backButton = Button(
+            size_hint=(0.13, 0.05),
+            pos_hint={"top": 131/136, "x": 0.06},
+            background_normal="assets/backButton/backButtonNormal.png",
+            background_down="assets/backButton/backButtonNormal.png",
+            border=[0, 0, 0, 0]
+        )
+
+        self.backButton.bind(on_release=self.goBack)
+
+        self.add_widget(self.backButton)
+
+        #Make a drawing that will hold the upload image button
 
         with self.canvasHolderLabel.canvas:
             Color(*self.whiteTuple)
@@ -633,6 +672,8 @@ class addImageScreen(FloatLayout):
                 
             )
 
+        #Added text to box to say to upload photo
+
         self.addImageScreenUploadImageText = Label(
             text="Upload Image",
             size_hint=(0.4, 0.1),
@@ -644,6 +685,8 @@ class addImageScreen(FloatLayout):
         )
 
         self.add_widget(self.addImageScreenUploadImageText)
+
+        #Added button to upload photo
 
         self.addImageScreenUploadImageButton = Button(
             size_hint=(0.2, 0.10),
@@ -657,7 +700,11 @@ class addImageScreen(FloatLayout):
 
         self.add_widget(self.addImageScreenUploadImageButton)
 
+        #Add floatlayout for the filepopup
+
         self.filePopupContent = FloatLayout()
+
+        #Created fileUpload popup
 
         self.filePopup = Popup(
             content=self.filePopupContent,
@@ -687,7 +734,11 @@ class addImageScreen(FloatLayout):
         btnlayout.add_widget(btn)
         self.filePopupContent.add_widget(btnlayout)
 
+        #Creating the floatlayout() for the popup
+
         self.metadataPopupContent = FloatLayout()
+
+        #Creating the metadataPopup
 
         self.metadataPopup = Popup(
             content=self.metadataPopupContent,
@@ -700,6 +751,8 @@ class addImageScreen(FloatLayout):
             border=(0, 0, 0, 0)
         )
 
+        #Creating the list with all of the metadata
+
         self.metadataQuestions = [
             "1. Give the image a title",
             "2. What was the location",
@@ -708,9 +761,15 @@ class addImageScreen(FloatLayout):
             "5. What's the answer"
         ]
 
+        #Creating the list which all metadata gets saved to
+
         self.metadataAnswers=[]
 
+        #Creating variable to change questions
+
         self.metadataQuestionIndexes = 0
+
+        #Adding the Label which has question
 
         self.metadataPopupQuestionLabel = Label(
             text=self.metadataQuestions[self.metadataQuestionIndexes],
@@ -724,7 +783,7 @@ class addImageScreen(FloatLayout):
 
         self.metadataPopupContent.add_widget(self.metadataPopupQuestionLabel)
 
-        
+        #Adding the textinput which takes the answers
 
         self.metadataPopupQuestionAnswerInput = TextInput(
             text='',
@@ -742,7 +801,7 @@ class addImageScreen(FloatLayout):
 
         self.metadataPopupContent.add_widget(self.metadataPopupQuestionAnswerInput)
 
-        
+        #Adding the canvas which gives the rounding corners to the text input
 
         with self.metadataPopupQuestionLabel.canvas:
             Color(*self.lightGreyColorList)
@@ -766,6 +825,8 @@ class addImageScreen(FloatLayout):
                 
             )
 
+        #Adding the button to change to the next question
+
         self.metadataPopupNextQuestionButton = Button(
             text='Next    ',
             border=[30, 30, 30, 30],
@@ -783,6 +844,7 @@ class addImageScreen(FloatLayout):
 
         self.metadataPopupContent.add_widget(self.metadataPopupNextQuestionButton)
 
+    #Creating function to save the file path of the selected file
 
     def validate(self, instance):
         print(self.fileChooser.selection)
@@ -793,8 +855,12 @@ class addImageScreen(FloatLayout):
         if str(self.value) != "[]":
             self.metadataPopup.open()
 
+    #Creating function to open the filePopup
+
     def browseFiles(self, dt):
         self.filePopup.open()
+
+    #Making function to save all of the Metadata answers and changing the question
 
     def saveMeta(self, dt):
         if self.metadataQuestionIndexes == 4:
@@ -803,12 +869,16 @@ class addImageScreen(FloatLayout):
             self.metadataPopup.dismiss()
 
             shutil.copyfile(self.value[0], "imageDatabase/" + self.value[0].split("\\")[-1])
+
         else:
             self.metadataAnswers.append(self.metadataPopupQuestionAnswerInput.text)
             self.metadataQuestionIndexes += 1
             self.metadataPopupQuestionLabel.text = self.metadataQuestions[self.metadataQuestionIndexes]
             self.metadataPopupQuestionAnswerInput.text = ""
 
+    def goBack(self, dt):
+        Vocate.sm.transition.direction = "right"
+        Vocate.sm.current = "caretakerScreen"
 
 
 class statsScreen(FloatLayout):
@@ -880,6 +950,8 @@ class statsScreen(FloatLayout):
 
         self.add_widget(self.statsScreenTopLabel)
 
+        #Adding button to go pack to previous screen
+
         self.backButton = Button(
             size_hint=(0.13, 0.05),
             pos_hint={"top": 131/136, "x": 0.06},
@@ -891,6 +963,8 @@ class statsScreen(FloatLayout):
         self.backButton.bind(on_release=self.goBack)
 
         self.add_widget(self.backButton)
+
+        #Adding label with screen intention
 
         self.statsScreenMainLabel = Label(
             text='Stats',
@@ -904,6 +978,8 @@ class statsScreen(FloatLayout):
         )
 
         self.add_widget(self.statsScreenMainLabel)
+
+        #Adding a button which has the stats of the viewed memories
 
         self.statsScreenStatTopLeft = Button(
             markup=True,
@@ -923,6 +999,8 @@ class statsScreen(FloatLayout):
 
         self.add_widget(self.statsScreenStatTopLeft)
 
+        #Adding a button which has the stats of the incorrect answers
+
         self.statsScreenStatTopRight = Button(
             markup=True,
             text="Incorrect Answers\n[size=14][/size]\n[size=30][color=f78f1eff]{}[/color][/size]".format(4),
@@ -941,9 +1019,11 @@ class statsScreen(FloatLayout):
 
         self.add_widget(self.statsScreenStatTopRight)
 
+        #Adding a button which has the stats of the interaction time
+
         self.statsScreenStatMiddle = Button(
             markup=True,
-            text="[size=30][color=f78f1eff]{}[/color][/size]\nIncorrect Answers".format(16),
+            text="[size=30][color=f78f1eff]{}[/color][/size]\nmin of interaction".format(16),
             line_height=1.2,
             size_hint=(0.87, 0.17),
             pos_hint={"top": 40/68, "x":0.075},
@@ -959,6 +1039,8 @@ class statsScreen(FloatLayout):
         )
 
         self.add_widget(self.statsScreenStatMiddle)
+
+        #Adding a button which has the stats of the longest day streak
 
         self.statsScreenStatBottomLeft = Button(
             markup=True,
@@ -978,6 +1060,8 @@ class statsScreen(FloatLayout):
         )
 
         self.add_widget(self.statsScreenStatBottomLeft)
+
+        #Adding a button which has the stats of the total correct answers
 
         self.statsScreenStatBottomRight = Button(
             markup=True,
@@ -999,6 +1083,7 @@ class statsScreen(FloatLayout):
         self.add_widget(self.statsScreenStatBottomRight)
 
     def goBack(self, dt):
+        Vocate.sm.transition.direction = "right"
         Vocate.sm.current = "caretakerScreen"
 
 class caretakerScreen(FloatLayout):
@@ -1071,6 +1156,8 @@ class caretakerScreen(FloatLayout):
 
         self.add_widget(self.caretakerScreenTopLabel)
 
+        #Adding button to send user back to previous screen
+
         self.backButton = Button(
             size_hint=(0.13, 0.05),
             pos_hint={"top": 131/136, "x": 0.06},
@@ -1082,6 +1169,8 @@ class caretakerScreen(FloatLayout):
         self.backButton.bind(on_release=self.goBack)
         
         self.add_widget(self.backButton)
+
+        #Added preview of stats for the user for the stats screen
 
         self.caretakerScreenStatsButton = Button(
             markup=True,
@@ -1103,6 +1192,8 @@ class caretakerScreen(FloatLayout):
         self.caretakerScreenStatsButton.bind(on_release=self.toStats)
 
         self.add_widget(self.caretakerScreenStatsButton)
+
+        #Creating a system to see the ratio of image
 
         self.caretakerScreenImageRatioGet = Image(
             source="assets/TestImages/squareTest.jpg",
@@ -1143,6 +1234,8 @@ class caretakerScreen(FloatLayout):
                 
             )
 
+        #Adding Button to add new memories
+
         self.caretakerScreenAddMemoriesButton = Button(
             text="Add\nMemories",
             size_hint=(0.9, 0.17),
@@ -1161,6 +1254,8 @@ class caretakerScreen(FloatLayout):
 
         self.add_widget(self.caretakerScreenAddMemoriesButton)
 
+        #Adding button to see all of the memories
+
         self.caretakerScreenAllMemoriesButton = Button(
             text="All Memories",
             size_hint=(0.9, 0.17),
@@ -1177,13 +1272,22 @@ class caretakerScreen(FloatLayout):
 
         self.add_widget(self.caretakerScreenAllMemoriesButton)
 
+    #Adding function to go to stats screen
+
     def toStats(self, dt):
+        Vocate.sm.transition.direction = "left"
         Vocate.sm.current = "statsScreen"
 
+    #Adding function to go back to login screen
+
     def goBack(self, dt):
+        Vocate.sm.transition.direction = "right"
         Vocate.sm.current = "loginScreen"
 
+    #Adding function to go to the adding image screen
+
     def toAddImage(self, dt):
+        Vocate.sm.transition.direction = "left"
         Vocate.sm.current = "addImageScreen"
 
 
@@ -1211,7 +1315,11 @@ class loginScreen(FloatLayout):
         self.blackTuple = (0, 0, 0, 1)
         self.blackList = [0, 0, 0, 1]
 
+        #Setting background color to greyColorTuple
+
         Window.clearcolor = self.greyColorTuple
+
+        #Setting the name of the app
 
         self.loginScreenTopLabel = Label(
             text='Vocate',
@@ -1223,6 +1331,8 @@ class loginScreen(FloatLayout):
             font_size=40
         )
         self.add_widget(self.loginScreenTopLabel)
+
+        #Adding label to see who they are
 
         self.loginScreenPromptLabel = Label(
             text='Who are you?',
@@ -1236,6 +1346,8 @@ class loginScreen(FloatLayout):
 
         self.add_widget(self.loginScreenPromptLabel)
 
+        #Adding assistant logo
+
         self.loginScreenSpeechPromptAssistantPic = Image(
             source="assets/assistantLogo/AssistantLogoPic.png",
             size_hint=(0.65, 0.3),
@@ -1243,6 +1355,8 @@ class loginScreen(FloatLayout):
         )
 
         self.add_widget(self.loginScreenSpeechPromptAssistantPic)
+
+        #Adding a user button to go to user main screen
 
         self.loginScreenUserButton = Button(
             text="User",
@@ -1262,6 +1376,8 @@ class loginScreen(FloatLayout):
 
         self.add_widget(self.loginScreenUserButton)
 
+        #Adding button to go to caretaker main screen
+
         self.loginScreenCaretakerButton = Button(
             text="Caretaker",
             size_hint=(0.9, 0.19),
@@ -1280,10 +1396,16 @@ class loginScreen(FloatLayout):
 
         self.add_widget(self.loginScreenCaretakerButton)
 
+    #Adding function to go to user screen
+
     def toUser(self, dt):
+        Vocate.sm.transition.direction = "left"
         Vocate.sm.current = "mainScreen"
 
+    #Adding function to go to the caretaker screen
+
     def toCaretaker(self, dt):
+        Vocate.sm.transition.direction = "left"
         Vocate.sm.current = "caretakerScreen"
 
 
@@ -1356,35 +1478,49 @@ class Vocate(App):
     def build(self):
         self.sm = ScreenManager()
 
+        #Adding splash screen to screenManager
+
         self.splashPage = splashScreen()
         screen = Screen(name='splashScreen')
         screen.add_widget(self.splashPage)
         self.sm.add_widget(screen)
+
+        #Adding login screen to screenManager
 
         self.loginPage = loginScreen()
         screen = Screen(name='loginScreen')
         screen.add_widget(self.loginPage)
         self.sm.add_widget(screen)
 
+        #Adding caretaker screen to screenManager
+
         self.caretakerPage = caretakerScreen()
         screen = Screen(name='caretakerScreen')
         screen.add_widget(self.caretakerPage)
         self.sm.add_widget(screen)
+
+        #Adding stats screen to screenManager
 
         self.statsScreen = statsScreen()
         screen = Screen(name="statsScreen")
         screen.add_widget(self.statsScreen)
         self.sm.add_widget(screen)
 
+        #Adding addImage screen to screenManager
+
         self.addImageScreen = addImageScreen()
         screen = Screen(name="addImageScreen")
         screen.add_widget(self.addImageScreen)
         self.sm.add_widget(screen)
 
+        #Adding main screen to screenManager
+
         self.mainPage = mainScreen()
         screen = Screen(name='mainScreen')
         screen.add_widget(self.mainPage)
         self.sm.add_widget(screen)
+
+        #Adding recording screen to screenManager
 
         self.recordingPage = recordingScreen()
         screen = Screen(name='recordingScreen')
