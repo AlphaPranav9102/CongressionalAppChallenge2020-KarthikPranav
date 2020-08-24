@@ -19,18 +19,10 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4c570dc6-8d43-4e37-a9bc-e7be82bb7481" name="Default Changelist" comment="Comment changes and additions to tell_something_addonsPEOPLE.txt">
-      <change afterPath="$PROJECT_DIR$/images.csv" afterDir="false" />
+    <list default="true" id="4c570dc6-8d43-4e37-a9bc-e7be82bb7481" name="Default Changelist" comment="Made ChattingBot iterate through many images.&#10;&#10;Also fixed bug in image.check_answer(obj,ans)">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Deadline.md" beforeDir="false" afterPath="$PROJECT_DIR$/Deadline.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/QuestionBank/ask_question_addonsPEOPLE.txt" beforeDir="false" afterPath="$PROJECT_DIR$/QuestionBank/ask_question_addonsPEOPLE.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/QuestionBank/extraChat_addons_GREETINGS.txt" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/chatBot1.py" beforeDir="false" afterPath="$PROJECT_DIR$/chatBot1.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/personalQuestionBank/ask_question_addonsLOCATION.txt" beforeDir="false" afterPath="$PROJECT_DIR$/personalQuestionBank/ask_question_addonsLOCATION.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/personalQuestionBank/ask_question_addonsPEOPLE.txt" beforeDir="false" afterPath="$PROJECT_DIR$/personalQuestionBank/ask_question_addonsPEOPLE.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/personalQuestionBank/ask_question_addonsTITLE.txt" beforeDir="false" afterPath="$PROJECT_DIR$/personalQuestionBank/ask_question_addonsTITLE.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/personalQuestionBank/tell_something_addonsLOCATION.txt" beforeDir="false" afterPath="$PROJECT_DIR$/personalQuestionBank/tell_something_addonsLOCATION.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/personalQuestionBank/tell_something_addonsPEOPLE.txt" beforeDir="false" afterPath="$PROJECT_DIR$/personalQuestionBank/tell_something_addonsPEOPLE.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/personalQuestionBank/tell_something_addonsTITLE.txt" beforeDir="false" afterPath="$PROJECT_DIR$/personalQuestionBank/tell_something_addonsTITLE.txt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -216,7 +208,14 @@
       <option name="project" value="LOCAL" />
       <updated>1596290207574</updated>
     </task>
-    <option name="localTasksCounter" value="11" />
+    <task id="LOCAL-00011" summary="Made ChattingBot iterate through many images.&#10;&#10;Also fixed bug in image.check_answer(obj,ans)">
+      <created>1598283893994</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1598283893994</updated>
+    </task>
+    <option name="localTasksCounter" value="12" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -256,7 +255,8 @@
     <MESSAGE value="Added ability to replace 'user_name' in variance files into user provided name written in a new file." />
     <MESSAGE value="Added sentence starters to tell_something_addonsLOCATION.txt" />
     <MESSAGE value="Comment changes and additions to tell_something_addonsPEOPLE.txt" />
-    <option name="LAST_COMMIT_MESSAGE" value="Comment changes and additions to tell_something_addonsPEOPLE.txt" />
+    <MESSAGE value="Made ChattingBot iterate through many images.&#10;&#10;Also fixed bug in image.check_answer(obj,ans)" />
+    <option name="LAST_COMMIT_MESSAGE" value="Made ChattingBot iterate through many images.&#10;&#10;Also fixed bug in image.check_answer(obj,ans)" />
   </component>
   <component name="WindowStateProjectService">
     <state x="837" y="410" key="#Notifications" timestamp="1596046307793" />
@@ -265,39 +265,39 @@
       <screen x="0" y="23" width="1920" height="983" />
     </state>
     <state x="1306" y="239" key="FileChooserDialogImpl/3840.23.1280.777/0.23.1920.983/1920.23.1920.1057@0.23.1920.983" timestamp="1596049187778" />
-    <state width="1899" height="221" key="GridCell.Tab.0.bottom" timestamp="1598283477443">
+    <state width="1899" height="221" key="GridCell.Tab.0.bottom" timestamp="1598293255774">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
     <state width="1259" height="152" key="GridCell.Tab.0.bottom/0.0.1280.800@0.0.1280.800" timestamp="1597781489636" />
     <state width="1259" height="152" key="GridCell.Tab.0.bottom/0.23.1280.703@0.23.1280.703" timestamp="1596369936185" />
-    <state width="1899" height="221" key="GridCell.Tab.0.bottom/3840.0.1280.800/0.0.1920.1080/1920.0.1920.1080@0.0.1920.1080" timestamp="1598283477443" />
+    <state width="1899" height="221" key="GridCell.Tab.0.bottom/3840.0.1280.800/0.0.1920.1080/1920.0.1920.1080@0.0.1920.1080" timestamp="1598293255774" />
     <state width="1899" height="290" key="GridCell.Tab.0.bottom/3840.23.1280.777/0.0.1920.1000/1920.23.1920.1057@0.0.1920.1000" timestamp="1596046307794" />
     <state width="1899" height="222" key="GridCell.Tab.0.bottom/3840.23.1280.777/0.23.1920.1057/1920.23.1920.983@0.23.1920.1057" timestamp="1596220724130" />
     <state width="1716" height="295" key="GridCell.Tab.0.bottom/3840.23.1280.777/0.23.1920.983/1920.23.1920.1057@0.23.1920.983" timestamp="1596049225054" />
-    <state width="1899" height="221" key="GridCell.Tab.0.center" timestamp="1598283477440">
+    <state width="1899" height="221" key="GridCell.Tab.0.center" timestamp="1598293255771">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
     <state width="1259" height="152" key="GridCell.Tab.0.center/0.0.1280.800@0.0.1280.800" timestamp="1597781489634" />
     <state width="1259" height="152" key="GridCell.Tab.0.center/0.23.1280.703@0.23.1280.703" timestamp="1596369936184" />
-    <state width="1899" height="221" key="GridCell.Tab.0.center/3840.0.1280.800/0.0.1920.1080/1920.0.1920.1080@0.0.1920.1080" timestamp="1598283477440" />
+    <state width="1899" height="221" key="GridCell.Tab.0.center/3840.0.1280.800/0.0.1920.1080/1920.0.1920.1080@0.0.1920.1080" timestamp="1598293255771" />
     <state width="1899" height="290" key="GridCell.Tab.0.center/3840.23.1280.777/0.0.1920.1000/1920.23.1920.1057@0.0.1920.1000" timestamp="1596046307794" />
     <state width="1899" height="222" key="GridCell.Tab.0.center/3840.23.1280.777/0.23.1920.1057/1920.23.1920.983@0.23.1920.1057" timestamp="1596220724128" />
     <state width="1716" height="295" key="GridCell.Tab.0.center/3840.23.1280.777/0.23.1920.983/1920.23.1920.1057@0.23.1920.983" timestamp="1596049225049" />
-    <state width="1899" height="221" key="GridCell.Tab.0.left" timestamp="1598283477439">
+    <state width="1899" height="221" key="GridCell.Tab.0.left" timestamp="1598293255770">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
     <state width="1259" height="152" key="GridCell.Tab.0.left/0.0.1280.800@0.0.1280.800" timestamp="1597781489631" />
     <state width="1259" height="152" key="GridCell.Tab.0.left/0.23.1280.703@0.23.1280.703" timestamp="1596369936183" />
-    <state width="1899" height="221" key="GridCell.Tab.0.left/3840.0.1280.800/0.0.1920.1080/1920.0.1920.1080@0.0.1920.1080" timestamp="1598283477439" />
+    <state width="1899" height="221" key="GridCell.Tab.0.left/3840.0.1280.800/0.0.1920.1080/1920.0.1920.1080@0.0.1920.1080" timestamp="1598293255769" />
     <state width="1899" height="290" key="GridCell.Tab.0.left/3840.23.1280.777/0.0.1920.1000/1920.23.1920.1057@0.0.1920.1000" timestamp="1596046307794" />
     <state width="1899" height="222" key="GridCell.Tab.0.left/3840.23.1280.777/0.23.1920.1057/1920.23.1920.983@0.23.1920.1057" timestamp="1596220724127" />
     <state width="1716" height="295" key="GridCell.Tab.0.left/3840.23.1280.777/0.23.1920.983/1920.23.1920.1057@0.23.1920.983" timestamp="1596049225046" />
-    <state width="1899" height="221" key="GridCell.Tab.0.right" timestamp="1598283477442">
+    <state width="1899" height="221" key="GridCell.Tab.0.right" timestamp="1598293255773">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
     <state width="1259" height="152" key="GridCell.Tab.0.right/0.0.1280.800@0.0.1280.800" timestamp="1597781489635" />
     <state width="1259" height="152" key="GridCell.Tab.0.right/0.23.1280.703@0.23.1280.703" timestamp="1596369936184" />
-    <state width="1899" height="221" key="GridCell.Tab.0.right/3840.0.1280.800/0.0.1920.1080/1920.0.1920.1080@0.0.1920.1080" timestamp="1598283477442" />
+    <state width="1899" height="221" key="GridCell.Tab.0.right/3840.0.1280.800/0.0.1920.1080/1920.0.1920.1080@0.0.1920.1080" timestamp="1598293255773" />
     <state width="1899" height="290" key="GridCell.Tab.0.right/3840.23.1280.777/0.0.1920.1000/1920.23.1920.1057@0.0.1920.1000" timestamp="1596046307794" />
     <state width="1899" height="222" key="GridCell.Tab.0.right/3840.23.1280.777/0.23.1920.1057/1920.23.1920.983@0.23.1920.1057" timestamp="1596220724129" />
     <state width="1716" height="295" key="GridCell.Tab.0.right/3840.23.1280.777/0.23.1920.983/1920.23.1920.1057@0.23.1920.983" timestamp="1596049225051" />

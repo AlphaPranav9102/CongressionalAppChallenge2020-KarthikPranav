@@ -9,24 +9,6 @@ class ChattingBot:
     def __init__(self):
         self.change_username_in_files()
 
-    def initial_Speaking(self):
-        '''
-        This function returns single line to kickstart conversation
-        '''
-
-        return 'Hi. How are you?'
-
-    def small_Talk(self, user_input):
-        '''
-        This function does some small talk with the user
-        '''
-
-        if 'are you' or 'you' or 'doing' in user_input:
-            addons_file = open('QuestionBank/extraChat_addons_GREETINGS.txt', 'r')
-            return self.find_random_line(addons_file)
-        else:
-            return 'Sorry I cannot understand what you said... Please tell me something else.'
-
     def find_random_line(self, file):
         '''
         This functions returns a random line in a file given the file name/directory
@@ -58,7 +40,7 @@ class ChattingBot:
 
         global user_name
 
-        file_list = ['extraChat_addons_GREETINGS', 'tell_something_addonsLOCATION', 'tell_something_addonsPEOPLE',
+        file_list = ['tell_something_addonsLOCATION', 'tell_something_addonsPEOPLE',
                      'tell_something_addonsTITLE', 'ask_question_addonsLOCATION',
                      'ask_question_addonsPEOPLE', 'ask_question_addonsTITLE']
 
@@ -69,6 +51,10 @@ class ChattingBot:
                         file_out.write(line.replace('user_name', user_name))
 
     def iterate_images(self):
+        '''
+        This function iterates through metadata in images.csv and inputs the data in the main_function
+        '''
+
         with open('images.csv') as image_file:
             reader = csv.reader(image_file)
             next(reader)
@@ -242,19 +228,44 @@ class image:
                 else:
                     count += 1
 
+class smallTalker:
+    def __init__(self):
+        global ans
+        ans = input(self.find_random_line('con_init.txt') + '\nEnter you answer here --> ')
+        self.reply()
+        print('Let’s talk about the photo here')
 
+    def reply(self):
+        if 'you' in ans:
+            print(self.find_random_line('con_reply.txt'))
 
+    def find_random_line(self, file_name):
+        '''
+        This functions returns a random line in a file given the file name/directory
+        '''
 
+        with open(file_name, 'r') as file:
+            count = 0
+            for line in file:
+                count += 1
+
+            file.seek(0)
+
+            wanted_line_number = random.randrange(0, count, 1)
+
+            count = 0
+            for line in file:
+                if count == wanted_line_number:
+                    line1 = line
+                    file.close()
+                    return line1.strip('\n')
+                else:
+                    count += 1
+
+# Main
 user_name = input('Enter your name: ').rstrip().lstrip()
+
+st = smallTalker()
+
 chatBot = ChattingBot()
-print('\n')
-
-'''
-image1 = image('Keerti\'s Wedding', 'New Jersey', ['Keerti', 'Alex', 'Uncle', 'Aunt'],
-               'What is Alex\'s brothers name', 'James', 3)
-
-chatBot.main_function(image1)
-
-'''
-
 chatBot.iterate_images()
