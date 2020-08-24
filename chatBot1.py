@@ -96,12 +96,21 @@ class ChattingBot:
                 else:
                     if image_input.tell_something(attribute_tag) is not None:
                         print(image_input.tell_something(attribute_tag))
-                        answer = input('Enter your reply here --> ')
+                        answer = input('Enter your reply here --> ').lower()
 
-                        if attribute_tag == 'location' and answer == 'yes':
+                        if attribute_tag == 'location' and (answer == 'yes' or answer == 'yeah'):
                             print('Oh cool!')
                         elif attribute_tag == 'location' and answer == 'no':
-                            print('Oh you should go there then')
+                            print('Oh you should go there then.  It is a really nice place.')
+                        elif attribute_tag == 'people' and answer == 'yes':
+                            answer = input('Oh ok. Are they family? \nEnter your reply here --> ').lower()
+                            if (answer == 'yes' or answer == 'yeah'):
+                                print('Oh nice!')
+                            else:
+                                print('Oh ok. But you are still close to them.  Nice!')
+                        elif attribute_tag == 'people' and answer == 'no':
+                            print('Oh ok')
+
                 attributeList.append(attribute)
 
             else:
@@ -204,7 +213,8 @@ class image:
             return self.find_random_line(file_name) + ' ' + self.location + '. ' + self.find_random_line(end_file_name)
         elif attr == 'people':
             file_name = 'personalQuestionBank/tell_something_addonsPEOPLE.txt'
-            return self.find_random_line(file_name) + ' ' + str(self.people)
+            end_file_name = 'QuestionBank/tell_something_addonsPEOPLEend.txt'
+            return self.find_random_line(file_name) + ' ' + str(self.people) + '. ' + self.find_random_line(end_file_name)
         elif attr == 'special_question':
             pass
         else:
