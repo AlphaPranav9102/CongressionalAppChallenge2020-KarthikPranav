@@ -7,13 +7,12 @@
  - User UI Screens - 8/2/20
  - Admin UI Screens - 8/10/20
  - Build - 8/12/20
- - Algorithm - 8/15/20
+ - Algorithm - 8/19/20
  - Integration - 8/31/20
  - Build - 9/2/20
  
  ### Important Little Things to Do
 - Back button on the recording screen
-
 
 ## Karthik
 
