@@ -19,8 +19,16 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4c570dc6-8d43-4e37-a9bc-e7be82bb7481" name="Default Changelist" comment="Added more follow-up question functionality to tell_somethign SECTION in image.main_function">
+    <list default="true" id="4c570dc6-8d43-4e37-a9bc-e7be82bb7481" name="Default Changelist" comment="Made smallTalker use global user_name&#10;&#10;Made ChattingBot.main_function ask more intelligently in tell_something section">
+      <change afterPath="$PROJECT_DIR$/QuestionBank/tell_something_addonsPEOPLEend.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/chatBot1.py" beforeDir="false" afterPath="$PROJECT_DIR$/chatBot1.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/personalQuestionBank/ask_question_addonsLOCATION.txt" beforeDir="false" afterPath="$PROJECT_DIR$/personalQuestionBank/ask_question_addonsLOCATION.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/personalQuestionBank/ask_question_addonsPEOPLE.txt" beforeDir="false" afterPath="$PROJECT_DIR$/personalQuestionBank/ask_question_addonsPEOPLE.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/personalQuestionBank/ask_question_addonsTITLE.txt" beforeDir="false" afterPath="$PROJECT_DIR$/personalQuestionBank/ask_question_addonsTITLE.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/personalQuestionBank/tell_something_addonsLOCATION.txt" beforeDir="false" afterPath="$PROJECT_DIR$/personalQuestionBank/tell_something_addonsLOCATION.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/personalQuestionBank/tell_something_addonsPEOPLE.txt" beforeDir="false" afterPath="$PROJECT_DIR$/personalQuestionBank/tell_something_addonsPEOPLE.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/personalQuestionBank/tell_something_addonsTITLE.txt" beforeDir="false" afterPath="$PROJECT_DIR$/personalQuestionBank/tell_something_addonsTITLE.txt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -227,14 +235,7 @@
       <option name="project" value="LOCAL" />
       <updated>1598294693638</updated>
     </task>
-    <task id="LOCAL-00014" summary="Added more follow-up question functionality to tell_somethign SECTION in image.main_function">
-      <created>1598296342606</created>
-      <option name="number" value="00014" />
-      <option name="presentableId" value="LOCAL-00014" />
-      <option name="project" value="LOCAL" />
-      <updated>1598296342606</updated>
-    </task>
-    <option name="localTasksCounter" value="15" />
+    <option name="localTasksCounter" value="14" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -277,8 +278,7 @@
     <MESSAGE value="Made ChattingBot iterate through many images.&#10;&#10;Also fixed bug in image.check_answer(obj,ans)" />
     <MESSAGE value="Added smallTalker - asks and responds to how the user is feeling." />
     <MESSAGE value="Made smallTalker use global user_name&#10;&#10;Made ChattingBot.main_function ask more intelligently in tell_something section" />
-    <MESSAGE value="Added more follow-up question functionality to tell_somethign SECTION in image.main_function" />
-    <option name="LAST_COMMIT_MESSAGE" value="Added more follow-up question functionality to tell_somethign SECTION in image.main_function" />
+    <option name="LAST_COMMIT_MESSAGE" value="Made smallTalker use global user_name&#10;&#10;Made ChattingBot.main_function ask more intelligently in tell_something section" />
   </component>
   <component name="WindowStateProjectService">
     <state x="837" y="410" key="#Notifications" timestamp="1596046307793" />
