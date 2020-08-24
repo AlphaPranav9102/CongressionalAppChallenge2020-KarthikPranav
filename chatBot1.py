@@ -97,6 +97,11 @@ class ChattingBot:
                     if image_input.tell_something(attribute_tag) is not None:
                         print(image_input.tell_something(attribute_tag))
                         answer = input('Enter your reply here --> ')
+
+                        if attribute_tag == 'location' and answer == 'yes':
+                            print('Oh cool!')
+                        elif attribute_tag == 'location' and answer == 'no':
+                            print('Oh you should go there then')
                 attributeList.append(attribute)
 
             else:
@@ -231,13 +236,20 @@ class image:
 class smallTalker:
     def __init__(self):
         global ans
-        ans = input(self.find_random_line('con_init.txt') + '\nEnter you answer here --> ')
+
+        self.change_username_in_files()
+
+        ans = input(self.find_random_line('personal_con_init.txt') + '\nEnter you answer here --> ')
         self.reply()
         print('Let’s talk about the photo here')
 
     def reply(self):
         if 'you' in ans:
-            print(self.find_random_line('con_reply.txt'))
+            print(self.find_random_line('personal_con_reply.txt'))
+        elif 'sad' in ans or 'angry' in ans or 'furious' in ans:
+            print('I am so sorry to hear that.  Perhaps I can cheer you up')
+        elif ' happy' in ans or 'joyful' in ans or 'cool' in ans or 'good' in ans or 'great' in ans:
+            print('I am happy to hear that')
 
     def find_random_line(self, file_name):
         '''
@@ -261,6 +273,24 @@ class smallTalker:
                     return line1.strip('\n')
                 else:
                     count += 1
+
+    def change_username_in_files(self):
+        '''
+        This function copies and changes the user_name word to the the actual user_name variable valuem, and writes
+        it to the personalQuestionBank folder
+        '''
+
+        global user_name
+
+        file_list = ['con_init', 'con_reply']
+
+        for file_name in file_list:
+            with open(file_name + '.txt', 'r') as file_in:
+                with open('personal_' + file_name + '.txt', 'w') as file_out:
+                    for line in file_in:
+                        file_out.write(line.replace('user_name', user_name))
+
+
 
 # Main
 user_name = input('Enter your name: ').rstrip().lstrip()
