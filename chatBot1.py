@@ -3,6 +3,7 @@ This program is for the chatbot that is used to talk to the user
 """
 
 import random
+import csv
 
 class ChattingBot:
     def __init__(self):
@@ -67,6 +68,26 @@ class ChattingBot:
                     for line in file_in:
                         file_out.write(line.replace('user_name', user_name))
 
+    def iterate_images(self):
+        with open('images.csv') as image_file:
+            reader = csv.reader(image_file)
+            next(reader)
+
+            for row in reader:
+                # row = title, location, people, special_question, special_answer, score
+                title = row[0]
+                location = row[1]
+                people = row[2].split('|')
+
+                special_question = row[3]
+                special_answer = row[4]
+                score = row[5]
+
+                im = image(title, location, people, special_question, special_answer, score)
+
+                self.main_function(im)
+
+
     def main_function(self, image_input):
         '''
         This function runs the entirety of the talking about the images
@@ -98,12 +119,13 @@ class ChattingBot:
 
 
 class image:
-    def __init__(self, title, location, people, special_question, special_answer):
+    def __init__(self, title, location, people, special_question, special_answer, score):
         self.title = title
         self.location = location
         self.people = people
         self.special_question = special_question
         self.special_answer = special_answer
+        self.score = score
 
     def get_attribute_tag(self, number):
         '''
@@ -150,11 +172,12 @@ class image:
             else:
                 return 'Not really.... It\'s ' + str(obj)
         else:
-            print(obj)
-
-            if ans.upper() in obj or ans.lower() in obj:
+            ans = str(ans)
+            if ans.lower or ans.capitalize() in obj:
                 return 'Yes, that is correct!'
             else:
+                print(obj)
+                print(ans)
                 return 'Not really.... It\'s ' + str(obj).strip('[').strip(']')
 
     def ask_question(self, attr):
@@ -226,7 +249,12 @@ user_name = input('Enter your name: ').rstrip().lstrip()
 chatBot = ChattingBot()
 print('\n')
 
+'''
 image1 = image('Keerti\'s Wedding', 'New Jersey', ['Keerti', 'Alex', 'Uncle', 'Aunt'],
-               'What is Alex\'s brothers name', 'James')
+               'What is Alex\'s brothers name', 'James', 3)
 
 chatBot.main_function(image1)
+
+'''
+
+chatBot.iterate_images()

@@ -1,2 +1,2 @@
-Hey user_name where was this taken?
-This is a cool picture!  Can you tell me who are in it?
+Hey, user_name tell me one person in the photo.
+This is a cool picture!  Can you tell the name of one of the person in the photo?
