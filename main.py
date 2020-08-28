@@ -34,6 +34,7 @@ import speech_recognition as sr
 
 import shutil
 import csv
+from memoryAlgorithm import memoryFilter
 
 widthInput = 350
 
@@ -754,7 +755,7 @@ class addImageScreen(FloatLayout):
         #Creating the list with all of the metadata
 
         self.metadataQuestions = [
-            "1. Give the image a title",
+            "1. Give the image a title",    
             "2. What was the location",
             "3. List the people in the\nimage",
             "4. Type in a special\nquestion",
@@ -866,12 +867,14 @@ class addImageScreen(FloatLayout):
         if self.metadataQuestionIndexes == 4:
             self.metadataAnswers.append(self.metadataPopupQuestionAnswerInput.text)
             print(["imageDatabase/" + self.value[0].split("\\")[-1]] + self.metadataAnswers)
+            self.addmem = memoryFilter()
+            self.addmem.addMemory(["imageDatabase/" + self.value[0].split("\\")[-1]] + self.metadataAnswers)
             self.metadataPopup.dismiss()
 
             shutil.copyfile(self.value[0], "imageDatabase/" + self.value[0].split("\\")[-1])
 
         else:
-            self.metadataAnswers.append(self.metadataPopupQuestionAnswerInput.text)
+            self.metadataAnswers.append(self.metadataPopupQuestionAnswerInput.text.replace(",", "|"))
             self.metadataQuestionIndexes += 1
             self.metadataPopupQuestionLabel.text = self.metadataQuestions[self.metadataQuestionIndexes]
             self.metadataPopupQuestionAnswerInput.text = ""
