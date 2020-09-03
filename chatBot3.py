@@ -74,47 +74,53 @@ class ChattingBot:
                 self.main_function(im)
 
 
-    def main_function(self, image_input):
+    def main_function(self, image_input, attributeList, goThrough):
         '''
         This function runs the entirety of the talking about the images
         '''
 
-        attributeList = []
-        while len(attributeList) < 4:
-            attribute_index = random.randrange(0, 4, 1)
-            attribute_tag = image_input.get_attribute_tag(attribute_index)
-            attribute = image_input.get_attribute(attribute_index)
+        returnList = []
+        
+        attribute_index = random.randrange(0, 4, 1)
+        attribute_tag = image_input.get_attribute_tag(attribute_index)
+        attribute = image_input.get_attribute(attribute_index)
 
-            if attribute not in attributeList:
-                should_ask = random.randrange(0, 2, 1)
+        if attribute not in attributeList:
+            should_ask = random.randrange(0, 2, 1)
 
-                if should_ask:
-                    print(image_input.ask_question(attribute_tag))
-                    answer = input('Enter your reply here --> ')
-                    print(image_input.check_answer(attribute, answer))
-
-                else:
-                    if image_input.tell_something(attribute_tag) is not None:
-                        print(image_input.tell_something(attribute_tag))
-                        answer = input('Enter your reply here --> ').lower()
-
-                        if attribute_tag == 'location' and (answer == 'yes' or answer == 'yeah'):
-                            print('Oh cool!')
-                        elif attribute_tag == 'location' and answer == 'no':
-                            print('Oh you should go there then.  It is a really nice place.')
-                        elif attribute_tag == 'people' and answer == 'yes':
-                            answer = input('Oh ok. Are they family? \nEnter your reply here --> ').lower()
-                            if (answer == 'yes' or answer == 'yeah'):
-                                print('Oh nice!')
-                            else:
-                                print('Oh ok. But you are still close to them.  Nice!')
-                        elif attribute_tag == 'people' and answer == 'no':
-                            print('Oh ok')
-
-                attributeList.append(attribute)
+            if should_ask:
+                print(image_input.ask_question(attribute_tag))
+                answer = input('Enter your reply here --> ')
+                print(image_input.check_answer(attribute, answer))
 
             else:
-                continue
+                if image_input.tell_something(attribute_tag) is not None:
+                    print(image_input.tell_something(attribute_tag))
+                    answer = input('Enter your reply here --> ').lower()
+
+                    if attribute_tag == 'location' and (answer == 'yes' or answer == 'yeah'):
+                        print('Oh cool!')
+                    elif attribute_tag == 'location' and answer == 'no':
+                        print('Oh you should go there then.  It is a really nice place.')
+
+                    """
+                    Make this work later
+
+                    elif attribute_tag == 'people' and answer == 'yes':
+                        answer = input('Oh ok. Are they family? \nEnter your reply here --> ').lower()
+                        if (answer == 'yes' or answer == 'yeah'):
+                            print('Oh nice!')
+                        else:
+                            print('Oh ok. But you are still close to them.  Nice!')
+                    """
+
+                    elif attribute_tag == 'people' and answer == 'no':
+                        print('Oh ok')
+
+            attributeList.append(attribute)
+
+        else:
+            return(["error 500"], ["error 400"])
 
 
 

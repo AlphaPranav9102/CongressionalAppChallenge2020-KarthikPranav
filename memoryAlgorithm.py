@@ -21,8 +21,6 @@ class memoryFilter():
         self.memories = []
         self.count = 0
 
-        print(self.memoryName)
-
         with open(self.databasePath) as memoryFile:
             self.memoryFile = csv.reader(memoryFile)
 
@@ -69,7 +67,6 @@ class memoryFilter():
             self.memoryFile = csv.reader(memoryFile)
 
             for line in self.memoryFile:
-                print(line)
                 if line[-1] == "1":
                     for i in range(5):
                         self.memoryList.append(line)
@@ -89,21 +86,10 @@ class memoryFilter():
         return(random.choice(self.memoryList))
 
         
-"""
+
 algo = memoryFilter()
-
-algo.addMemory(["Jack", "Harlow"])
-algo.addMemory(["James", "Bond"])
-algo.addMemory(["Massey", "Welch"])
-algo.addMemory(["Karthik", "Vedula"])
-algo.addMemory(["Pranav", "Karthikeyan"])
-
-algo.changeMemoryPosition("Harlow", [1, 6])
-algo.changeMemoryPosition("Bond", [2, 3])
-algo.changeMemoryPosition("Welch", [3, 2])
-algo.changeMemoryPosition("Vedula", [4, 1])
-algo.changeMemoryPosition("Karthikeyan", [5, 0])
 
 print(algo.pickMemory())
 
-"""
+
+

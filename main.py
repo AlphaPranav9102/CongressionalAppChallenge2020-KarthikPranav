@@ -27,13 +27,13 @@ from kivy.uix.scrollview import ScrollView
 from kivy.uix.filechooser import FileChooserListView
 
 import pyaudio
-
 import wave
-
 import speech_recognition as sr
+import chatBot2 as chatBot1
 
 import shutil
 import csv
+from memoryAlgorithm import memoryFilter
 
 widthInput = 350
 
@@ -122,9 +122,15 @@ class recordingScreen(FloatLayout):
 
         self.frames = []
 
+        self.recordingScreenSmallTalkQuestion = ""
+
         #Make a testing canvasHolder
 
         self.canvasHolderLabel = Label(size=(Window.size[0], Window.size[1]*0.175))
+
+        self.cb = chatBot1.ChattingBot()
+
+        self.imageData = self.cb.iterate_images()
         
 
         #Drawing the rounded rectangle under the main header -- Not Scalable
@@ -156,22 +162,12 @@ class recordingScreen(FloatLayout):
 
         self.add_widget(self.backButton)
 
-        #Add the logo at the top next to question
-
-        self.recordingScreenTopLogoCard = Image(
-            source="assets/assistantLogo/AssistantLogoPic.png",
-            size_hint=(0.175, 0.175),
-            pos_hint={"top": 67.5/68, "x":0.22}
-        )
-
-        self.add_widget(self.recordingScreenTopLogoCard)
-
         #Add the label for the question at the top 
 
         self.recordingScreenTopQuestionLabel = Label(
-            text='Who is in the photo?',
+            text="What is your name?",
             size_hint=(0.7, 0.175), 
-            pos_hint={"x":0.3, "top": 1},
+            pos_hint={"x":0.15, "top": 1},
             color=self.darkBlueList,
             font_name="latoBold",
             halign="left",
@@ -210,7 +206,7 @@ class recordingScreen(FloatLayout):
         #Make an image widget and then use the ratio for further use - Not displayed
 
         self.recordingScreenImageRatioGet = Image(
-            source="assets/TestImages/squareTest.jpg",
+            source=self.imageData[1],
             pos_hint={"top": 56/68, "x":0.1}
         )
 
@@ -222,6 +218,8 @@ class recordingScreen(FloatLayout):
             self.imageRatio = [(Window.size[1]*0.36)/self.recordingScreenImageRatioGet.texture_size[1]*self.recordingScreenImageRatioGet.texture_size[0], (Window.size[1]*0.36)]
 
         #Drawing the image
+
+        print(self.imageData)
         
         with self.canvasHolderLabel.canvas:
             #Drawing the border under the image in relation to the ratio
@@ -232,7 +230,7 @@ class recordingScreen(FloatLayout):
                 radius=[(25.0, 25.0), (25.0, 25.0), (25.0, 25.0), (25.0, 25.0)],
                 pos=(Window.size[0]*0.5-self.imageRatio[0]*0.5-Window.size[0]*0.025, Window.size[1]*(105/272)-self.imageRatio[1]/2 - Window.size[1]*0.0125),
                 size=(Window.size[0]*0.05 + self.imageRatio[0], Window.size[1]*0.025 + self.imageRatio[1]),
-                source="assets/general/GreyBackground.png"
+                #source="assets/general/GreyBackground.png"
                 
             )
 
@@ -244,7 +242,7 @@ class recordingScreen(FloatLayout):
                 radius=[(25.0, 25.0), (25.0, 25.0), (25.0, 25.0), (25.0, 25.0)],
                 pos=(Window.size[0]*0.5-self.imageRatio[0]*0.5, Window.size[1]*(105/272)-self.imageRatio[1]/2),
                 size=self.imageRatio,
-                source="assets/TestImages/squareTest.jpg"
+                source=self.imageData[1]
                 
             )
         
@@ -311,6 +309,10 @@ class recordingScreen(FloatLayout):
 
         self.checkRecordEvent = Clock.schedule_interval(self.recordStart, 1 / 43)
 
+        self.attributeList = []
+
+        
+
     #recordStart() starts getting frames from the microphone
 
     def recordStart(self, dt, *kwargs):
@@ -355,9 +357,21 @@ class recordingScreen(FloatLayout):
             with sr.AudioFile(self.filename) as self.source:
                 self.audio_data = self.r.record(self.source)
                 self.recordingScreenAnswerCardLabel.text = str(self.r.recognize_google(self.audio_data))
-                self.recordingScreenAnswerCardLabel.text = self.recordingScreenAnswerCardLabel.text[0].upper() + self.recordingScreenAnswerCardLabel.text[1:] + "."
+                self.recordingScreenAnswerCardLabel.text = self.recordingScreenAnswerCardLabel.text[0].upper() + self.recordingScreenAnswerCardLabel.text[1:]
                 self.recordingScreenAnswerCardLabel.texture_update()
-        except:
+
+            if self.recordingScreenTopQuestionLabel.text == "What is your name?":
+                print(1)
+                self.personName = self.recordingScreenAnswerCardLabel.text
+                self.startSmallTalk(self.recordingScreenAnswerCardLabel.text)
+
+            elif self.recordingScreenTopQuestionLabel.text == self.recordingScreenSmallTalkQuestion:
+                print(2)
+                self.endSmallTalk(self.recordingScreenAnswerCardLabel.text)
+
+
+        except Exception as e:
+            print(e)
             self.recordingScreenAnswerCardLabel.text = "Try recording again."
 
         self.frames = []
@@ -371,6 +385,35 @@ class recordingScreen(FloatLayout):
     def goBack(self, dt):
         Vocate.sm.transition.direction = "right"
         Vocate.sm.current = "mainScreen"
+
+    def startSmallTalk(self, name):
+        self.st = chatBot1.smallTalker(name)
+
+        self.recordingScreenSmallTalkQuestion = self.st.firstQuestion()
+        self.recordingScreenTopQuestionLabel.text = self.recordingScreenSmallTalkQuestion
+
+        self.recordingScreenTopQuestionLabel.texture_update()
+
+    def endSmallTalk(self, ans):
+        self.recordingScreenTopQuestionLabel.text = self.st.reply(ans)
+        self.quesTrans = Clock.schedule_interval(self.questionTransition, 5)
+
+        self.recordingScreenTopQuestionLabel.texture_update()
+
+    def questionTransition(self, dt):
+        self.recordingScreenTopQuestionLabel.text = "Let’s talk about the photo here"
+
+        self.recordingScreenTopQuestionLabel.texture_update()
+
+        self.cb.change_username_in_files(self.personName)
+
+        Clock.unschedule(self.quesTrans)
+
+        self.chatLoop = Clock.schedule_once(self.chatResponder, 5)
+
+    def chatResponder(self, dt, **kwargs):
+        self.cb.main_function(self.imageData[0], self.attributeList)
+
 
 class mainScreen(FloatLayout):
 
@@ -754,7 +797,7 @@ class addImageScreen(FloatLayout):
         #Creating the list with all of the metadata
 
         self.metadataQuestions = [
-            "1. Give the image a title",
+            "1. Give the image a title",    
             "2. What was the location",
             "3. List the people in the\nimage",
             "4. Type in a special\nquestion",
@@ -866,12 +909,14 @@ class addImageScreen(FloatLayout):
         if self.metadataQuestionIndexes == 4:
             self.metadataAnswers.append(self.metadataPopupQuestionAnswerInput.text)
             print(["imageDatabase/" + self.value[0].split("\\")[-1]] + self.metadataAnswers)
+            self.addmem = memoryFilter()
+            self.addmem.addMemory(["imageDatabase/" + self.value[0].split("\\")[-1]] + self.metadataAnswers)
             self.metadataPopup.dismiss()
 
             shutil.copyfile(self.value[0], "imageDatabase/" + self.value[0].split("\\")[-1])
 
         else:
-            self.metadataAnswers.append(self.metadataPopupQuestionAnswerInput.text)
+            self.metadataAnswers.append(self.metadataPopupQuestionAnswerInput.text.replace(",", "|"))
             self.metadataQuestionIndexes += 1
             self.metadataPopupQuestionLabel.text = self.metadataQuestions[self.metadataQuestionIndexes]
             self.metadataPopupQuestionAnswerInput.text = ""
