@@ -7,13 +7,38 @@ import csv
 
 class ChattingBot:
     def __init__(self):
-        pass
+        self.change_username_in_files()
 
-    def change_username_in_files(self, name):
+    def find_random_line(self, file):
+        '''
+        This functions returns a random line in a file given the file name/directory
+        '''
+
+
+        count = 0
+        for line in file:
+            count += 1
+
+        file.seek(0)
+
+        wanted_line_number = random.randrange(0, count, 1)
+
+        count = 0
+        for line in file:
+            if count == wanted_line_number:
+                line1 = line
+                file.close()
+                return line1.strip('\n')
+            else:
+                count += 1
+
+    def change_username_in_files(self):
         '''
         This function copies and changes the user_name word to the the actual user_name variable valuem, and writes
         it to the personalQuestionBank folder
         '''
+
+        global user_name
 
         file_list = ['tell_something_addonsLOCATION', 'tell_something_addonsPEOPLE',
                      'tell_something_addonsTITLE', 'ask_question_addonsLOCATION',
@@ -23,44 +48,33 @@ class ChattingBot:
             with open('QuestionBank/' + file_name + '.txt', 'r') as file_in:
                 with open('personalQuestionBank/' + file_name + '.txt', 'w') as file_out:
                     for line in file_in:
-                        file_out.write(line.replace('user_name', name))
+                        file_out.write(line.replace('user_name', user_name))
 
     def iterate_images(self):
         '''
         This function iterates through metadata in images.csv and inputs the data in the main_function
         '''
 
-        with open('imageDatabase/database.csv', 'r') as file:
-            count = 0
-            for line in file:
-                count += 1
+        with open('images.csv') as image_file:
+            reader = csv.reader(image_file)
+            next(reader)
 
-            file.seek(0)
+            for row in reader:
+                # row = title, location, people, special_question, special_answer, score
+                title = row[0]
+                location = row[1]
+                people = row[2].split('|')
 
-            wanted_line_number = random.randrange(0, count, 1)
+                special_question = row[3]
+                special_answer = row[4]
+                score = row[5]
 
-            count = 0
-            for line in file:
-                if count == wanted_line_number:
-                    self.line1 = line.split(",")
-                    file.close()
-                    break
-                else:
-                    count += 1
+                im = image(title, location, people, special_question, special_answer, score)
 
-        self.title = self.line1[1]
-        self.location = self.line1[2]
-        self.people = self.line1[3].split('|')
-        self.special_question = self.line1[4]
-        self.special_answer = self.line1[5]
-        self.score = self.line1[6]
-
-        self.im = image(self.title, self.location, self.people, self.special_question, self.special_answer, self.score)
-
-        return(self.im, self.line1[0], self.line1)
+                self.main_function(im)
 
 
-    def main_function(self, image_input, attributeList, goThroughA = False, goThroughB = False):
+    def main_function(self, image_input, attributeList, goThrough):
         '''
         This function runs the entirety of the talking about the images
         '''
@@ -74,22 +88,20 @@ class ChattingBot:
         if attribute not in attributeList:
             should_ask = random.randrange(0, 2, 1)
 
-            if should_ask and goThrough == False:
-                returnList.append(image_input.ask_question(attribute_tag))
-                returnList.append("inpa")
-
-            elif goThroughA == True:
-                returnList.append(image_input.check_answer(attribute, answer))
+            if should_ask:
+                print(image_input.ask_question(attribute_tag))
+                answer = input('Enter your reply here --> ')
+                print(image_input.check_answer(attribute, answer))
 
             else:
                 if image_input.tell_something(attribute_tag) is not None:
-                    returnList.append(image_input.tell_something(attribute_tag))
-                    returnList.append("inpb")
+                    print(image_input.tell_something(attribute_tag))
+                    answer = input('Enter your reply here --> ').lower()
 
                     if attribute_tag == 'location' and (answer == 'yes' or answer == 'yeah'):
-                        returnList.append('Oh cool!')
+                        print('Oh cool!')
                     elif attribute_tag == 'location' and answer == 'no':
-                        returnList.append('Oh you should go there then.  It is a really nice place.')
+                        print('Oh you should go there then.  It is a really nice place.')
 
                     """
                     Make this work later
@@ -103,35 +115,12 @@ class ChattingBot:
                     """
 
                     elif attribute_tag == 'people' and answer == 'no':
-                        returnList.append('Oh ok')
+                        print('Oh ok')
 
             attributeList.append(attribute)
 
         else:
             return(["error 500"], ["error 400"])
-
-    def find_random_line(self, file_name):
-        '''
-        This functions returns a random line in a file given the file name/directory
-        '''
-
-        with open(file_name, 'r') as file:
-            count = 0
-            for line in file:
-                count += 1
-
-            file.seek(0)
-
-            wanted_line_number = random.randrange(0, count, 1)
-
-            count = 0
-            for line in file:
-                if count == wanted_line_number:
-                    line1 = line
-                    file.close()
-                    return line1.strip('\n')
-                else:
-                    count += 1
 
 
 
@@ -261,21 +250,22 @@ class image:
                     count += 1
 
 class smallTalker:
-    def __init__(self, name):
-        self.name = name
+    def __init__(self):
+        global ans
 
         self.change_username_in_files()
 
-    def firstQuestion(self):
-        return(self.find_random_line('personal_con_init.txt'))
+        ans = input(self.find_random_line('personal_con_init.txt') + '\nEnter your answer here --> ')
+        self.reply()
+        print('Let’s talk about the photo here')
 
-    def reply(self, ans):
+    def reply(self):
         if 'you' in ans:
-            return(self.find_random_line('personal_con_reply.txt'))
+            print(self.find_random_line('personal_con_reply.txt'))
         elif 'sad' in ans or 'angry' in ans or 'furious' in ans:
-            return('I am so sorry to hear that.  Perhaps I can cheer you up')
+            print('I am so sorry to hear that.  Perhaps I can cheer you up')
         elif ' happy' in ans or 'joyful' in ans or 'cool' in ans or 'good' in ans or 'great' in ans:
-            return('I am happy to hear that')
+            print('I am happy to hear that')
 
     def find_random_line(self, file_name):
         '''
@@ -306,23 +296,22 @@ class smallTalker:
         it to the personalQuestionBank folder
         '''
 
+        global user_name
+
         file_list = ['con_init', 'con_reply']
 
         for file_name in file_list:
             with open(file_name + '.txt', 'r') as file_in:
                 with open('personal_' + file_name + '.txt', 'w') as file_out:
                     for line in file_in:
-                        file_out.write(line.replace('user_name', self.name))
+                        file_out.write(line.replace('user_name', user_name))
 
 
 
 # Main
-
-"""
+user_name = input('Enter your name: ').rstrip().lstrip()
 
 st = smallTalker()
 
 chatBot = ChattingBot()
 chatBot.iterate_images()
-
-"""
