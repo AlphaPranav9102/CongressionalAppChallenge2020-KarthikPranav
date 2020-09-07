@@ -74,53 +74,57 @@ class ChattingBot:
                 self.main_function(im)
 
 
-    def main_function(self, image_input, attributeList, goThrough):
+    def main_function(self, image_input):
         '''
         This function runs the entirety of the talking about the images
         '''
 
-        returnList = []
+        returnInfo = []
         
         attribute_index = random.randrange(0, 4, 1)
         attribute_tag = image_input.get_attribute_tag(attribute_index)
         attribute = image_input.get_attribute(attribute_index)
 
-        if attribute not in attributeList:
+        if (goThroughA or goThroughB or goThroughC) == True:
+            if goThroughA == True:
+                returnInfo.append(["Question", image_input.check_answer(attribute, goInputA)])
+
+            elif goThroughB == True:
+                if attribute_tag == 'location' and (goInputB == 'yes' or goInputB == 'yeah'):
+                    returnInfo.append(["Question", 'Oh cool!'])
+                elif attribute_tag == 'location' and goInputB == 'no':
+                    returnInfo.append(["Question", 'Oh you should go there then.  It is a really nice place.'])
+                elif attribute_tag == 'people' and goInputB == 'yes':
+                    returnInfo.append(["inputC"])
+                elif attribute_tag == 'people' and goInputB == 'no':
+                    returnInfo.append(["Question", 'Oh ok'])
+
+            elif goThroughC == True:
+                if (goInputC == 'yes' or goInputC == 'yeah'):
+                    returnInfo.append(["Question", 'Oh nice!'])
+                else:
+                    returnInfo.append(["Question", 'Oh ok. But you are still close to them.  Nice!'])
+
+
+        elif attribute not in attributeList:
             should_ask = random.randrange(0, 2, 1)
 
             if should_ask:
-                print(image_input.ask_question(attribute_tag))
-                answer = input('Enter your reply here --> ')
-                print(image_input.check_answer(attribute, answer))
+                returnInfo.append(["Question", image_input.ask_question(attribute_tag)])
+                returnInfo.append(["inputA"])
+                
 
             else:
                 if image_input.tell_something(attribute_tag) is not None:
-                    print(image_input.tell_something(attribute_tag))
-                    answer = input('Enter your reply here --> ').lower()
-
-                    if attribute_tag == 'location' and (answer == 'yes' or answer == 'yeah'):
-                        print('Oh cool!')
-                    elif attribute_tag == 'location' and answer == 'no':
-                        print('Oh you should go there then.  It is a really nice place.')
-
-                    """
-                    Make this work later
-
-                    elif attribute_tag == 'people' and answer == 'yes':
-                        answer = input('Oh ok. Are they family? \nEnter your reply here --> ').lower()
-                        if (answer == 'yes' or answer == 'yeah'):
-                            print('Oh nice!')
-                        else:
-                            print('Oh ok. But you are still close to them.  Nice!')
-                    """
-
-                    elif attribute_tag == 'people' and answer == 'no':
-                        print('Oh ok')
+                    returnInfo.append(["Question", image_input.tell_something(attribute_tag)])
+                    returnInfo.append(["inputB"])
 
             attributeList.append(attribute)
 
         else:
-            return(["error 500"], ["error 400"])
+            returnInfo, attributeList = self.main_function(image_input, attributeList)
+
+        return(returnInfo, attributeList)
 
 
 

@@ -29,11 +29,13 @@ from kivy.uix.filechooser import FileChooserListView
 import pyaudio
 import wave
 import speech_recognition as sr
-import chatBot3 as chatBot1
+import chatBot2 as chatBot1
 
 import shutil
 import csv
 from memoryAlgorithm import memoryFilter
+
+from threading import Thread
 
 widthInput = 350
 
@@ -173,14 +175,14 @@ class recordingScreen(FloatLayout):
             halign="left",
             valign="middle",
             text_size=(self.size[0]*2, self.size[1]),
-            font_size=self.height * 0.2
+            font_size=self.height * 0.185
         )
 
         #Change text to fit
 
         self.recordingScreenTopQuestionLabel.texture_update()
 
-        self.recordingScreenTopQuestionLabel.font_size = self.recordingScreenTopQuestionLabel.font_size * 1.25
+        self.recordingScreenTopQuestionLabel.font_size = self.recordingScreenTopQuestionLabel.font_size
         
         self.add_widget(self.recordingScreenTopQuestionLabel)
 
@@ -313,6 +315,8 @@ class recordingScreen(FloatLayout):
 
         self.question = None
 
+        self.chatRedirect = False
+
     #recordStart() starts getting frames from the microphone
 
     def recordStart(self, dt, *kwargs):
@@ -360,7 +364,10 @@ class recordingScreen(FloatLayout):
                 self.recordingScreenAnswerCardLabel.text = self.recordingScreenAnswerCardLabel.text[0].upper() + self.recordingScreenAnswerCardLabel.text[1:]
                 self.recordingScreenAnswerCardLabel.texture_update()
 
-            if self.recordingScreenTopQuestionLabel.text == "What is your name?":
+            if self.chatRedirect:
+                 self.interfaceWriter(self.recordingScreenAnswerCardLabel.text)
+
+            elif self.recordingScreenTopQuestionLabel.text == "What is your name?":
                 self.personName = self.recordingScreenAnswerCardLabel.text
                 self.startSmallTalk(self.recordingScreenAnswerCardLabel.text)
 
@@ -411,78 +418,63 @@ class recordingScreen(FloatLayout):
 
         self.chatLoop = Clock.schedule_once(self.chatResponder, 5)
 
-    def chatResponder(self, dt, **kwargs):
-        if len(self.attributeList) == 4 and self.question == None:
-            self.nextQuestionChatLoop = Clock.schedule_once(self.endChat, 5)
-        
-        else:
+        self.chatRedirect = True
 
-            if self.question != None:
-                if self.question == ["inputA"]:
-                    self.questionLoop, self.attributeList = self.cb.main_function(self.imageData[0], self.attributeList, goThroughA=True, goInputA=self.questionAnswer)
-                elif self.question == ["inputB"]:
-                    self.questionLoop, self.attributeList = self.cb.main_function(self.imageData[0], self.attributeList, goThroughB=True, goInputB=self.questionAnswer)
-                elif self.question == ["inputC"]:
-                    self.questionLoop, self.attributeList = self.cb.main_function(self.imageData[0], self.attributeList, goThroughC=True, goInputC=self.questionAnswer)
+        self.interfaceClearer("interface/interfaceSpeech.txt")
+        self.interfaceClearer("interface/interfaceInput.txt")
+
+        t = Thread(target=self.cb.main_function, args=[self.imageData[0]])
+        t.daemon = True
+        t.start()
+
+    def chatResponder(self, dt):
+        self.answer = self.interfaceReader()
+        if self.answer != None:
+            print(self.answer)
+            if self.answer == ['Those are all of the questions']:
+                self.questionLoop = Clock.schedule_once(self.finishChat, 0)
+
+            self.posLoops = 0
+            self.endLoops = len(self.answer)
+
+            self.questionLoop = Clock.schedule_once(self.questionWriter, 0)
+
+        else:
+            self.chatLoop = Clock.schedule_once(self.chatResponder, 0.5)
+
+    def interfaceWriter(self, line):
+        with open("interface/interfaceInput.txt", "a") as file:
+            file.write(line)
+
+    def interfaceReader(self):
+        with open("interface/interfaceSpeech.txt") as file:
+            self.inputLine = []
+            for line in file:
+                self.inputLine.append(line.replace("\n", ""))
             
-            else:
-                self.questionLoop, self.attributeList = self.cb.main_function(self.imageData[0], self.attributeList)
-
-            print(self.questionLoop)
-
-            self.question = None
-
-
-            if len(self.questionLoop) > 1 and len(self.questionLoop[-1]) == 1:
-                self.question = self.questionLoop[-1]
-
-                self.numLoops = len(self.questionLoop) - 1
-                self.posLoops = 0
-
-                self.nextQuestionChatLoopInput = Clock.schedule_once(self.multiQuestionPutInput, 0)
-                print(1)
-
-            elif len(self.questionLoop) == 0:
-                self.nextQuestionChatLoop = Clock.schedule_once(self.chatResponder, 0)
-            
-            else:
-                self.numLoops = len(self.questionLoop)
-                self.posLoops = 0
-                self.nextQuestionChatLoop = Clock.schedule_once(self.multiQuestionPut, 0)
-                print(2)
-
-    def multiQuestionPutInput(self, dt, **kwargs):
-        if self.posLoops == self.numLoops:
-            if self.recordingScreenAnswerCardLabel.text != self.answerNow and self.recordingScreenAnswerCardLabel.text != "Try recording again.":
-                self.questionAnswer = self.recordingScreenAnswerCardLabel.text
-                print(self.questionAnswer)
-                self.toChat = Clock.schedule_once(self.chatResponder, 0)
-            else:
-                self.toChat = Clock.schedule_once(self.multiQuestionPutInput, 0)
+        if self.inputLine == []:
+            return(None)
 
         else:
-            self.answerNow = self.recordingScreenAnswerCardLabel.text
-            self.recordingScreenTopQuestionLabel.texture_update()
+            self.interfaceClearer("interface/interfaceSpeech.txt")
+            return(self.inputLine)
 
-            self.recordingScreenTopQuestionLabel.text = self.questionLoop[self.posLoops][1]
-            self.posLoops += 1
-            self.nextQuestionChatLoopInput = Clock.schedule_once(self.multiQuestionPutInput, 5)
+    def interfaceClearer(self, file):
+        open(file, "w").close()
 
-    def multiQuestionPut(self, dt, **kwargs):
-        if self.posLoops == self.numLoops:
-            self.toChat = Clock.schedule_once(self.chatResponder, 0)
+    def questionWriter(self, dt, **kwargs):
+        if self.posLoops == self.endLoops:
+            self.chatLoop = Clock.schedule_once(self.chatResponder, 5)
 
         else:
-            self.recordingScreenTopQuestionLabel.text = self.questionLoop[self.posLoops][1]
-            self.recordingScreenTopQuestionLabel.texture_update()
-
+            self.recordingScreenTopQuestionLabel.text = self.answer[self.posLoops]
             self.posLoops += 1
-            self.nextQuestionChatLoop = Clock.schedule_once(self.multiQuestionPut, 5)
 
-            print("x")
+            self.questionLoop = Clock.schedule_once(self.questionWriter, 5)
 
-    def endChat(self, dt, **kwargs):
-        self.recordingScreenTopQuestionLabel.text = "Those are all the questions."
+    def finishChat(self, dt, **kwargs):
+        self.recordingScreenTopQuestionLabel.text = self.answer[0]
+
 
 
 class mainScreen(FloatLayout):

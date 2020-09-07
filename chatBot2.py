@@ -60,56 +60,94 @@ class ChattingBot:
         return(self.im, self.line1[0], self.line1)
 
 
-    def main_function(self, image_input, attributeList, goThroughA = False, goThroughB = False):
+    def main_function(self, image_input):
         '''
         This function runs the entirety of the talking about the images
         '''
 
-        returnList = []
-        
-        attribute_index = random.randrange(0, 4, 1)
-        attribute_tag = image_input.get_attribute_tag(attribute_index)
-        attribute = image_input.get_attribute(attribute_index)
+        attributeList = []
+        while len(attributeList) < 4:
+            attribute_index = random.randrange(0, 4, 1)
+            attribute_tag = image_input.get_attribute_tag(attribute_index)
+            attribute = image_input.get_attribute(attribute_index)
 
-        if attribute not in attributeList:
-            should_ask = random.randrange(0, 2, 1)
+            if attribute not in attributeList:
+                should_ask = random.randrange(0, 2, 1)
 
-            if should_ask and goThrough == False:
-                returnList.append(image_input.ask_question(attribute_tag))
-                returnList.append("inpa")
+                if should_ask:
+                    self.interfaceWriter(image_input.ask_question(attribute_tag))
+                    while True:
+                        self.answer = self.interfaceReader()
+                        if self.answer == None:
+                            continue
 
-            elif goThroughA == True:
-                returnList.append(image_input.check_answer(attribute, answer))
+                        self.answer = self.answer[0]
+                        break
+
+                    self.interfaceWriter(image_input.check_answer(attribute, self.answer))
+
+                else:
+                    if image_input.tell_something(attribute_tag) is not None:
+                        self.interfaceWriter(image_input.tell_something(attribute_tag))
+                        while True:
+                            self.answer = self.interfaceReader()
+                            if self.answer == None:
+                                continue
+
+                            self.answer = self.answer[0].lower()
+                            break
+
+                        if attribute_tag == 'location' and (self.answer == 'yes' or self.answer == 'yeah'):
+                            self.interfaceWriter('Oh cool!')
+                        elif attribute_tag == 'location' and self.answer == 'no':
+                            self.interfaceWriter('Oh you should go there then.  It is a really nice place.')
+                        elif attribute_tag == 'people' and self.answer == 'yes':
+                            self.interfaceWriter("Oh ok. Are they family?")
+                            while True:
+                                self.answer = self.interfaceReader()
+                                if self.answer == None:
+                                    continue
+
+                                self.answer = self.answer[0].lower()
+                                break
+
+                            if (self.answer == 'yes' or self.answer == 'yeah'):
+                                self.interfaceWriter('Oh nice!')
+                            else:
+                                self.interfaceWriter('Oh ok. But you are still close to them.  Nice!')
+                        elif attribute_tag == 'people' and self.answer == 'no':
+                            self.interfaceWriter('Oh ok')
+
+                attributeList.append(attribute)
 
             else:
-                if image_input.tell_something(attribute_tag) is not None:
-                    returnList.append(image_input.tell_something(attribute_tag))
-                    returnList.append("inpb")
+                continue
 
-                    if attribute_tag == 'location' and (answer == 'yes' or answer == 'yeah'):
-                        returnList.append('Oh cool!')
-                    elif attribute_tag == 'location' and answer == 'no':
-                        returnList.append('Oh you should go there then.  It is a really nice place.')
+        self.interfaceWriter('Those are all of the questions')
 
-                    """
-                    Make this work later
+    def interfaceWriter(self, line):
+        with open("interface/interfaceSpeech.txt", "a") as file:
+            file.write(line)
+            file.write("\n")
 
-                    elif attribute_tag == 'people' and answer == 'yes':
-                        answer = input('Oh ok. Are they family? \nEnter your reply here --> ').lower()
-                        if (answer == 'yes' or answer == 'yeah'):
-                            print('Oh nice!')
-                        else:
-                            print('Oh ok. But you are still close to them.  Nice!')
-                    """
-
-                    elif attribute_tag == 'people' and answer == 'no':
-                        returnList.append('Oh ok')
-
-            attributeList.append(attribute)
-
+    def interfaceReader(self):
+        with open("interface/interfaceInput.txt") as file:
+            self.inputLine = []
+            for line in file:
+                self.inputLine.append(line)
+            
+        if self.inputLine == []:
+            return(None)
         else:
-            return(["error 500"], ["error 400"])
+            self.interfaceClearer()
+            return(self.inputLine)
 
+
+    def interfaceClearer(self):
+        print("cleared")
+        open("interface/interfaceInput.txt", "w").close()
+
+    
     def find_random_line(self, file_name):
         '''
         This functions returns a random line in a file given the file name/directory
@@ -132,8 +170,6 @@ class ChattingBot:
                     return line1.strip('\n')
                 else:
                     count += 1
-
-
 
 class image:
     def __init__(self, title, location, people, special_question, special_answer, score):
