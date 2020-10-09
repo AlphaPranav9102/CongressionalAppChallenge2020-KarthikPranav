@@ -7,7 +7,7 @@ import csv
 
 class ChattingBot:
     def __init__(self):
-        pass
+        self.imageData = None
 
     def change_username_in_files(self, name):
         '''
@@ -56,6 +56,8 @@ class ChattingBot:
         self.score = self.line1[6]
 
         self.im = image(self.title, self.location, self.people, self.special_question, self.special_answer, self.score)
+
+        self.imageData = [self.im, self.line1[0], self.line1]
 
         return(self.im, self.line1[0], self.line1)
 
@@ -267,7 +269,7 @@ class image:
         elif attr == 'people':
             file_name = 'personalQuestionBank/tell_something_addonsPEOPLE.txt'
             end_file_name = 'QuestionBank/tell_something_addonsPEOPLEend.txt'
-            return self.find_random_line(file_name) + ' ' + str(self.people) + '. ' + self.find_random_line(end_file_name)
+            return self.find_random_line(file_name) + ' ' + str(", ".join(self.people)) + '. ' + self.find_random_line(end_file_name)
         elif attr == 'special_question':
             pass
         else:

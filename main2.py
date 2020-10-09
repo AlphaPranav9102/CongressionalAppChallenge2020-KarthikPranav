@@ -25,6 +25,8 @@ from kivy.uix.screenmanager import ScreenManager, Screen
 from kivy.clock import Clock
 from kivy.uix.scrollview import ScrollView
 from kivy.uix.filechooser import FileChooserListView
+from kivy.core.audio import SoundLoader
+from kivy.cache import Cache
 
 import pyaudio
 import wave
@@ -36,10 +38,13 @@ import csv
 from memoryAlgorithm import memoryFilter
 
 from threading import Thread
+from gtts import gTTS
+import pyttsx3
 
-widthInput = 350
 
-Window.size = (widthInput, widthInput*2)
+widthInput = 900
+
+Window.size = (widthInput, widthInput*1.85)
 Window.clearcolor = (250/255, 250/255, 250/255, 255/255)
 
 #Imported Lato and Montserrat Fonts
@@ -69,6 +74,8 @@ LabelBase.register(
     fn_regular="Fonts/Montserrat-Regular.ttf"
 )
 
+cb = chatBot1.ChattingBot()
+ex = cb.iterate_images()
 
 class recordingScreen(FloatLayout):
 
@@ -130,10 +137,9 @@ class recordingScreen(FloatLayout):
 
         self.canvasHolderLabel = Label(size=(Window.size[0], Window.size[1]*0.175))
 
-        self.cb = chatBot1.ChattingBot()
-
-        self.imageData = self.cb.iterate_images()
+        self.cb = cb
         
+        self.imageData = self.cb.imageData
 
         #Drawing the rounded rectangle under the main header -- Not Scalable
 
@@ -168,14 +174,14 @@ class recordingScreen(FloatLayout):
 
         self.recordingScreenTopQuestionLabel = Label(
             text="What is your name?",
-            size_hint=(0.85, 0.175), 
-            pos_hint={"x":0.15, "top": 1},
+            size_hint=(0.5, 0.175), 
+            pos_hint={"x":0.3, "top": 1},
             color=self.darkBlueList,
             font_name="latoBold",
             halign="left",
             valign="middle",
-            text_size=(self.size[0]*2, self.size[1]),
-            font_size=self.height * 0.185
+            text_size=(Window.size[0]*0.6, Window.size[1]*0.175),
+            font_size=int(Window.size[0]/18)
         )
 
         #Change text to fit
@@ -195,7 +201,7 @@ class recordingScreen(FloatLayout):
             font_name="latoBold",
             halign="center",
             valign="middle",
-            font_size=self.height * 0.2,
+            font_size=self.height * 0.5,
             text_size=(Window.size[0]*0.8, Window.size[1]*0.175),
         )
 
@@ -252,8 +258,8 @@ class recordingScreen(FloatLayout):
 
 
         self.recordingScreenRecorderButtonBottom = Button(
-            size_hint=(0.25, 0.12),
-            pos_hint={"top": 9/68, "x":(1/2) - (1/8)},
+            size_hint=(0.225, 0.12),
+            pos_hint={"top": 9/68, "x":(1/2) - 0.1125},
             color=self.lightGreyColorTuple,
             font_name="latoBold",
             font_size=22,
@@ -274,7 +280,7 @@ class recordingScreen(FloatLayout):
 
         self.recordingScreenRecordingLabelMiddlePopup = Label(
             text="Recording ...",
-            font_size="30",
+            font_size=int(Window.size[0]/13),
             font_name="latoBold",
             halign="center",
             valign="middle",
@@ -287,8 +293,8 @@ class recordingScreen(FloatLayout):
         #Adding the button to stop the recording
 
         self.recordingScreenRecordingStopBottomPopup = Button(
-            size_hint=(0.30, 0.26),
-            pos_hint={"top": 17/68, "x":(1/2) - (3/20)},
+            size_hint=(0.26, 0.26),
+            pos_hint={"top": 20/68, "x":(1/2) - (5/40)},
             background_normal="assets/recordingScreenRecordingStopBottomPopup/recordingScreenRecordingStopBottomPopupNormal.png",
             border=(0, 0, 0, 0)
         )
@@ -316,6 +322,8 @@ class recordingScreen(FloatLayout):
         self.question = None
 
         self.chatRedirect = False
+
+        self.sound = SoundLoader.load('playSound.wav')
 
     #recordStart() starts getting frames from the microphone
 
@@ -399,13 +407,25 @@ class recordingScreen(FloatLayout):
 
         self.recordingScreenTopQuestionLabel.texture_update()
 
+        self.sound = self.speak(self.recordingScreenSmallTalkQuestion)
+
+        if self.sound:
+            self.sound.play()
+            
+
     def endSmallTalk(self, ans):
         self.recordingScreenTopQuestionLabel.text = self.st.reply(ans)
-        self.quesTrans = Clock.schedule_interval(self.questionTransition, 5)
+
+        self.sound = self.speak(self.recordingScreenSmallTalkQuestion)
 
         self.recordingScreenTopQuestionLabel.texture_update()
 
         self.answerNow = self.recordingScreenAnswerCardLabel.text
+
+        self.quesTrans = Clock.schedule_interval(self.questionTransition, self.sound.length)
+
+        if self.sound:
+            self.sound.play()
 
     def questionTransition(self, dt):
         self.recordingScreenTopQuestionLabel.text = "Let’s talk about the photo here"
@@ -416,8 +436,6 @@ class recordingScreen(FloatLayout):
 
         Clock.unschedule(self.quesTrans)
 
-        self.chatLoop = Clock.schedule_once(self.chatResponder, 5)
-
         self.chatRedirect = True
 
         self.interfaceClearer("interface/interfaceSpeech.txt")
@@ -426,6 +444,12 @@ class recordingScreen(FloatLayout):
         t = Thread(target=self.cb.main_function, args=[self.imageData[0]])
         t.daemon = True
         t.start()
+
+        self.sound = self.speak(self.recordingScreenSmallTalkQuestion)
+
+        if self.sound:
+            self.chatLoop = Clock.schedule_once(self.chatResponder, self.sound.length + 1)
+            self.sound.play()
 
     def chatResponder(self, dt):
         self.answer = self.interfaceReader()
@@ -464,17 +488,32 @@ class recordingScreen(FloatLayout):
 
     def questionWriter(self, dt, **kwargs):
         if self.posLoops == self.endLoops:
-            self.chatLoop = Clock.schedule_once(self.chatResponder, 5)
+            self.chatLoop = Clock.schedule_once(self.chatResponder, 0)
 
         else:
             self.recordingScreenTopQuestionLabel.text = self.answer[self.posLoops]
+            self.sound = self.speak(self.answer[self.posLoops])
+
             self.posLoops += 1
 
-            self.questionLoop = Clock.schedule_once(self.questionWriter, 5)
+            self.questionLoop = Clock.schedule_once(self.questionWriter, self.sound.length + 1)
+
+            if self.sound:
+                self.sound.play()
 
     def finishChat(self, dt, **kwargs):
         self.recordingScreenTopQuestionLabel.text = self.answer[0]
 
+    def speak(self, text):
+        engine = pyttsx3.init()
+        engine.save_to_file(text , 'playSound.wav')
+        engine.runAndWait()
+
+        self.sound.unload()
+        self.sound = None
+
+        self.sound = SoundLoader.load('playSound.wav')
+        return(self.sound)
 
 
 class mainScreen(FloatLayout):
@@ -544,10 +583,14 @@ class mainScreen(FloatLayout):
 
         self.add_widget(self.mainScreenTopLabel)
 
+        self.cb = cb
+        
+        self.imageData = self.cb.imageData
+
         #Make an image widget and then use the ratio for further use - Not displayed
 
         self.mainScreenImageRatioGet = Image(
-            source="C:/Users/Penguinkid/Downloads/8481.jpg",
+            source=self.imageData[1],
             pos_hint={"top": 56/68, "x":0.1}
         )
 
@@ -581,24 +624,24 @@ class mainScreen(FloatLayout):
                 radius=[(25.0, 25.0), (25.0, 25.0), (25.0, 25.0), (25.0, 25.0)],
                 pos=(Window.size[0]*0.5-self.imageRatio[0]*0.5, Window.size[1]*(169/272)-self.imageRatio[1]/2),
                 size=self.imageRatio,
-                source="C:/Users/Penguinkid/Downloads/8481.jpg"
+                source=self.imageData[1]
                 
             )
 
         #Creating the dynamic speech prompter button for the user.
 
         self.mainScreenSpeechPromptButtonMiddle = Button(
-            text="Where were you? What were he/she doing?",
+            text="    Let's talk about \n    this photo!",
             size_hint=(0.9, 0.175),
-            pos_hint={"top": 26/68, "x":0.05},
+            pos_hint={"top": 26.5/68, "x":0.05},
             color=self.darkestBlueList,
             font_name="latoBold",
             halign="left",
-            text_size=(self.size[0]*1.5, self.size[1]*1.25),
             valign="middle",
             background_normal="assets/mainScreenSpeechPromptButtonMiddle/GreyColorRoundedButtonPicNormal.png",
             background_down="assets/mainScreenSpeechPromptButtonMiddle/GreyColorRoundedButtonPicNormal.png",
-            border = [30, 30, 30, 30]
+            border = [30, 30, 30, 30],
+            font_size = int(Window.size[0]/18)
         )
 
         #Making sure the text fits prefectly
@@ -626,7 +669,7 @@ class mainScreen(FloatLayout):
             pos_hint={"top": 6/34, "x":(1/2) - (1/6)},
             color=self.whiteList,
             font_name="latoBold",
-            font_size=20,
+            font_size=int(Window.size[0]/18),
             halign="center",
             background_normal="assets/mainScreenEnterTextButtonLower/DarkBlueRoundedButtonPicNormal.png",
             background_down="assets/mainScreenEnterTextButtonLower/DarkBlueRoundedButtonPicDown.png",
@@ -648,6 +691,10 @@ class mainScreen(FloatLayout):
     #Function to change screens when button is pressed
 
     def toRecording(self, dt):
+
+        Cache.register('mycache', limit=10, timeout=30)
+        Cache.append('mycache', "Chat", self.cb)
+
         Vocate.sm.transition.direction = "left"
         Vocate.sm.current = "recordingScreen"
 
@@ -786,7 +833,7 @@ class addImageScreen(FloatLayout):
             halign="center",
             color=self.fullOrangeList,
             font_name="montserratExtraBold",
-            font_size=20
+            font_size=int(Window.size[0]/18)
         )
 
         self.add_widget(self.addImageScreenUploadImageText)
@@ -856,6 +903,8 @@ class addImageScreen(FloatLayout):
             border=(0, 0, 0, 0)
         )
 
+        self.metadataPopupSize = [Window.size[0]*0.9, Window.size[1]*0.5]
+
         #Creating the list with all of the metadata
 
         self.metadataQuestions = [
@@ -891,20 +940,22 @@ class addImageScreen(FloatLayout):
         #Adding the textinput which takes the answers
 
         self.metadataPopupQuestionAnswerInput = TextInput(
-            text='',
+            text='  ',
             multiline=False,
             border=[30, 30, 30, 30],
             background_color=self.lightGreyColorTuple,
             background_normal="assets/general/greyBackground.png",
             background_active="assets/general/greyBackground.png",
             font_name="latoBold",
-            font_size=25,
+            font_size=int(Window.size[0]/15.5),
             size_hint=(0.7, 0.15),
-            pos_hint={"x": 0.15, "top": 0.6},
+            pos_hint={"x": 0.15, "top": 0.645},
             cursor_color=self.blackList
         )
 
         self.metadataPopupContent.add_widget(self.metadataPopupQuestionAnswerInput)
+
+        """
 
         #Adding the canvas which gives the rounding corners to the text input
 
@@ -912,8 +963,8 @@ class addImageScreen(FloatLayout):
             Color(*self.lightGreyColorList)
             self.leftSemi = Ellipse(
                 segments=100,
-                pos=(self.metadataPopup.size[0]*0.505, self.metadataPopup.size[1]*1.6), 
-                size=(self.metadataPopup.size[1]*0.5, self.metadataPopup.size[1]*0.45),
+                pos=(self.metadataPopupSize[0]*0.15, self.metadataPopupSize[1]*0.15), 
+                size=(self.metadataPopupQuestionAnswerInput.size[1], self.metadataPopupQuestionAnswerInput.size[1]*0.84),
                 angle_start=180,
                 angle_end=360,
                 source="assets/general/greyBackground.png"
@@ -923,22 +974,24 @@ class addImageScreen(FloatLayout):
             self.rightSemi = Ellipse(
                 segments=100,
                 pos=(self.metadataPopup.size[0]*2.505, self.metadataPopup.size[1]*1.6), 
-                size=(self.metadataPopup.size[1]*0.5, self.metadataPopup.size[1]*0.45),
+                size=(self.metadataPopupQuestionAnswerInput.size[1], self.metadataPopupQuestionAnswerInput.size[1]*0.84),
                 angle_start=0,
                 angle_end=180,
                 source="assets/general/greyBackground.png"
                 
             )
 
+        """
+
         #Adding the button to change to the next question
 
         self.metadataPopupNextQuestionButton = Button(
-            text='Next    ',
+            text='Next',
             border=[30, 30, 30, 30],
             background_normal="assets/general/addImageScreenNextQuestionButton.png",
             background_down="assets/general/addImageScreenNextQuestionButton.png",
             font_name="montserratExtraBold",
-            font_size=25,
+            font_size=int(Window.size[0]/14.5),
             size_hint=(0.5, 0.1675),
             pos_hint={"x": 0.25, "top": 0.3},
             color=self.fullOrangeList,
@@ -956,6 +1009,7 @@ class addImageScreen(FloatLayout):
         self.filePopup.dismiss()
         self.value = self.fileChooser.selection
         print('choosen file: %s' % self.value)
+        print(self.metadataPopup.size)
 
         if str(self.value) != "[]":
             self.metadataPopup.open()
@@ -1090,7 +1144,7 @@ class statsScreen(FloatLayout):
 
         self.statsScreenStatTopLeft = Button(
             markup=True,
-            text='Memories Viewed\n[size=14][/size]\n[size=30][color=f78f1eff]{}[/color][/size]'.format(8),
+            text='Memories Viewed\n[size=14][/size]\n[size={}][color=f78f1eff]{}[/color][/size]'.format(int(Window.size[0]/14.5), 8),
             text_size=(Window.size[0]*0.4, Window.size[1]*0.2),
             size_hint=(0.4, 0.2),
             pos_hint={"x":0.08, "top": 26/32},
@@ -1098,7 +1152,7 @@ class statsScreen(FloatLayout):
             font_name="montserratExtraBold",
             halign="center",
             valign="middle",
-            font_size=20,
+            font_size=int(Window.size[0]/18),
             background_normal="assets/statsScreenStatTopLeft/statsScreenStatTopLeftNormal.png",
             background_down="assets/statsScreenStatTopLeft/statsScreenStatTopLeftNormal.png",
             border=[0, 0, 0, 0]
@@ -1110,7 +1164,7 @@ class statsScreen(FloatLayout):
 
         self.statsScreenStatTopRight = Button(
             markup=True,
-            text="Incorrect Answers\n[size=14][/size]\n[size=30][color=f78f1eff]{}[/color][/size]".format(4),
+            text="Incorrect Answers\n[size=14][/size]\n[size={}][color=f78f1eff]{}[/color][/size]".format(int(Window.size[0]/14.5), 4),
             text_size=(Window.size[0]*0.4, Window.size[1]*0.2),
             size_hint=(0.4, 0.2),
             pos_hint={"x":0.54, "top": 26/32},
@@ -1118,7 +1172,7 @@ class statsScreen(FloatLayout):
             font_name="montserratExtraBold",
             halign="center",
             valign="middle",
-            font_size=20,
+            font_size=int(Window.size[0]/18),
             background_normal="assets/statsScreenStatTopLeft/statsScreenStatTopLeftNormal.png",
             background_down="assets/statsScreenStatTopLeft/statsScreenStatTopLeftNormal.png",
             border=[0, 0, 0, 0]
@@ -1130,14 +1184,14 @@ class statsScreen(FloatLayout):
 
         self.statsScreenStatMiddle = Button(
             markup=True,
-            text="[size=30][color=f78f1eff]{}[/color][/size]\nmin of interaction".format(16),
+            text="[size={}][color=f78f1eff]{}[/color][/size]\nmin of interaction".format(int(Window.size[0]/14.5), 16),
             line_height=1.2,
             size_hint=(0.87, 0.17),
             pos_hint={"top": 40/68, "x":0.075},
             text_size=(Window.size[0]*0.75, Window.size[1]*0.17),
             color=[1, 1, 1, 1],
             font_name="montserratExtraBold",
-            font_size=22,
+            font_size=int(Window.size[0]/17),
             halign="center",
             valign="middle",
             background_normal="assets/statsScreenStatMiddle/statsScreenStatMiddleNormal.png",
@@ -1151,14 +1205,14 @@ class statsScreen(FloatLayout):
 
         self.statsScreenStatBottomLeft = Button(
             markup=True,
-            text="[size=36][color=f78f1eff]{}[/color][/size]\nLongest\nDay\nStreak".format(5),
+            text="[size={}][color=f78f1eff]{}[/color][/size]\nLongest\nDay\nStreak".format(int(Window.size[0]/12), 5),
             line_height=1.2,
             size_hint=(0.4, 0.35),
             pos_hint={"top": 27/68, "x":0.08},
             text_size=(Window.size[0]*0.4, Window.size[1]*0.35),
             color=self.darkBlueList,
             font_name="montserratExtraBold",
-            font_size=20,
+            font_size=int(Window.size[0]/18),
             halign="center",
             valign="middle",
             background_normal="assets/statsScreenStatBottomLeft/statsScreenStatBottomLeftNormal.png",
@@ -1172,14 +1226,14 @@ class statsScreen(FloatLayout):
 
         self.statsScreenStatBottomRight = Button(
             markup=True,
-            text="Total\nCorrect\nAnswers\n[size=36][color=f78f1eff]{}[/color][/size]".format(26),
+            text="Total\nCorrect\nAnswers\n[size={}][color=f78f1eff]{}[/color][/size]".format(int(Window.size[0]/12), 26),
             line_height=1.2,
             size_hint=(0.4, 0.35),
             pos_hint={"top": 27/68, "x":0.54},
             text_size=(Window.size[0]*0.4, Window.size[1]*0.35),
             color=self.darkBlueList,
             font_name="montserratExtraBold",
-            font_size=20,
+            font_size=int(Window.size[0]/18),
             halign="center",
             valign="middle",
             background_normal="assets/statsScreenStatBottomLeft/statsScreenStatBottomLeftNormal.png",
@@ -1281,14 +1335,14 @@ class caretakerScreen(FloatLayout):
 
         self.caretakerScreenStatsButton = Button(
             markup=True,
-            text="[size=22][color=000000]Stats[/color][/size]\nMemories Viewed - [color=f78f1eff]{}[/color]\nCorrect Answers - [color=f78f1eff]{}[/color]".format("8", "4"),
+            text="[size={}][color=000000]Stats[/color][/size]\nMemories Viewed - [color=f78f1eff]{}[/color]\nCorrect Answers - [color=f78f1eff]{}[/color]".format(int(Window.size[0]/12), "8", "4"),
             line_height=1.2,
             size_hint=(0.9, 0.17),
             pos_hint={"top": 60/68, "x":0.05},
             text_size=(Window.size[0]*0.75, Window.size[1]*0.17),
             color=self.darkBlueList,
             font_name="montserratExtraBold",
-            font_size=18,
+            font_size=int(Window.size[0]/20),
             halign="left",
             valign="center",
             background_normal="assets/caretakerScreenStatsButton/caretakerScreenStatsButtonNormal.png",
@@ -1300,10 +1354,14 @@ class caretakerScreen(FloatLayout):
 
         self.add_widget(self.caretakerScreenStatsButton)
 
+        self.cb = cb
+
+        self.imageData = self.cb.imageData
+
         #Creating a system to see the ratio of image
 
         self.caretakerScreenImageRatioGet = Image(
-            source="assets/TestImages/squareTest.jpg",
+            source=self.imageData[1],
             pos_hint={"top": 56/68, "x":0.1}
         )
 
@@ -1337,7 +1395,7 @@ class caretakerScreen(FloatLayout):
                 radius=[(25.0, 25.0), (25.0, 25.0), (25.0, 25.0), (25.0, 25.0)],
                 pos=(Window.size[0]*0.5-self.imageRatio[0]*0.5, Window.size[1]*(148/272)-self.imageRatio[1]/2),
                 size=self.imageRatio,
-                source="assets/TestImages/squareTest.jpg"
+                source=self.imageData[1]
                 
             )
 
@@ -1349,7 +1407,7 @@ class caretakerScreen(FloatLayout):
             pos_hint={"top": 51/136, "x":0.05},
             color=self.darkBlueList,
             font_name="montserratExtraBold",
-            font_size=30,
+            font_size=int(Window.size[0]/10.5),
             halign="center",
             valign="middle",
             background_normal="assets/caretakerScreenStatsButton/caretakerScreenStatsButtonNormal.png",
@@ -1369,7 +1427,7 @@ class caretakerScreen(FloatLayout):
             pos_hint={"top": 28/136, "x":0.05},
             color=self.darkBlueList,
             font_name="montserratExtraBold",
-            font_size=30,
+            font_size=int(Window.size[0]/10.5),
             halign="center",
             valign="middle",
             background_normal="assets/caretakerScreenStatsButton/caretakerScreenStatsButtonNormal.png",
@@ -1435,7 +1493,7 @@ class loginScreen(FloatLayout):
             pos_hint={"x":0, "top": 1},
             color=self.darkBlueList,
             font_name="montserratExtraBold",
-            font_size=40
+            font_size=int(Window.size[0]/9.7)
         )
         self.add_widget(self.loginScreenTopLabel)
 
@@ -1448,7 +1506,7 @@ class loginScreen(FloatLayout):
             pos_hint={"x":0, "top": 0.93},
             color=self.blackList,
             font_name="montserratExtraBold",
-            font_size=25
+            font_size=int(Window.size[0]/12.5)
         )
 
         self.add_widget(self.loginScreenPromptLabel)
@@ -1471,7 +1529,7 @@ class loginScreen(FloatLayout):
             pos_hint={"top": 32/68, "x":0.05},
             color=self.darkBlueList,
             font_name="montserratExtraBold",
-            font_size=40,
+            font_size=int(Window.size[0]/9.7),
             halign="center",
             valign="middle",
             background_normal="assets/mainScreenSpeechPromptButtonMiddle/GreyColorRoundedButtonPicNormal.png",
@@ -1491,7 +1549,7 @@ class loginScreen(FloatLayout):
             pos_hint={"top": 18/68, "x":0.05},
             color=self.darkBlueList,
             font_name="montserratExtraBold",
-            font_size=40,
+            font_size=int(Window.size[0]/9.7),
             halign="center",
             valign="middle",
             background_normal="assets/mainScreenSpeechPromptButtonMiddle/GreyColorRoundedButtonPicNormal.png",

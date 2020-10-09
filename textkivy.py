@@ -1,50 +1,29 @@
 import kivy
-kivy.require('1.11.1') # replace with your current kivy version !
-
 from kivy.app import App
 from kivy.uix.button import Button
-from kivy.clock import Clock
-
-
-class MyApp(App):
-
+from kivy.core.audio import SoundLoader
+from kivy.properties import StringProperty, ObjectProperty, NumericProperty
+class music(App):
+    
     def build(self):
-        self.input = None
 
-        self.inputButton = Button(text='Hello world')
+        self.testButton = Button(
+            text="Press Button to Play"
+        )
 
-        self.inputButton.bind(on_release=self.makeInput)
+        self.testButton.bind(on_release=self.on_press)
 
-        self.goWhile = Clock.schedule_interval(self.fakeWhile, 0)
-        self.goInput = None
+        return self.testButton
 
-        return(self.inputButton)
+    def on_press(self, dt):
+        self.sound = SoundLoader.load("playSound.mp3")
 
-    def fakeWhile(self, dt, **kwargs):
-        #The point of the fake while is to simulate getting input from the user
-        #The input will be a butten being pressed
+        print(self.sound, "hello")
+        
+        if self.sound:
+            print(self.sound.length, self.sound.volume)
 
-        if self.checkInput("ok") != "Not there yet":
-            print(self.checkInput("ok"))
-            Clock.unschedule(self.goWhile)
-
-
-    def checkInput(self, dt, **kwargs):
-        if self.input != None and dt == "ok":
-            return(self.input)
-        elif self.input != None and dt != "ok":
-            Clock.unschedule(self.goInput)
-            self.goWhile = Clock.schedule_interval(self.fakeWhile, 0)
-        elif self.input == None and dt == "ok":
-            Clock.unschedule(self.goWhile)
-            self.goInput = Clock.schedule_interval(self.checkInput, 0)
-            return("Not there yet")
-        else:
-            pass
-
-    def makeInput(self, dt, **kwargs):
-        self.input = "Pranav"
+        self.sound.play()
 
 
-if __name__ == '__main__':
-    MyApp().run()
+music().run()
